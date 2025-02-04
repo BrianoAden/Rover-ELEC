@@ -1,0 +1,49 @@
+#define DRIVER_1_DIR 8
+#define DRIVER_1_PUL 9
+#define DRIVER_2_DIR 7
+#define DRIVER_2_PUL 10
+
+#include "AVR_PWM.h"
+
+AVR_PWM* PWM_Instance;
+
+void create_free
+
+void setup() {
+
+  pinMode(DRIVER_1_DIR,OUTPUT);
+  pinMode(DRIVER_2_DIR, OUTPUT);
+
+  pinMode(DRIVER_1_PUL,OUTPUT);
+  pinMode(DRIVER_2_PUL, OUTPUT);
+
+  digitalWrite(DRIVER_1_DIR,HIGH);
+  digitalWrite(DRIVER_2_DIR,HIGH);
+
+  pinMode (10, OUTPUT);
+
+  // mode 15
+  TCCR1A = bit (WGM10) | bit (WGM11) | bit (COM1B1); // fast PWM, clear OC1B on compare
+  TCCR1B = bit (WGM12) | bit (WGM13) | bit (CS11);   // fast PWM, prescaler of 8
+
+  TCCR0A = bit (WGM10) | bit (WGM11) | bit (COM1B1); // fast PWM, clear OC1B on compare
+  TCCR0B = bit (WGM12) | bit (WGM13) | bit (CS11);   // fast PWM, prescaler of 8
+
+  
+  OCR1A = 500 - 1;   // what to count to
+  OCR1B = 2000 - 1;    // duty cycle
+    // end of setup
+  
+  // PWM_Instance = new AVR_PWM(DRIVER_2_PUL, 10, 50);
+  // PWM_Instance->setPWM(DRIVER_2_PUL, 1, 75);
+
+  analogWrite(10, 128);
+}
+
+void loop() {
+  
+  // digitalWrite(DRIVER_2_PUL,HIGH);
+  // delayMicroseconds(100);
+  // digitalWrite(DRIVER_2_PUL,LOW);
+  // delayMicroseconds(100);
+}

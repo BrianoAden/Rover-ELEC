@@ -1,4 +1,9 @@
 #include "esp_timer.h"
+
+#define VERBOSE_COMMANDS
+#define COMMAND_SERIAL Serial
+#define DEBUG
+
 #include "serial_commands.h"
 
 const int PUL_PINS[] = {14, 26}; 
@@ -12,7 +17,20 @@ int64_t last_motor_state[] = {0, 0};
 float motor_speeds[] = {800, 4000*2}; // steps per second
 int motor_steps[] = {400, 8000000};
 
+int input_cursor = 0;
+char input_string[MAX_COMMAND_LENGTH];
+
 #define MICROSECONDS (1000000)
+
+
+void test_command(void **arg_stack)
+{
+  int argument = *((int*) (arg_stack[0]));
+  Serial.print("Got the integer argument: ");
+  Serial.println(argument);
+}
+
+CommandHandler cHandler;
 
 void setup() {
   // put your setup code here, to run once:
@@ -23,6 +41,10 @@ void setup() {
     pinMode(PUL_PINS[motor], OUTPUT);
     pinMode(DIR_PINS[motor], OUTPUT);
   }
+
+  CommandArgType test_command_args[MAX_SCOMMAND_ARGUMENTS];
+  test_command_args[0] = CommandArgType::INT_ARG;
+  cHandler.addCommand('T', test_command, test_command_args);
 }
 
 void update_motors()
@@ -45,21 +67,27 @@ void loop() {
   update_motors();
   int incomingByte = 0;
   char read_message = 0;
-  while (soft_serial.available() > 0) {
+  while (Serial.available() > 0) {
     // read the incoming byte:
-    incomingByte = soft_serial.read();
-    inputString += (char) incomingByte;
+    incomingByte = Serial.read();
+    input_string[input_cursor] = (char) incomingByte;
+    input_cursor++;
 
     #ifdef DEBUG
-    soft_serial.println("I received: "+String((char) incomingByte));
+    Serial.println("I received: "+String((char) incomingByte));
     #endif
 
     if (incomingByte == '&') { // end character
       read_message = 1;
 
+      // Replacing the end character with a string end to not mess things up
+      input_string[input_cursor-1] = '\0'; 
+
       // print command 
       #ifdef DEBUG
-      soft_serial.println("I received command: \"" + inputString + "\"");
+      Serial.print("I received command: \"");
+      Serial.print(input_string);
+      Serial.println("\"");
       #endif
     }
   }
@@ -67,8 +95,9 @@ void loop() {
   // Guard Clause
   if (read_message == 0) {return;}
 
-  // Parsing the command
+  cHandler.runCommand(input_string);
   
 
-  inputString = ""; // clear after use
+  // We dont technically have to clear the string as it will get overwritten
+  input_cursor = 0;
 }

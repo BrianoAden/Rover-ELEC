@@ -3,12 +3,13 @@
 
 #include <stdlib.h>
 
-#if VERBOSE_COMMANDS
+#ifdef VERBOSE_COMMANDS
 #ifndef COMMAND_SERIAL
   #error "COMMAND_SERIAL must be defined to use VERBOSE_COMMANDS in serial_commands.h"
 #endif
-#define sc_print(...) COMMAND_SERIAL.print(__VA_ARGS__)
-#define sc_println(...) COMMAND_SERIAL.println(__VA_ARGS__)
+#define EXPAND(x) x
+#define sc_print(...) EXPAND(COMMAND_SERIAL).print(__VA_ARGS__)
+#define sc_println(...) EXPAND(COMMAND_SERIAL).println(__VA_ARGS__)
 #else
 #define sc_print(...) 
 #define sc_println(...) 
@@ -16,17 +17,17 @@
 
 #define MAX_COMMAND_LENGTH 50
 #define MAX_COMMANDS 10
-#define MAX_COMMAND_ARGUMENTS 3
+const int MAX_SCOMMAND_ARGUMENTS = 3;
 
 #define ARGUMENT_SPACER ' '
 
 typedef void (*Command) (void **args);
 
 enum CommandArgType {
-  NONE = 0, // unsigned types are none
-  INT,
-  FLOAT,
-  CHAR
+  NONE_ARG = 0, // unsigned types are none
+  INT_ARG,
+  FLOAT_ARG,
+  CHAR_ARG
 };
 
 class CommandHandler
@@ -35,21 +36,21 @@ class CommandHandler
     int command_count = 0;
     char command_ids[MAX_COMMANDS];
     Command commands[MAX_COMMANDS];
-    CommandArgType command_arguments[MAX_COMMANDS][MAX_COMMAND_ARGUMENTS];
+    CommandArgType command_arguments[MAX_COMMANDS][MAX_SCOMMAND_ARGUMENTS];
 
     // commands ids are single characters
-    int addCommand(char command_id, Command command, CommandArgType types[MAX_COMMAND_ARGUMENTS]) 
+    int addCommand(char command_id, Command command, CommandArgType types[MAX_SCOMMAND_ARGUMENTS]) 
     {
       command_ids[command_count] = command_id;
       commands[command_count] = command;
       
       // Copying argument types
-      for (char i = 0; i < MAX_COMMAND_ARGUMENTS; i++)
+      for (char i = 0; i < MAX_SCOMMAND_ARGUMENTS; i++)
         command_arguments[command_count][i] = types[i];
 
       command_count++;
       sc_print(F("Added command: "));
-      sc_println(message);
+      sc_println(command_id);
     }
 
     int runCommand(char* command_str)
@@ -79,7 +80,8 @@ class CommandHandler
       char *command_ptr = command_str+1;
       void **argument_stack = (void**) malloc(sizeof(void*)*4);
       int given_args = 0;
-      for (int i = 0; i < MAX_COMMAND_ARGUMENTS; i++)
+      int errored = 0;
+      for (int i = 0; i < MAX_SCOMMAND_ARGUMENTS; i++)
       {
         const CommandArgType arg_type = command_arguments[command_index][i];
         char *end_ptr;
@@ -87,13 +89,13 @@ class CommandHandler
 
         switch (arg_type) 
         {
-          case INT:
+          case INT_ARG:
             arg = new int((int) strtol(command_ptr, &end_ptr, 10));
             break;
-          case FLOAT:
+          case FLOAT_ARG:
             arg = new float(strtof(command_ptr, &end_ptr));
             break;
-          case NONE:
+          case NONE_ARG:
             break;
         }
 
@@ -105,7 +107,14 @@ class CommandHandler
         argument_stack[i] = arg;
       }
 
-      commands[command_index](argument_stack);
+      
+      if (!errored)
+      {
+
+      } else {
+        commands[command_index](argument_stack);
+      }
+      
       
       // Freeing the stack
       for (int i = 0; i < given_args; i++)
@@ -113,13 +122,13 @@ class CommandHandler
         const CommandArgType arg_type = command_arguments[command_index][i];
         switch (arg_type) 
         {
-          case INT:
-          delete (int*) argument_stack[i];
+          case INT_ARG:
+            delete (int*) argument_stack[i];
             break;
-          case FLOAT:
+          case FLOAT_ARG:
             delete (float*) argument_stack[i];
             break;
-          case NONE:
+          case NONE_ARG:
             break;
         }
       }

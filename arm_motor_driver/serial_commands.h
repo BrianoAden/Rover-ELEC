@@ -20,7 +20,7 @@
 
 #define ARGUMENT_SPACER ' '
 
-typedef void (*Command) (void* arg1, void* arg2, void * arg3);
+typedef void (*Command) (void **args);
 
 enum CommandArgType {
   NONE = 0, // unsigned types are none
@@ -34,12 +34,14 @@ class CommandHandler
   public:
     int command_count = 0;
     char command_ids[MAX_COMMANDS];
+    Command commands[MAX_COMMANDS];
     CommandArgType command_arguments[MAX_COMMANDS][MAX_COMMAND_ARGUMENTS];
 
     // commands ids are single characters
     int addCommand(char command_id, Command command, CommandArgType types[MAX_COMMAND_ARGUMENTS]) 
     {
       command_ids[command_count] = command_id;
+      commands[command_count] = command;
       
       // Copying argument types
       for (char i = 0; i < MAX_COMMAND_ARGUMENTS; i++)
@@ -74,18 +76,56 @@ class CommandHandler
       }
 
       // Gathering arguments
-      
+      char *command_ptr = command_str+1;
+      void **argument_stack = (void**) malloc(sizeof(void*)*4);
+      int given_args = 0;
       for (int i = 0; i < MAX_COMMAND_ARGUMENTS; i++)
+      {
+        const CommandArgType arg_type = command_arguments[command_index][i];
+        char *end_ptr;
+        void *arg;
+
+        switch (arg_type) 
+        {
+          case INT:
+            arg = new int((int) strtol(command_ptr, &end_ptr, 10));
+            break;
+          case FLOAT:
+            arg = new float(strtof(command_ptr, &end_ptr));
+            break;
+          case NONE:
+            break;
+        }
+
+        // Either invalid argument or no arguments left 
+        if (end_ptr == command_ptr)
+          break;
+
+        given_args++;
+        argument_stack[i] = arg;
+      }
+
+      commands[command_index](argument_stack);
+      
+      // Freeing the stack
+      for (int i = 0; i < given_args; i++)
       {
         const CommandArgType arg_type = command_arguments[command_index][i];
         switch (arg_type) 
         {
           case INT:
-            int arg = 
+          delete (int*) argument_stack[i];
+            break;
+          case FLOAT:
+            delete (float*) argument_stack[i];
+            break;
+          case NONE:
+            break;
         }
       }
 
-        
+      free(argument_stack);
+
       return 1;
     }
 };

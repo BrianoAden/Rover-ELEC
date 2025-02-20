@@ -1,15 +1,15 @@
 // Example pins
 const int motor_puls[] = {0x1u, 0x2u, 0x4u, 0x8u};
 const int motor_dirs[] = {0x16u, 0x32u, 0x64u, 0x128u};
-float motor_speeds[] = {1000, 100000, 100000, 100000}; // steps per s
+float motor_speeds[] = {500, 750, 100000, 100000}; // steps per s
 int motor_steps[] = {100, 200, 300, 400};
-const int motors = 1;
+const int motors = 2;
 
-#define PACKET_SIZE 1000
+#define PACKET_SIZE 10000
 // Micro seconds 10^-6 seconds
 #define MICROSECOND 0.000001
 
-#define PULSE_DELAY 50 // In microseconds 
+#define PULSE_DELAY 25 // In microseconds 
 #define STEP_DELAY (PULSE_DELAY * 2)  // In microseconds 
 
 
@@ -36,17 +36,6 @@ void generate_reorder_array()
     { reorder_array[i] = i; }
 
     shuffleArray(reorder_array, PACKET_SIZE);
-
-    // for (int i = 0; i < PACKET_SIZE; i++) {
-    //     int index = ((i << 3) * PACKET_SIZE*835) % PACKET_SIZE;  // Even redistribution
-
-    //     // Find the next available spot (linear probing)
-    //     while (reorder_array[index] != -1) {
-    //         index = (index + 1) % PACKET_SIZE;
-    //     }
-
-    //     reorder_array[index] = i;
-    // }
 }
 
 void fill_packet(char *packet)
@@ -61,7 +50,7 @@ void fill_packet(char *packet)
         // Should round down
         if (motor_speeds[motor] < MIN_MOTOR_SPEED) {
           motor_speeds[motor] = MIN_MOTOR_SPEED;
-          Serial.printf("Motor speed too low");
+          Serial.printf("Motor speed too low\n");
         }
 
 
@@ -100,6 +89,11 @@ void setup() {
   pinMode(25, OUTPUT);
   pinMode(26, OUTPUT);
 
+  digitalWrite(25, HIGH);
+
+  // pinMode(25, OUTPUT);
+  pinMode(14, OUTPUT);
+
   Serial.begin(9600);
 
   randomSeed(analogRead(0));
@@ -115,11 +109,14 @@ void loop() {
   fill_packet(packet);
   for (int i = 0; i < PACKET_SIZE; i++)
   {
-    if (packet[i] > 0)
-    {
+    if ((packet[i] & 0x1) == 1)
+      digitalWrite(14, HIGH);
+
+    if (((packet[i] & 0x2) >> 1 )== 1)
       digitalWrite(26, HIGH);
-    }
+
     delayMicroseconds(PULSE_DELAY);
+    digitalWrite(14, LOW);
     digitalWrite(26, LOW);
     delayMicroseconds(PULSE_DELAY);
   }

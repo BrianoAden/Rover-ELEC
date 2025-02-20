@@ -18,6 +18,12 @@ const float DXL_PROTOCOL_VERSION = 2.0;
 #define MOTOR_MODE_POSITION 0
 #define MOTOR_MODE_VELOCITY 1
 
+struct Motor {
+  int current_mode;
+  int current_unit;
+  float value;
+};
+
 #define DEBUG
 
 String inputString = "";
@@ -26,6 +32,13 @@ DynamixelShield dxl;
 
 //This namespace is required to use Control table item names
 using namespace ControlTableItem;
+
+Motor motors[] = {
+  {1, UNIT_RAW, 0},
+  {1, UNIT_RAW, 0},
+  {1, UNIT_RAW, 0},
+  {1, UNIT_RAW, 0},
+};
 
 void check_for_dxl_error(String tag)
 {
@@ -86,6 +99,25 @@ void setup() {
   check_for_dxl_error("Setting motor modes");
 }
 
+bool refresh_motor(int id)
+{
+  switch(motors[id].current_mode) 
+  {
+    case MOTOR_MODE_POSITION:
+      return dxl.setGoalVelocity(id, motors[id].value, motors[id].current_unit);
+    case MOTOR_MODE_VELOCITY:
+      return dxl.setGoalVelocity(id, motors[id].value, motors[id].current_unit);
+  }
+}
+
+bool set_motor(int id, int mode, float value, int unit)
+{
+  motors[id].current_mode = mode;
+  motors[id].value = value;
+  motors[id].current_unit = unit;
+  return refresh_motor(id);
+}
+
 void motor_command() // Example Motor Command "M1:position:100&"
 {
   check_for_dxl_error("Pre Motor command");
@@ -123,17 +155,22 @@ void motor_command() // Example Motor Command "M1:position:100&"
   bool action_result;
 
   if (motor_command == "set_position_raw") {
-    action_result = dxl.setGoalPosition(id, value);
+    action_result = set_motor(id, 0, value, UNIT_RAW);
   } else if (motor_command == "set_position_deg") {
-    action_result = dxl.setGoalPosition(id, value, UNIT_DEGREE);
+    action_result = set_motor(id, 0, value, UNIT_DEGREE);
   } else if (motor_command == "set_velocity_raw") {
-    action_result = dxl.setGoalVelocity(id, value);
+    action_result = set_motor(id, 1, value, UNIT_RAW);
   } else if (motor_command == "set_velocity_rpm") {
-    soft_serial.println("Got a set_velocity_rpm");
-    action_result = dxl.setGoalVelocity(id, value, UNIT_RPM);
+    action_result = set_motor(id, 1, value, UNIT_RPM);
   } else if (motor_command == "set_velocity_per") {
-    action_result = dxl.setGoalVelocity(id, value, UNIT_PERCENT);
+    action_result = set_motor(id, 1, value, UNIT_RPM);;
   } 
+
+  if (id == 1)
+    refresh_motor(3);
+  else if (id == 2)
+    refresh_motor(4);
+
   #ifdef DEBUG
   else {
     soft_serial.println("Invalid Motor Command:\"" + motor_command+"\"");
@@ -153,8 +190,8 @@ void motor_command() // Example Motor Command "M1:position:100&"
 }
 
 void loop() {
-  // dxl.setGoalVelocity(DXL_ID_1, 100);
-  check_for_dxl_error("Initial Motor Movements");
+  // check_for_dxl_error("Initial Motor Movements");
+  
   int incomingByte = 0;
   char read_message = 0;
   while (soft_serial.available() > 0) {
@@ -171,7 +208,7 @@ void loop() {
 
       // print command 
       #ifdef DEBUG
-      soft_serial.println("I received command: \"" + inputString + "\"");
+      soft_serial.println(F("I received command: \"" + inputString + "\""));
       #endif
     }
   }
@@ -182,7 +219,7 @@ void loop() {
   // Parsing the command
   switch (inputString.charAt(0)) {
     case 'M':
-      soft_serial.println("Got a motor command");
+      soft_serial.println(F("Got a motor command"));
       motor_command();
       break;
   }

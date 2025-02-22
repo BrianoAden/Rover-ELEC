@@ -1,21 +1,31 @@
 #include "esp_timer.h"
 
-#define VERBOSE_COMMANDS
+// #define VERBOSE_COMMANDS
 #define COMMAND_SERIAL Serial
-#define DEBUG
+// #define DEBUG
 
 #include "serial_commands.h"
 
 const int PUL_PINS[] = {14, 26}; 
 const int DIR_PINS[] = {12, 5}; 
 
-const int MOTOR_COUNT = 2;
+constexpr int MOTOR_COUNT = 2;
+
+const float max_motor_speed = 1200;
 
 int64_t last_motor_movement[] = {0, 0};
 int64_t last_motor_state[] = {0, 0};
 
-float motor_speeds[] = {800, 4000*2}; // steps per second
-int motor_steps[] = {400, 8000000};
+// Motor Pulses per Revolution
+int motor_ppr[MOTOR_COUNT] = {400, 400};
+
+float motor_speeds[MOTOR_COUNT] = {800, 800}; // steps per second
+int motor_steps[MOTOR_COUNT] = {100, 0};
+
+int motor_directions[MOTOR_COUNT] = {1, 1};
+
+// Stored in pulses
+int motor_positions[MOTOR_COUNT] = {0, 0};
 
 int input_cursor = 0;
 char input_string[MAX_COMMAND_LENGTH];
@@ -30,6 +40,44 @@ void test_command(void **arg_stack)
   Serial.println(argument);
 }
 
+void motor_speed_set(void **arg_stack)
+{
+  int motor_id = *((int*) (arg_stack[0]));
+  float motor_speed = *((float*) (arg_stack[1]));
+
+  // For debugging
+  // Serial.print("Got the integer argument: ");
+  // Serial.println(motor_id);
+  // Serial.print("Got the float argument: ");
+  // Serial.println(motor_speed);
+
+  motor_speeds[motor_id] = motor_speed;
+}
+
+void motor_per_speed_set(void **arg_stack)
+{
+  int motor_id = *((int*) (arg_stack[0]));
+  float motor_speed = *((float*) (arg_stack[1]));
+  motor_speeds[motor_id] = motor_speed*max_motor_speed;
+}
+
+void motor_step_set(void **arg_stack)
+{
+  int motor_id = *((int*) (arg_stack[0]));
+  int steps = *((int*) (arg_stack[1]));
+  motor_steps[motor_id] = steps;
+}
+
+void motor_pos_set(void **arg_stack)
+{
+  int motor_id = *((int*) (arg_stack[0]));
+  int pos = *((int*) (arg_stack[1]));
+  int step_dif = pos-motor_positions[motor_id];
+
+  motor_directions[motor_id] = step_dif > 0 ? 1 : -1;
+  motor_steps[motor_id] = abs(step_dif);
+}
+
 CommandHandler cHandler;
 
 void setup() {
@@ -42,9 +90,30 @@ void setup() {
     pinMode(DIR_PINS[motor], OUTPUT);
   }
 
+  // Test Command
   CommandArgType test_command_args[MAX_SCOMMAND_ARGUMENTS];
   test_command_args[0] = CommandArgType::INT_ARG;
-  cHandler.addCommand('T', test_command, test_command_args);
+  cHandler.addCommand('F', test_command, test_command_args);
+
+  // Motor Speed
+  CommandArgType motor_speed_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG};
+  cHandler.addCommand('S', motor_speed_set, motor_speed_cargs);
+
+  // Motor Speed
+  CommandArgType motor_per_speed_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG};
+  cHandler.addCommand('R', motor_per_speed_set, motor_speed_cargs);
+
+  // Motor Steps
+  CommandArgType motor_steps_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG};
+  cHandler.addCommand('C', motor_step_set, motor_steps_cargs);
+
+  // Motor Steps
+  CommandArgType motor_pos_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG};
+  cHandler.addCommand('P', motor_pos_set, motor_pos_cargs);
+
+  #ifdef DEBUG
+  Serial.println("Finished Setup");
+  #endif
 }
 
 void update_motors()
@@ -56,9 +125,11 @@ void update_motors()
     {
       last_motor_movement[motor] = time;
       last_motor_state[motor] = !last_motor_state[motor];
+      motor_positions[motor] += motor_directions[motor];
       motor_steps[motor]--;
 
       digitalWrite(PUL_PINS[motor], last_motor_state[motor]);
+      digitalWrite(DIR_PINS[motor], motor_directions[motor]==1?LOW:HIGH);
     }
   }
 }
@@ -78,7 +149,6 @@ void loop() {
     #endif
 
     if (incomingByte == '&') { // end character
-      read_message = 1;
 
       // Replacing the end character with a string end to not mess things up
       input_string[input_cursor-1] = '\0'; 
@@ -89,15 +159,12 @@ void loop() {
       Serial.print(input_string);
       Serial.println("\"");
       #endif
-    }
-  }
 
-  // Guard Clause
-  if (read_message == 0) {return;}
-
-  cHandler.runCommand(input_string);
+      cHandler.runCommand(input_string);
   
 
-  // We dont technically have to clear the string as it will get overwritten
-  input_cursor = 0;
+      // We dont technically have to clear the string as it will get overwritten
+      input_cursor = 0;
+    }
+  }
 }

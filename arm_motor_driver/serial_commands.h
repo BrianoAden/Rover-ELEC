@@ -44,13 +44,14 @@ class CommandHandler
       command_ids[command_count] = command_id;
       commands[command_count] = command;
       
-      // Copying argument types
+      // // Copying argument types
       for (char i = 0; i < MAX_SCOMMAND_ARGUMENTS; i++)
         command_arguments[command_count][i] = types[i];
 
       command_count++;
       sc_print(F("Added command: "));
       sc_println(command_id);
+      return 0;
     }
 
     int runCommand(char* command_str)
@@ -103,6 +104,8 @@ class CommandHandler
         if (end_ptr == command_ptr)
           break;
 
+        command_ptr = end_ptr;
+
         given_args++;
         argument_stack[i] = arg;
       }
@@ -110,9 +113,9 @@ class CommandHandler
       
       if (!errored)
       {
-
-      } else {
         commands[command_index](argument_stack);
+      } else {
+        
       }
       
       

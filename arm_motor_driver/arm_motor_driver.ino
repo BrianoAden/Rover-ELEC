@@ -1,5 +1,17 @@
 #include "esp_timer.h"
 
+#define MICROSECONDS (1000000)
+
+#include <SPI.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
 // #define VERBOSE_COMMANDS
 #define COMMAND_SERIAL Serial
 // #define DEBUG
@@ -16,11 +28,14 @@ const float max_motor_speed = 1200;
 int64_t last_motor_movement[] = {0, 0};
 int64_t last_motor_state[] = {0, 0};
 
+#define REFRESH_RATE (5)
+#define REFRESH_TICKS (MICROSECONDS / REFRESH_RATE)
+
 // Motor Pulses per Revolution
 int motor_ppr[MOTOR_COUNT] = {400, 400};
 
-float motor_speeds[MOTOR_COUNT] = {800, 800}; // steps per second
-int motor_steps[MOTOR_COUNT] = {100, 0};
+float motor_speeds[MOTOR_COUNT] = {200, 200}; // steps per second
+int motor_steps[MOTOR_COUNT] = {0, 0};
 
 int motor_directions[MOTOR_COUNT] = {1, 1};
 
@@ -29,8 +44,6 @@ int motor_positions[MOTOR_COUNT] = {0, 0};
 
 int input_cursor = 0;
 char input_string[MAX_COMMAND_LENGTH];
-
-#define MICROSECONDS (1000000)
 
 
 void test_command(void **arg_stack)
@@ -44,12 +57,6 @@ void motor_speed_set(void **arg_stack)
 {
   int motor_id = *((int*) (arg_stack[0]));
   float motor_speed = *((float*) (arg_stack[1]));
-
-  // For debugging
-  // Serial.print("Got the integer argument: ");
-  // Serial.println(motor_id);
-  // Serial.print("Got the float argument: ");
-  // Serial.println(motor_speed);
 
   motor_speeds[motor_id] = motor_speed;
 }
@@ -114,6 +121,15 @@ void setup() {
   #ifdef DEBUG
   Serial.println("Finished Setup");
   #endif
+
+  // Screen Setup
+  // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
+  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
+    Serial.println(F("SSD1306 allocation failed"));
+    // for(;;); // Don't proceed, loop forever
+  }
+
+  display.display();
 }
 
 void update_motors()
@@ -134,6 +150,7 @@ void update_motors()
   }
 }
 
+int64_t last_refresh = 0;
 void loop() {
   update_motors();
   int incomingByte = 0;
@@ -166,5 +183,30 @@ void loop() {
       // We dont technically have to clear the string as it will get overwritten
       input_cursor = 0;
     }
+  }
+
+  int64_t time = esp_timer_get_time();
+
+  if (time-last_refresh > REFRESH_TICKS)
+  {
+    last_refresh = time;
+    display.clearDisplay();
+
+    display.setTextSize(1);             // Normal 1:1 pixel scale
+    display.setTextColor(WHITE);        // Draw white text
+    display.setCursor(0,0);             // Start at top-left corner
+
+    display.print(MOTOR_COUNT);
+    display.print(F(" Motors\n\n"));
+    
+
+    for (int i = 0; i < MOTOR_COUNT; i++)
+    {
+      display.printf("MTR:%6d STP:%6d\n", i, motor_steps[i]);
+      display.printf("RPM:%6.1f POS:%6d\n", (float) motor_speeds[i] / motor_ppr[i] * 60.0, motor_positions[i]);
+    }
+
+
+    display.display();
   }
 }

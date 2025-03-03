@@ -24,7 +24,7 @@ struct Motor {
   float value;
 };
 
-#define DEBUG
+// #define DEBUG
 
 String inputString = "";
 

@@ -19,7 +19,7 @@ const float DXL_PROTOCOL_VERSION = 2.0;
 #define MOTOR_MODE_VELOCITY 1
 
 struct Motor {
-  int current_mode;
+  int current_mode; //0 for MOTOR_MODE_POSITION and 1 for MOTOR_MODE_VELOCITY
   int current_unit;
   float value;
 };
@@ -118,18 +118,31 @@ bool set_motor(int id, int mode, float value, int unit)
   return refresh_motor(id);
 }
 
+void move_forward(float speed_rpm) //function to turn on all motors and move forward
+{
+  set_motor(1, 1, speed_rpm, UNIT_RPM);
+  set_motor(2, 1, speed_rpm, UNIT_RPM);
+  set_motor(3, 1, speed_rpm, UNIT_RPM);
+  set_motor(4, 1, speed_rpm, UNIT_RPM);
+}
 void motor_command() // Example Motor Command "M1:position:100&"
 {
   check_for_dxl_error("Pre Motor command");
 
   // Getting motor id
-  uint8_t id = inputString.charAt(1) - '0';
+  uint8_t id = inputString.charAt(1);
+
+  if (id != 'A'){
+    id = id - '0';
+  }
 
   // checking for valid id 1,2,3 or 4
   #ifdef DEBUG
-  if (id < 1 || id > 4) {
-    soft_serial.println("Invalid Motor Id \""+String((int) inputString.charAt(1))+"\"");
-    return;
+  if (id != 'A'){
+    if (id < 1 || id > 4) {
+      soft_serial.println("Invalid Motor Id \""+String((int) inputString.charAt(1))+"\"");
+      return;
+    }
   }
   
   if (inputString.charAt(2) != ':') {
@@ -155,15 +168,17 @@ void motor_command() // Example Motor Command "M1:position:100&"
   bool action_result;
 
   if (motor_command == "set_position_raw") {
-    action_result = set_motor(id, 0, value, UNIT_RAW);
+      action_result = set_motor(id, 0, value, UNIT_RAW);
   } else if (motor_command == "set_position_deg") {
-    action_result = set_motor(id, 0, value, UNIT_DEGREE);
+      action_result = set_motor(id, 0, value, UNIT_DEGREE);
   } else if (motor_command == "set_velocity_raw") {
-    action_result = set_motor(id, 1, value, UNIT_RAW);
+      action_result = set_motor(id, 1, value, UNIT_RAW);
   } else if (motor_command == "set_velocity_rpm") {
-    action_result = set_motor(id, 1, value, UNIT_RPM);
+      action_result = set_motor(id, 1, value, UNIT_RPM);
   } else if (motor_command == "set_velocity_per") {
-    action_result = set_motor(id, 1, value, UNIT_RPM);;
+      action_result = set_motor(id, 1, value, UNIT_RPM);
+  } else if (motor_command == "move_forward"){
+      move_forward(value);
   } 
 
   if (id == 1)
@@ -171,22 +186,22 @@ void motor_command() // Example Motor Command "M1:position:100&"
   else if (id == 2)
     refresh_motor(4);
 
-  #ifdef DEBUG
-  else {
-    soft_serial.println("Invalid Motor Command:\"" + motor_command+"\"");
-    return;
-  }
+  // #ifdef DEBUG
+  // else {
+  //   soft_serial.println("Invalid Motor Command:\"" + motor_command+"\"");
+  //   return;
+  // }
 
-  check_for_dxl_error("Motor command");
+  // check_for_dxl_error("Motor command");
 
   
-  if (action_result == false)
-  {
-    // int error_code = dxl.getLastLibErrCode();
-    soft_serial.print("Motor command \"" + motor_command+"\" with error ");
-    soft_serial.println(dxl.getLastLibErrCode());
-  }
-  #endif
+  // if (action_result == false)
+  // {
+  //   // int error_code = dxl.getLastLibErrCode();
+  //   soft_serial.print("Motor command \"" + motor_command+"\" with error ");
+  //   soft_serial.println(dxl.getLastLibErrCode());
+  // }
+  // #endif
 }
 
 void loop() {

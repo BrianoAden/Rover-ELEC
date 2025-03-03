@@ -12,14 +12,15 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
-// #define VERBOSE_COMMANDS
+#define VERBOSE_COMMANDS
 #define COMMAND_SERIAL Serial
+#define INPUT_SERIAL Serial
 // #define DEBUG
 
 #include "serial_commands.h"
 
 const int PUL_PINS[] = {14, 26}; 
-const int DIR_PINS[] = {12, 5}; 
+const int DIR_PINS[] = {12, 25}; 
 
 constexpr int MOTOR_COUNT = 2;
 
@@ -34,7 +35,7 @@ int64_t last_motor_state[] = {0, 0};
 // Motor Pulses per Revolution
 int motor_ppr[MOTOR_COUNT] = {400, 400};
 
-float motor_speeds[MOTOR_COUNT] = {200, 200}; // steps per second
+float motor_speeds[MOTOR_COUNT] = {200, 1600}; // steps per second
 int motor_steps[MOTOR_COUNT] = {0, 0};
 
 int motor_directions[MOTOR_COUNT] = {1, 1};
@@ -130,6 +131,10 @@ void setup() {
   }
 
   display.display();
+
+  motor_steps[1] = 10000;
+
+
 }
 
 void update_motors()
@@ -152,9 +157,8 @@ void update_motors()
 
 int64_t last_refresh = 0;
 void loop() {
+  // cHandler.readSerial();
   update_motors();
-  int incomingByte = 0;
-  char read_message = 0;
   
 
   int64_t time = esp_timer_get_time();

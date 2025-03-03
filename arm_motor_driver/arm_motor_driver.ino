@@ -155,35 +155,7 @@ void loop() {
   update_motors();
   int incomingByte = 0;
   char read_message = 0;
-  while (Serial.available() > 0) {
-    // read the incoming byte:
-    incomingByte = Serial.read();
-    input_string[input_cursor] = (char) incomingByte;
-    input_cursor++;
-
-    #ifdef DEBUG
-    Serial.println("I received: "+String((char) incomingByte));
-    #endif
-
-    if (incomingByte == '&') { // end character
-
-      // Replacing the end character with a string end to not mess things up
-      input_string[input_cursor-1] = '\0'; 
-
-      // print command 
-      #ifdef DEBUG
-      Serial.print("I received command: \"");
-      Serial.print(input_string);
-      Serial.println("\"");
-      #endif
-
-      cHandler.runCommand(input_string);
   
-
-      // We dont technically have to clear the string as it will get overwritten
-      input_cursor = 0;
-    }
-  }
 
   int64_t time = esp_timer_get_time();
 

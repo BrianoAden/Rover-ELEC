@@ -24,9 +24,10 @@ struct Motor {
   float value;
 };
 
-// #define DEBUG
+#define DEBUG
 
 String inputString = "";
+String rawInputString = "";
 
 DynamixelShield dxl;
 
@@ -212,10 +213,10 @@ void loop() {
   while (soft_serial.available() > 0) {
     // read the incoming byte:
     incomingByte = soft_serial.read();
-    inputString += (char) incomingByte;
+    rawInputString += (char) incomingByte;
 
     #ifdef DEBUG
-    soft_serial.println("I received: "+String((char) incomingByte));
+    // soft_serial.println("I received: "+String((char) incomingByte));
     #endif
 
     if (incomingByte == '&') { // end character
@@ -223,13 +224,15 @@ void loop() {
 
       // print command 
       #ifdef DEBUG
-      soft_serial.println(F("I received command: \"" + inputString + "\""));
+      soft_serial.println(("I received command: \"" + rawInputString + "\""));
       #endif
     }
   }
 
   // Guard Clause
   if (read_message == 0) {return;}
+  inputString = rawInputString;
+  rawInputString = "";
 
   // Parsing the command
   switch (inputString.charAt(0)) {

@@ -35,6 +35,7 @@ class CommandHandler
   public:
     int command_count = 0;
     int input_cursor = 0;
+    char input_string[MAX_COMMAND_LENGTH];
     char command_ids[MAX_COMMANDS];
     Command commands[MAX_COMMANDS];
     CommandArgType command_arguments[MAX_COMMANDS][MAX_SCOMMAND_ARGUMENTS];
@@ -95,7 +96,7 @@ class CommandHandler
             arg = new int((int) strtol(command_ptr, &end_ptr, 10));
             break;
           case FLOAT_ARG:
-            arg = new float(strtof(command_ptr, &end_ptr));
+            arg = new float((float)strtod(command_ptr, &end_ptr));
             break;
           case NONE_ARG:
             break;
@@ -147,7 +148,7 @@ class CommandHandler
   {
     while (INPUT_SERIAL.available() > 0) {
       // read the incoming byte:
-      incomingByte = INPUT_SERIAL.read();
+      int incomingByte = INPUT_SERIAL.read();
       input_string[input_cursor] = (char) incomingByte;
       input_cursor++;
 
@@ -157,8 +158,8 @@ class CommandHandler
         input_string[input_cursor-1] = '\0'; 
 
         // print command 
-        sc_println("I received command: \"");
-        sc_println(input_string);
+        sc_print("I received command: \"");
+        sc_print(input_string);
         sc_println("\"");
 
         runCommand(input_string);

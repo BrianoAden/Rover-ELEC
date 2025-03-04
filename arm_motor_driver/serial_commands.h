@@ -169,11 +169,13 @@ class CommandHandler
         input_cursor = 0;
       }
     }
+    return 0;
   }
   #else
   int readSerial()
   {
     sc_println(F("INPUT_SERIAL must be defined to use readSerial"));
+    return 0;
   }
   #endif
 };

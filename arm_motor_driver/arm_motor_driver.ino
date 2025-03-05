@@ -21,57 +21,42 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 #include "serial_commands.h"
 
+struct StepperMotor {
+  int PUL_PIN;
+  int DIR_PIN;
+  int64_t last_movement = 0;
+  int last_state = 0;
+  int ppr = 1600;
+  float max_speed = 1600;
+  float speed = 0;
+  float acceleration = 200;
+  int position = 0;
+  int steps = 0;
+  float deceleration_window;
+  int position = 0;
+};
+
 const int PUL_PINS[] = {14, 25}; 
 const int DIR_PINS[] = {12, 26}; 
 
 constexpr int MOTOR_COUNT = 2;
+StepperMotor motors[MOTOR_COUNT];
 
 // In revolutions per second
 const float max_motor_speed = 3;
 
-int64_t last_motor_movement[] = {0, 0, 0, 0};
-int64_t last_motor_state[] = {0, 0, 0, 0};
-
 #define REFRESH_RATE (10)
 #define REFRESH_TICKS (MICROSECONDS / REFRESH_RATE)
 
-// Motor Pulses per Revolution
-int motor_ppr[MOTOR_COUNT] = {1600, 1600};
-
-// steps per second
-float motor_speeds[MOTOR_COUNT] = {0, 0}; 
-float motor_target_speeds[MOTOR_COUNT] = {200, 200};
-float motor_min_speeds[MOTOR_COUNT] = {10, 10};
-
-// steps per second per second
-float motor_acceleration[MOTOR_COUNT] = {10, 10};
-
-// motor steps - two steps is one on/off cycle
-int motor_steps[MOTOR_COUNT] = {0, 0};
-
-// the direction the stepper will move in
-int motor_directions[MOTOR_COUNT] = {1, 1};
-
-// Stored in pulses
-int motor_positions[MOTOR_COUNT] = {0, 0};
-
 int input_cursor = 0;
 char input_string[MAX_COMMAND_LENGTH];
-
-
-void test_command(void **arg_stack)
-{
-  int argument = *((int*) (arg_stack[0]));
-  Serial.print("Got the integer argument: ");
-  Serial.println(argument);
-}
 
 void motor_speed_set(void **arg_stack)
 {
   int motor_id = *((int*) (arg_stack[0]));
   float motor_speed = *((float*) (arg_stack[1]));
 
-  motor_target_speeds[motor_id] = motor_speed;
+  motors[motor_id].max_speed = motor_speed;
 }
 
 void motor_per_speed_set(void **arg_stack)
@@ -80,7 +65,7 @@ void motor_per_speed_set(void **arg_stack)
   float motor_speed = *((float*) (arg_stack[1]));
 
   // speed percentage * max revolutions per second * pulses per revolution * 2
-  motor_target_speeds[motor_id] = motor_speed*max_motor_speed*motor_ppr[motor_id]*2;
+  motors[motor_id].max_speed = motor_speed*max_motor_speed*motors[motor_id].ppr*2;
 }
 
 void motor_step_set(void **arg_stack)
@@ -89,18 +74,17 @@ void motor_step_set(void **arg_stack)
   int steps = *((int*) (arg_stack[1]));
 
   // setting direction based off of sign
-  motor_directions[motor_id] = steps > 0 ? 1 : -1;
-  motor_steps[motor_id] = abs(steps);
+  motors[motor_id].steps = abs(steps);
 }
 
 void motor_pos_set(void **arg_stack)
 {
   int motor_id = *((int*) (arg_stack[0]));
   int pos = *((int*) (arg_stack[1]));
-  int step_dif = pos-motor_positions[motor_id];
 
-  motor_directions[motor_id] = step_dif > 0 ? 1 : -1;
-  motor_steps[motor_id] = abs(step_dif);
+  StepperMotor *motor = motors[motor_id];
+  int step_dif = pos-motor.position[motor_id];
+  motor.steps[motor_id] = step_dif;
 }
 
 CommandHandler cHandler;
@@ -109,20 +93,28 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
+  // Initializing Motors
+
+  // Motor 0
+  motors[0].PUL_PIN = 14;
+  motors[0].DIR_PIN = 12;
+
+  // Motor 1
+  motors[1].PUL_PIN = 25;
+  motors[1].PUL_PIN = 26;
+
+  // Motor 1
+
   // Motor Pins
   for (int motor = 0; motor < MOTOR_COUNT; motor++)
   {
-    pinMode(PUL_PINS[motor], OUTPUT);
-    pinMode(DIR_PINS[motor], OUTPUT);
+    StepperMotor *motor = motors[motor];
+    pinMode(motor.PUL_PIN, OUTPUT);
+    pinMode(motor.DIR_PIN, OUTPUT);
   }
 
   // Button Pin
   pinMode(BUTTON_PIN, INPUT);
-
-  // Test Command
-  CommandArgType test_command_args[MAX_SCOMMAND_ARGUMENTS];
-  test_command_args[0] = CommandArgType::INT_ARG;
-  cHandler.addCommand('F', test_command, test_command_args);
 
   // Motor Speed
   CommandArgType motor_speed_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG};
@@ -154,47 +146,49 @@ void setup() {
   display.display();
 }
 
-float deceleration_window = 5;
 int64_t last_time = 0;
 void update_motors()
 {
   int64_t time = esp_timer_get_time();
   int64_t dt = time - last_time;
-  float dt_s = (float) dt / MICROSECONDS;
+  float dt_s = (float) dt / MICROSECONDS; // deltatime in seconds
   last_time = time;
-  for (int motor = 0; motor < MOTOR_COUNT; motor++)
+
+  for (int motor_id = 0; motor < MOTOR_COUNT; motor++)
   {
-    if (motor_steps[motor] > 0)
+    StepperMotor *motor = motors[motor_id];
+    if (motor.steps > 0)
     {
       // Handling Speed
-      if (motor_speeds[motor] > motor_target_speeds[motor])
+      if (motor.speed > motor.max_speed)
       {
         // Decelerate
-        deceleration_window -= dt_s;
-        if (deceleration_window < 0)
-          deceleration_window = 0;
+        motor.deceleration_window -= dt_s;
+        if (motor.deceleration_window < 0)
+          motor.deceleration_window = 0;
         else
-          // motor_speeds[motor] = ((5000-motor_steps[motor])+0.5*motor_acceleration[motor]*deceleration_window*deceleration_window)/deceleration_window;
-          motor_speeds[motor] = 2 * motor_steps[motor] / deceleration_window;
-      } else if (motor_speeds[motor] < motor_target_speeds[motor]) {
+          motor.speed = 2 * motor.steps / motor.deceleration_window;
+
+      } else if (motor.speed < motor.max_speed) {
         // Accelerate
-        motor_speeds[motor] = min(motor_speeds[motor] + motor_acceleration[motor] * dt_s, motor_target_speeds[motor]);
+        motor.speed = min(motor.speed + motor.acceleration * dt_s, motor.max_speed);
       }
     }
     
 
-    if (motor_steps[motor] > 0 && last_motor_movement[motor]+MICROSECONDS/motor_speeds[motor] < time)
+    if (motor.steps > 0 && motor.speed > 0 && motor.last_movement+MICROSECONDS/motor.speed < time)
     {
-      last_motor_movement[motor] = time;
-      last_motor_state[motor] = !last_motor_state[motor];
+      motor.last_movement = time;
+      motor.last_state = !motor.last_state;
       motor_positions[motor] += motor_directions[motor];
       motor_steps[motor]--;
 
       int steps_to_stop = motor_speeds[motor]*motor_speeds[motor] / (motor_acceleration[motor] * 2);
 
-      if (motor_steps[motor] <= 0.5*deceleration_window*motor_speeds[motor])
+      if (motor_steps[motor] <= 0.5*deceleration_windows[motor]*motor_speeds[motor])
       {
         motor_target_speeds[motor] = 0;
+        deceleration_windows[motor] = motor_speeds[motor]/motor_acceleration[motor];
       }
 
       digitalWrite(PUL_PINS[motor], last_motor_state[motor]);
@@ -203,8 +197,13 @@ void update_motors()
   }
 }
 
-void displayStats()
+int64_t last_display_refresh = 0;
+void displayUpdate()
 {
+  int64_t time = esp_timer_get_time();
+  if (time-last_refresh < REFRESH_TICKS) {return;}
+  last_display_refresh = time;
+
   display.clearDisplay();
 
   display.setTextSize(1);             // Normal 1:1 pixel scale
@@ -221,23 +220,16 @@ void displayStats()
     display.printf("RPM%7.1f POS%7d\n", (float) motor_speeds[i] / motor_ppr[i] * 60.0, motor_positions[i]);
   }
 
-  display.printf("WIN%7.1f\n", (float) deceleration_window);
+  display.printf("WIN%7.1f\n", (float) deceleration_windows[1]);
 
 
   display.display();
 }
 
-int64_t last_refresh = 0;
 void loop() {
   cHandler.readSerial();
   update_motors();
   
 
-  int64_t time = esp_timer_get_time();
-
-  if (time-last_refresh > REFRESH_TICKS)
-  {
-    last_refresh = time;
-    displayStats();
-  }
+  displayUpdate();
 }

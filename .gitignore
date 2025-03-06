@@ -1,1 +1,4 @@
 *.exe
+circuit_diagram-backups/
+fp-info-cache
+sym-lib-table

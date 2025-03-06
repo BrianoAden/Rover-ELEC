@@ -28,12 +28,13 @@ struct StepperMotor {
   int last_state = 0;
   int ppr = 1600;
   float max_speed = 1600;
-  float speed = 0;
+  float velocity = 0;
+  float target_velocity = 0;
   float acceleration = 200;
+  int direction = 1;
   int position = 0;
   int steps = 0;
   float deceleration_window;
-  int position = 0;
 };
 
 const int PUL_PINS[] = {14, 25}; 
@@ -50,6 +51,10 @@ const float max_motor_speed = 3;
 
 int input_cursor = 0;
 char input_string[MAX_COMMAND_LENGTH];
+
+int sgn(int val) {
+    return (0 < val) - (val < 0);
+}
 
 void motor_speed_set(void **arg_stack)
 {
@@ -73,8 +78,11 @@ void motor_step_set(void **arg_stack)
   int motor_id = *((int*) (arg_stack[0]));
   int steps = *((int*) (arg_stack[1]));
 
+  StepperMotor *motor = &motors[motor_id];
+
   // setting direction based off of sign
-  motors[motor_id].steps = abs(steps);
+  motor->direction = sgn(steps);
+  motor->steps = abs(steps);
 }
 
 void motor_pos_set(void **arg_stack)
@@ -82,9 +90,10 @@ void motor_pos_set(void **arg_stack)
   int motor_id = *((int*) (arg_stack[0]));
   int pos = *((int*) (arg_stack[1]));
 
-  StepperMotor *motor = motors[motor_id];
-  int step_dif = pos-motor.position[motor_id];
-  motor.steps[motor_id] = step_dif;
+  StepperMotor *motor = &motors[motor_id];
+  int step_dif = pos-motor->position;
+  motor->direction = sgn(step_dif);
+  motor->steps = abs(step_dif);
 }
 
 CommandHandler cHandler;
@@ -101,16 +110,16 @@ void setup() {
 
   // Motor 1
   motors[1].PUL_PIN = 25;
-  motors[1].PUL_PIN = 26;
+  motors[1].DIR_PIN = 26;
 
   // Motor 1
 
   // Motor Pins
-  for (int motor = 0; motor < MOTOR_COUNT; motor++)
+  for (int motor_id = 0; motor_id < MOTOR_COUNT; motor_id++)
   {
-    StepperMotor *motor = motors[motor];
-    pinMode(motor.PUL_PIN, OUTPUT);
-    pinMode(motor.DIR_PIN, OUTPUT);
+    StepperMotor *motor = &motors[motor_id];
+    pinMode(motor->PUL_PIN, OUTPUT);
+    pinMode(motor->DIR_PIN, OUTPUT);
   }
 
   // Button Pin
@@ -154,45 +163,48 @@ void update_motors()
   float dt_s = (float) dt / MICROSECONDS; // deltatime in seconds
   last_time = time;
 
-  for (int motor_id = 0; motor < MOTOR_COUNT; motor++)
+  for (int motor_id = 0; motor_id < MOTOR_COUNT; motor_id++)
   {
-    StepperMotor *motor = motors[motor_id];
-    if (motor.steps > 0)
-    {
-      // Handling Speed
-      if (motor.speed > motor.max_speed)
-      {
-        // Decelerate
-        motor.deceleration_window -= dt_s;
-        if (motor.deceleration_window < 0)
-          motor.deceleration_window = 0;
-        else
-          motor.speed = 2 * motor.steps / motor.deceleration_window;
+    StepperMotor *motor = &motors[motor_id];
+    // if (motor->steps > 0 && 0)
+    // {
+    //   // Handling Speed
+    //   if (motor->velocity-motor->target_velocity > 0)
+    //   {
+    //     // Decelerate
+    //     motor->deceleration_window -= dt_s;
+    //     if (motor->deceleration_window < 0)
+    //       motor->deceleration_window = 0;
+    //     else
+    //       motor->velocity = 2 * motor->steps / motor->deceleration_window;
 
-      } else if (motor.speed < motor.max_speed) {
-        // Accelerate
-        motor.speed = min(motor.speed + motor.acceleration * dt_s, motor.max_speed);
-      }
-    }
+    //   } else if (motor->velocity < motor->target_velocity) {
+    //     // Accelerate
+    //     motor->velocity = min(motor->velocity + motor->acceleration * dt_s, motor->target_velocity);
+    //   }
+    // }
     
+    motor->velocity = 200;
 
-    if (motor.steps > 0 && motor.speed > 0 && motor.last_movement+MICROSECONDS/motor.speed < time)
+    if (motor->steps > 0 && abs(motor->velocity) > 0 && motor->last_movement+MICROSECONDS/abs(motor->velocity) < time)
     {
-      motor.last_movement = time;
-      motor.last_state = !motor.last_state;
-      motor_positions[motor] += motor_directions[motor];
-      motor_steps[motor]--;
+      motor->last_movement = time;
+      motor->last_state = !motor->last_state;
+      motor->position += motor->direction;
+      motor->steps--;
 
-      int steps_to_stop = motor_speeds[motor]*motor_speeds[motor] / (motor_acceleration[motor] * 2);
+      int steps_to_stop = motor->velocity*motor->velocity / (motor->acceleration * 2);
 
-      if (motor_steps[motor] <= 0.5*deceleration_windows[motor]*motor_speeds[motor])
+      
+
+      if (motor->steps <= 0.5 * motor->deceleration_window * motor->velocity)
       {
-        motor_target_speeds[motor] = 0;
-        deceleration_windows[motor] = motor_speeds[motor]/motor_acceleration[motor];
+        motor->target_velocity = 0;
+        motor->deceleration_window = motor->velocity/motor->acceleration;
       }
 
-      digitalWrite(PUL_PINS[motor], last_motor_state[motor]);
-      digitalWrite(DIR_PINS[motor], motor_directions[motor]==1?LOW:HIGH);
+      digitalWrite(motor->PUL_PIN, motor->last_state);
+      digitalWrite(motor->DIR_PIN, motor->velocity > 0 ?LOW:HIGH);
     }
   }
 }
@@ -201,7 +213,7 @@ int64_t last_display_refresh = 0;
 void displayUpdate()
 {
   int64_t time = esp_timer_get_time();
-  if (time-last_refresh < REFRESH_TICKS) {return;}
+  if (time-last_display_refresh < REFRESH_TICKS) {return;}
   last_display_refresh = time;
 
   display.clearDisplay();
@@ -216,11 +228,12 @@ void displayUpdate()
 
   for (int i = 0; i < MOTOR_COUNT; i++)
   {
-    display.printf("MTR%7d STP%7d\n", i, motor_steps[i]);
-    display.printf("RPM%7.1f POS%7d\n", (float) motor_speeds[i] / motor_ppr[i] * 60.0, motor_positions[i]);
+    StepperMotor *motor = &(motors[i]);
+    display.printf("MTR%7d STP%7d\n", i, motor->steps);
+    display.printf("RPM%7.1f POS%7d\n", (float) motor->velocity / motor->ppr * 60.0, motor->position);
   }
 
-  display.printf("WIN%7.1f\n", (float) deceleration_windows[1]);
+  // display.printf("WIN%7.1f\n", (float) motor[deceleration_windows);
 
 
   display.display();

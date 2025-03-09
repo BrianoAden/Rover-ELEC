@@ -226,14 +226,15 @@ void update_motors()
   }
 }
 
-#define BUTTON_AVG (50000.0)
+#define BUTTON_AVG (500.0)
 int64_t last_display_refresh = 0;
 void displayUpdate()
 {
   int64_t time = esp_timer_get_time();
 
   // checking for button down
-  if (digitalRead(BUTTON_PIN) == HIGH)
+
+  if (digitalRead(BUTTON_PIN) == LOW)
   {
     button_average = button_average * (float) (BUTTON_AVG-1.0)/BUTTON_AVG + 1.0/BUTTON_AVG;
     if (button_average > .65 && button_state == 0)
@@ -251,6 +252,7 @@ void displayUpdate()
 
   if (time-last_display_refresh < REFRESH_TICKS) {return;}
   last_display_refresh = time;
+  // Serial.println(digitalRead(BUTTON_PIN));
 
   display.clearDisplay();
 

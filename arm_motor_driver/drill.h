@@ -48,7 +48,7 @@ void setup() {
     Serial.begin(9600);
   }
 
-void loop() {
-  setMotor('R', 255);  // Set right motor to a fixed speed (change value as needed)  
-  // Motors will continue running at this speed indefinitely
-}
+// void loop() {
+//   // setMotor('R', 255);  // Set right motor to a fixed speed (change value as needed)  
+//   // Motors will continue running at this speed indefinitely
+// }

@@ -76,9 +76,16 @@ void set_motor_position(int id, int unit, float value)
 
 void set_motor_mode(int id, int mode)
 {
-	dxl.torqueOff(motors[i].id);
-	dxl.setOperatingMode(motors[i].id, OP_VELOCITY);
-	dxl.torqueOn(motors[i].id);
+	dxl.torqueOff(motors[id].id);
+	dxl.setOperatingMode(motors[id].id, mode);
+	dxl.torqueOn(motors[id].id);
+}
+
+void offset_motor_position(int id, float value, int unit)
+{
+	float position = dxl.getPresentPosition(motors[id].id, unit);
+	position += value;
+	set_motor_position(id, unit, value);
 }
 
 void set_motor_velocity_command(void **arg_stack)
@@ -97,6 +104,14 @@ void set_motor_position_command(void **arg_stack)
 	set_motor_position(motor_id, unit, motor_pos);
 }
 
+void offset_motor_position_command(void **arg_stack)
+{
+	int motor_id = *((int*) (arg_stack[0]));
+	float motor_pos = *((float*) (arg_stack[1]));
+	int unit = *((int*) (arg_stack[2]));
+	offset_motor_position(motor_id, unit, motor_pos);
+}
+
 void get_motor_velocity_command(void **arg_stack)
 {
 	int request_id = *((int*) (arg_stack[1]));
@@ -110,6 +125,14 @@ void get_motor_velocity_command(void **arg_stack)
 	soft_serial.print(" ");
 	soft_serial.print(velocity);
 	soft_serial.print("&");
+}
+
+void set_motor_mode_command(void **arg_stack)
+{
+	int motor_id = *((int*) (arg_stack[0]));
+	int mode = *((int*) (arg_stack[1]));
+
+	set_motor_mode(motor_id, mode);
 }
 
 void get_motor_position_command(void **arg_stack)
@@ -129,15 +152,28 @@ void get_motor_position_command(void **arg_stack)
 
 void set_sides_command(void **arg_stack)
 {
-  float left_motor_speed = *((float*) (arg_stack[0]));
-  float right_motor_speed = *((float*) (arg_stack[1]));
-  int unit = *((int*) (arg_stack[2]));
+	float left_motor_speed = *((float*) (arg_stack[0]));
+	float right_motor_speed = *((float*) (arg_stack[1]));
+	int unit = *((int*) (arg_stack[2]));
 
-  set_motor_velocity(1, unit, left_motor_speed);
-  set_motor_velocity(4, unit, left_motor_speed);
+	set_motor_velocity(1, unit, left_motor_speed);
+	set_motor_velocity(4, unit, left_motor_speed);
 
-  set_motor_velocity(2, unit, -right_motor_speed);
-  set_motor_velocity(3, unit, -right_motor_speed);
+	set_motor_velocity(2, unit, -right_motor_speed);
+	set_motor_velocity(3, unit, -right_motor_speed);
+}
+
+void offset_sides_command(void **arg_stack)
+{
+	float left_motor_offset = *((float*) (arg_stack[0]));
+	float right_motor_offset = *((float*) (arg_stack[1]));
+	int unit = *((int*) (arg_stack[2]));
+
+	offset_motor_position(1, unit, left_motor_offset);
+	offset_motor_position(4, unit, left_motor_offset);
+
+	offset_motor_position(2, unit, -right_motor_offset);
+	offset_motor_position(3, unit, -right_motor_offset);
 }
 
 void setup() {
@@ -151,8 +187,20 @@ void setup() {
 	cHandler.addCommand('V', set_motor_velocity_command, motor_velocity_cargs);
 
 	// set_sides
-	CommandArgType sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, FLOAT_ARG};
+	CommandArgType sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG, FLOAT_ARG, INT_ARG};
 	cHandler.addCommand('S', set_sides_command, sides_cargs);
+
+	// offset_sides_command
+	CommandArgType offset_sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG, FLOAT_ARG, INT_ARG};
+	cHandler.addCommand('Q', offset_sides_command, offset_sides_cargs);
+
+	// set_motor_position
+	CommandArgType set_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, INT_ARG};
+	cHandler.addCommand('P', set_motor_position_command, set_position_cargs);
+
+	// offset_motor_position_command
+	CommandArgType offset_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, INT_ARG};
+	cHandler.addCommand('O', offset_motor_position_command, offset_position_cargs);
 
 	// get_motor_velocity_command
 	CommandArgType get_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG, INT_ARG};

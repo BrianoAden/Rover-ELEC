@@ -26,19 +26,16 @@ struct StepperMotor {
   int DIR_PIN;
   int64_t last_movement = 0;
   int last_state = 0;
-  int ppr = 1600;
-  float max_speed = 1600;
+  int ppr = 400;
+  float max_speed = 400;
   float velocity = 0;
   float target_velocity = 0;
-  float acceleration = 200;
+  float acceleration = 20000;
   int direction = 1;
   int position = 0;
   int steps = 0;
   float deceleration_window;
 };
-
-const int PUL_PINS[] = {14, 25}; 
-const int DIR_PINS[] = {12, 26}; 
 
 int display_state = 0;
 int64_t last_button_down;
@@ -46,7 +43,7 @@ float button_average = 0;
 int button_state = 0;
 const int64_t BUTTON_DEBOUNCE = ((int64_t) (MICROSECONDS * .25));
 
-constexpr int MOTOR_COUNT = 2;
+constexpr int MOTOR_COUNT = 4;
 StepperMotor motors[MOTOR_COUNT];
 
 // In revolutions per second
@@ -117,14 +114,20 @@ void setup() {
   // Initializing Motors
 
   // Motor 0
-  motors[0].PUL_PIN = 14;
-  motors[0].DIR_PIN = 12;
+  motors[0].PUL_PIN = 26;
+  motors[0].DIR_PIN = 25;
 
   // Motor 1
-  motors[1].PUL_PIN = 25;
-  motors[1].DIR_PIN = 26;
+  motors[1].PUL_PIN = 14;
+  motors[1].DIR_PIN = 27;
 
-  // Motor 1
+  // Motor 2
+  motors[2].PUL_PIN = 32;
+  motors[2].DIR_PIN = 33;
+
+  // Motor 3
+  motors[3].PUL_PIN = 18;
+  motors[3].DIR_PIN = 19;
 
   // Motor Pins
   for (int motor_id = 0; motor_id < MOTOR_COUNT; motor_id++)

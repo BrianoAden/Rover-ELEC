@@ -167,6 +167,8 @@ class CommandHandler
 
         // We dont technically have to clear the string as it will get overwritten
         input_cursor = 0;
+      } else if (incomingByte == '*') {
+        input_cursor = 0;
       }
     }
     return 0;

@@ -218,7 +218,7 @@ void setup() {
 
   	// set_drill_velocity
 	CommandArgType drill_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG};
-	cHandler.addCommand('D', set_drill_velocity_command, drill_velocity_cargs);
+	cHandler.addCommand('L', set_drill_velocity_command, drill_velocity_cargs);
 
 	// Dynamixel Setup
 	dxl.begin(1000000);

@@ -1,9 +1,17 @@
 #include <DynamixelShield.h>
 #include <SoftwareSerial.h>
+#include "BTS7960.h"
+
+const uint8_t L_PWM = 10;
+const uint8_t R_PWM = 11;
+const uint8_t L_EN = 12;
+const uint8_t R_EN = 13;
+
+BTS7960 motorController(L_EN, R_EN, L_PWM, R_PWM);
 
 SoftwareSerial soft_serial(7, 8);
 
-// #define VERBOSE_COMMANDS
+#define VERBOSE_COMMANDS
 #define COMMAND_SERIAL soft_serial
 #define INPUT_SERIAL soft_serial
 
@@ -176,9 +184,27 @@ void offset_sides_command(void **arg_stack)
 	offset_motor_position(3, unit, -right_motor_offset);
 }
 
+// Drill commands
+void set_drill_velocity_command(void **arg_stack)
+{
+  float motor_speed = *((float*) (arg_stack[0]));
+  set_drill_velocity(motor_speed);
+}
+
+void set_drill_velocity(float speed)
+{
+  if (speed > 0) {
+        motorController.TurnRight(speed); // Move forward
+      } else if (speed < 0) {
+        motorController.TurnLeft(-speed); // Move backward
+      } else {
+        motorController.Stop(); // Stop motor
+  }
+}
 void setup() {
 	// Serial
 	soft_serial.begin(9600);
+	motorController.Enable();
 
 	// Command Setup
 
@@ -189,6 +215,14 @@ void setup() {
 	// set_sides
 	CommandArgType sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG, FLOAT_ARG, INT_ARG};
 	cHandler.addCommand('S', set_sides_command, sides_cargs);
+
+  	// set_drill_velocity
+	CommandArgType drill_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG};
+	cHandler.addCommand('L', set_drill_velocity_command, drill_velocity_cargs);
+
+	// Dynamixel Setup
+	dxl.begin(1000000);
+	dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
 
 	// offset_sides_command
 	CommandArgType offset_sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG, FLOAT_ARG, INT_ARG};

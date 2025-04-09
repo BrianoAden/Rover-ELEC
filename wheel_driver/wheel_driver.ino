@@ -204,9 +204,18 @@ void set_drill_velocity(float speed)
 void setup() {
 	// Serial
 	soft_serial.begin(9600);
+
+	delay(1000);
+	soft_serial.println("Startup");
+
+	delay(1000);
 	motorController.Enable();
 
+	soft_serial.println("enabled controller");
+
 	// Command Setup
+
+	delay(1000);
 
 	// set_motor_velocity
 	CommandArgType motor_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, INT_ARG};
@@ -244,9 +253,9 @@ void setup() {
 	CommandArgType get_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG, INT_ARG};
 	cHandler.addCommand('F', get_motor_position_command, get_position_cargs);
 
-	// Dynamixel Setup
-	dxl.begin(1000000);
-	dxl.setPortProtocolVersion(DXL_PROTOCOL_VERSION);
+	soft_serial.println("set commands");
+
+	delay(1000);
 
 	for (int i = 0; i < MOTOR_COUNT; i++)
 	{
@@ -255,6 +264,8 @@ void setup() {
 		dxl.setOperatingMode(motors[i].id, OP_VELOCITY);
 		dxl.torqueOn(motors[i].id);
 	}
+
+	soft_serial.println("Finished Setup");
 }
 
 void loop()

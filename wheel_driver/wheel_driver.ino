@@ -184,6 +184,23 @@ void offset_sides_command(void **arg_stack)
 	offset_motor_position(3, unit, -right_motor_offset);
 }
 
+void set_light_command(void **arg_stack)
+{
+  int motor_id = *((int*) (arg_stack[0]));
+	int value = *((int*) (arg_stack[1]));
+
+  int result;
+  if (value == 1)
+    result = dxl.ledOn(motors[motor_id].id);
+  else
+    result = dxl.ledOff(motors[motor_id].id);
+
+  if (result == 1)
+    soft_serial.println("Success in changing light");
+  else
+    soft_serial.println("Failing in changing light");
+}
+
 // Drill commands
 void set_drill_velocity_command(void **arg_stack)
 {
@@ -252,6 +269,10 @@ void setup() {
 	// get_motor_position_command
 	CommandArgType get_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG, INT_ARG};
 	cHandler.addCommand('F', get_motor_position_command, get_position_cargs);
+
+  // set_lights_command
+	CommandArgType set_lights_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG};
+	cHandler.addCommand('G', set_light_command, set_lights_cargs);
 
 	soft_serial.println("set commands");
 

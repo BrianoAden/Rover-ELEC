@@ -30,7 +30,7 @@ struct StepperMotor {
   float max_speed = 400;
   float velocity = 0;
   float target_velocity = 0;
-  float acceleration = 20000;
+  float acceleration = 20;
   int direction = 1;
   int position = 0;
   int steps = 0;
@@ -83,9 +83,12 @@ void motor_per_speed_set(void **arg_stack)
 void motor_set_step_offset(int motor_id, int step_offset)
 {
   StepperMotor *motor = &motors[motor_id];
+  step_offset *= 2;
   motor->target_velocity = sgn(step_offset)*motor->max_speed;
   motor->direction = sgn(step_offset);
   motor->steps = abs(step_offset);
+
+  display_state = motor_id;
 }
 
 void motor_step_set(void **arg_stack)
@@ -181,6 +184,24 @@ void update_motors()
   for (int motor_id = 0; motor_id < MOTOR_COUNT; motor_id++)
   {
     StepperMotor *motor = &motors[motor_id];
+
+    if (motor->steps > 0 && motor->last_movement+2*MICROSECONDS/motor->max_speed < time)
+    {
+      motor->last_movement = time;
+      motor->last_state = !motor->last_state;
+      motor->position += sgn(motor->velocity);
+
+      motor->steps--;
+
+      digitalWrite(motor->PUL_PIN, motor->last_state);
+      digitalWrite(motor->DIR_PIN, motor->direction > 0 ?LOW:HIGH);
+    }
+    
+    continue;
+
+    
+
+
     if (motor->steps > 0)
     {
       // Handling Speed

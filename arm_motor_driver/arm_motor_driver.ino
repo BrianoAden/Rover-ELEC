@@ -145,7 +145,7 @@ void setup() {
 
   // Motor Speed
   CommandArgType motor_speed_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG};
-  cHandler.addCommand('S', motor_speed_set, motor_speed_cargs);
+  cHandler.addCommand('D', motor_speed_set, motor_speed_cargs);
 
   // Motor Speed
   CommandArgType motor_per_speed_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG};
@@ -196,57 +196,55 @@ void update_motors()
       digitalWrite(motor->PUL_PIN, motor->last_state);
       digitalWrite(motor->DIR_PIN, motor->direction > 0 ?LOW:HIGH);
     }
-    
-    continue;
 
     
 
 
-    if (motor->steps > 0)
-    {
-      // Handling Speed
-      if (motor->target_velocity == 0)
-      {
-        // Decelerate
-        motor->deceleration_window -= dt_s;
-        if (motor->deceleration_window < 0)
-          motor->deceleration_window = 0;
-        else
-          motor->velocity = 2 * motor->steps / motor->deceleration_window * sgn(motor->velocity);
+    // if (motor->steps > 0)
+    // {
+    //   // Handling Speed
+    //   if (motor->target_velocity == 0)
+    //   {
+    //     // Decelerate
+    //     motor->deceleration_window -= dt_s;
+    //     if (motor->deceleration_window < 0)
+    //       motor->deceleration_window = 0;
+    //     else
+    //       motor->velocity = 2 * motor->steps / motor->deceleration_window * sgn(motor->velocity);
 
-      } else  {
-        // Accelerate
-        if (motor->target_velocity > 0)
-          motor->velocity = min(motor->velocity + motor->acceleration * dt_s, motor->target_velocity);
-        else
-           motor->velocity = max(motor->velocity + motor->acceleration * -dt_s, motor->target_velocity);
-      }
-    } else {
-      motor->velocity = 0;
-    }
+    //   } else  {
+    //     // Accelerate
+    //     if (motor->target_velocity > 0)
+    //       motor->velocity = min(motor->velocity + motor->acceleration * dt_s, motor->target_velocity);
+    //     else
+    //        motor->velocity = max(motor->velocity + motor->acceleration * -dt_s, motor->target_velocity);
+    //   }
+    // } else {
+    //   motor->velocity = 0;
+    // }
 
-    if (motor->steps > 0 && abs(motor->velocity) > 0 && motor->last_movement+MICROSECONDS/abs(motor->velocity) < time)
-    {
-      motor->last_movement = time;
-      motor->last_state = !motor->last_state;
-      motor->position += sgn(motor->velocity);
-      if (abs(motor->target_velocity) > 0)
-        motor->steps -= sgn(motor->velocity*motor->target_velocity);
-      else 
-        motor->steps--;
+    // if (motor->steps > 0 && abs(motor->velocity) > 0 && motor->last_movement+MICROSECONDS/abs(motor->velocity) < time)
+    // {
+    //   motor->last_movement = time;
+    //   motor->last_state = !motor->last_state;
+    //   motor->position += sgn(motor->velocity);
+    //   if (abs(motor->target_velocity) > 0)
+    //     motor->steps -= sgn(motor->velocity*motor->target_velocity);
+    //   else 
+    //     motor->steps--;
       
-      int steps_to_stop = motor->velocity*motor->velocity / (motor->acceleration * 2);
-      if (motor->steps <= steps_to_stop)
-      {
-        motor->target_velocity = 0;
-        motor->deceleration_window = abs(motor->velocity)/motor->acceleration;
-      } else {
-        motor->target_velocity = motor->max_speed*motor->direction;
-      }
+    //   int steps_to_stop = motor->velocity*motor->velocity / (motor->acceleration * 2);
+    //   if (motor->steps <= steps_to_stop)
+    //   {
+    //     motor->target_velocity = 0;
+    //     motor->deceleration_window = abs(motor->velocity)/motor->acceleration;
+    //   } else {
+    //     motor->target_velocity = motor->max_speed*motor->direction;
+    //   }
 
-      digitalWrite(motor->PUL_PIN, motor->last_state);
-      digitalWrite(motor->DIR_PIN, motor->velocity > 0 ?LOW:HIGH);
-    }
+    //   digitalWrite(motor->PUL_PIN, motor->last_state);
+    //   digitalWrite(motor->DIR_PIN, motor->velocity > 0 ?LOW:HIGH);
+    // }
   }
 }
 

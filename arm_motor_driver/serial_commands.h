@@ -1,6 +1,10 @@
 #ifndef SerialCommands
 #define SerialCommands
 
+#include <HardwareSerial.h>
+
+HardwareSerial ArduinoSerial ( 2 );
+
 #include <stdlib.h>
 
 #ifdef VERBOSE_COMMANDS
@@ -149,6 +153,7 @@ class CommandHandler
     while (INPUT_SERIAL.available() > 0) {
       // read the incoming byte:
       int incomingByte = INPUT_SERIAL.read();
+      ArduinoSerial.write((char) incomingByte);
       input_string[input_cursor] = (char) incomingByte;
       input_cursor++;
 
@@ -172,6 +177,12 @@ class CommandHandler
       }
     }
     return 0;
+
+    while (ArduinoSerial.available() > 0)
+    {
+      int incomingByte = INPUT_SERIAL.read();
+      INPUT_SERIAL.write((char) incomingByte);
+    }
   }
   #else
   int readSerial()

@@ -244,7 +244,7 @@ void setup() {
 
   	// set_drill_velocity
 	CommandArgType drill_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG};
-	cHandler.addCommand('L', set_drill_velocity_command, drill_velocity_cargs);
+	cHandler.addCommand('-', set_drill_velocity_command, drill_velocity_cargs);
 
 	// Dynamixel Setup
 	dxl.begin(1000000);
@@ -252,27 +252,27 @@ void setup() {
 
 	// offset_sides_command
 	CommandArgType offset_sides_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG, FLOAT_ARG, INT_ARG};
-	cHandler.addCommand('Q', offset_sides_command, offset_sides_cargs);
+	cHandler.addCommand('-', offset_sides_command, offset_sides_cargs);
 
 	// set_motor_position
 	CommandArgType set_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, INT_ARG};
-	cHandler.addCommand('P', set_motor_position_command, set_position_cargs);
+	cHandler.addCommand('-', set_motor_position_command, set_position_cargs);
 
 	// offset_motor_position_command
 	CommandArgType offset_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, FLOAT_ARG, INT_ARG};
-	cHandler.addCommand('O', offset_motor_position_command, offset_position_cargs);
+	cHandler.addCommand('-', offset_motor_position_command, offset_position_cargs);
 
 	// get_motor_velocity_command
 	CommandArgType get_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG, INT_ARG};
-	cHandler.addCommand('D', get_motor_velocity_command, get_velocity_cargs);
+	cHandler.addCommand('-', get_motor_velocity_command, get_velocity_cargs);
 
 	// get_motor_position_command
 	CommandArgType get_position_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG, INT_ARG};
-	cHandler.addCommand('F', get_motor_position_command, get_position_cargs);
+	cHandler.addCommand('-', get_motor_position_command, get_position_cargs);
 
   // set_lights_command
 	CommandArgType set_lights_cargs[MAX_SCOMMAND_ARGUMENTS] = {INT_ARG, INT_ARG};
-	cHandler.addCommand('G', set_light_command, set_lights_cargs);
+	cHandler.addCommand('-', set_light_command, set_lights_cargs);
 
 	soft_serial.println("set commands");
 

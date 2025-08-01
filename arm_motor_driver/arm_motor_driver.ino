@@ -17,7 +17,7 @@ Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 #define VERBOSE_COMMANDS
 #define COMMAND_SERIAL Serial
 #define INPUT_SERIAL Serial
-// #define DEBUG
+#define DEBUG
 
 #include "serial_commands.h"
 
@@ -114,6 +114,9 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
 
+  while (!Serial);
+  Serial.println("Started Serial");
+
   // Initializing Motors
 
   // Motor 0
@@ -165,12 +168,12 @@ void setup() {
 
   // Screen Setup
   // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-  if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
-    Serial.println(F("SSD1306 allocation failed"));
-    // for(;;); // Don't proceed, loop forever
-  }
+  // if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
+  //   Serial.println(F("SSD1306 allocation failed"));
+  //   // for(;;); // Don't proceed, loop forever
+  // }
 
-  display.display();
+  // display.display();
 }
 
 int64_t last_time = 0;
@@ -293,16 +296,16 @@ void displayUpdate()
   
 
   
-  display.printf("STP%7d\n", motor->steps);
-  display.printf("VEL%7.1f\n", motor->velocity);
-  display.printf("RPM%7.1f\n", motor->velocity / motor->ppr * 30.0);
-  display.printf("POS%7d\n", motor->position);
-  display.printf("WIN%7.1f\n", motor->deceleration_window);
+  // display.printf("STP%7d\n", motor->steps);
+  // display.printf("VEL%7.1f\n", motor->velocity);
+  // display.printf("RPM%7.1f\n", motor->velocity / motor->ppr * 30.0);
+  // display.printf("POS%7d\n", motor->position);
+  // display.printf("WIN%7.1f\n", motor->deceleration_window);
 
   // display.printf("WIN%7.1f\n", (float) motor[deceleration_windows);
 
 
-  display.display();
+  // display.display();
 }
 
 void loop() {
@@ -310,5 +313,5 @@ void loop() {
   update_motors();
   
 
-  displayUpdate();
+  // displayUpdate();
 }

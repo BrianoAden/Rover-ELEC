@@ -27,6 +27,8 @@ const int MAX_SCOMMAND_ARGUMENTS = 3;
 
 typedef void (*Command) (void **args);
 
+bool serial_began = false;
+
 enum CommandArgType {
   NONE_ARG = 0, // unsigned types are none
   INT_ARG,
@@ -47,6 +49,12 @@ class CommandHandler
     // commands ids are single characters
     int addCommand(char command_id, Command command, CommandArgType types[MAX_SCOMMAND_ARGUMENTS]) 
     {
+      if (!serial_began)
+      {
+        serial_began = true;
+        ArduinoSerial.begin(9600, SERIAL_8N1, 16, 17);
+      }
+
       command_ids[command_count] = command_id;
       commands[command_count] = command;
       
@@ -77,7 +85,7 @@ class CommandHandler
       // Checking if a command was found
       if (command_index == -1)
       {
-        sc_print(F("ERROR: Invalud command id: \""));
+        sc_print(F("ERROR: Invalid command id: \""));
         sc_print(command_id);
         sc_println(F("\""));
         return 0;
@@ -176,13 +184,15 @@ class CommandHandler
         input_cursor = 0;
       }
     }
-    return 0;
 
     while (ArduinoSerial.available() > 0)
     {
-      int incomingByte = INPUT_SERIAL.read();
+      int incomingByte = ArduinoSerial.read();
+      // Serial.println("Got stuff");
       INPUT_SERIAL.write((char) incomingByte);
     }
+
+    return 0;
   }
   #else
   int readSerial()

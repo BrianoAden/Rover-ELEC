@@ -147,6 +147,7 @@ class CommandHandler
   int readSerial()
   {
     while (INPUT_SERIAL.available() > 0) {
+      
       // read the incoming byte:
       int incomingByte = INPUT_SERIAL.read();
       input_string[input_cursor] = (char) incomingByte;
@@ -158,7 +159,7 @@ class CommandHandler
         input_string[input_cursor-1] = '\0'; 
 
         // print command 
-        sc_print("I received command: \"");
+        sc_print("Arduino received command: \"");
         sc_print(input_string);
         sc_println("\"");
 

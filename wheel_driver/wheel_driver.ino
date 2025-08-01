@@ -220,10 +220,12 @@ void set_drill_velocity(float speed)
 }
 void setup() {
 	// Serial
+	// Serial.begin(9600);
 	soft_serial.begin(9600);
 
-	delay(1000);
+	// delay(1000);
 	soft_serial.println("Startup");
+	// Serial.println("Startup");
 
 	delay(1000);
 	motorController.Enable();
@@ -244,7 +246,7 @@ void setup() {
 
   	// set_drill_velocity
 	CommandArgType drill_velocity_cargs[MAX_SCOMMAND_ARGUMENTS] = {FLOAT_ARG};
-	cHandler.addCommand('-', set_drill_velocity_command, drill_velocity_cargs);
+	cHandler.addCommand('L', set_drill_velocity_command, drill_velocity_cargs);
 
 	// Dynamixel Setup
 	dxl.begin(1000000);
@@ -286,10 +288,18 @@ void setup() {
 		dxl.torqueOn(motors[i].id);
 	}
 
-	soft_serial.println("Finished Setup");
+	// set_motor_velocity(1, 0, 10);
+	// set_motor_velocity(4, 0, 10);
+
+	// set_motor_velocity(2, 0, -10);
+	// set_motor_velocity(3, 0, -10);
+
+	soft_serial.println("Finished Setuped");
+	// Serial.println("Finished Setuped");
 }
 
 void loop()
 {
+	// Serial.println("Reading");
 	cHandler.readSerial();
 }

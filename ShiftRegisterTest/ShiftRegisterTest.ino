@@ -1,9 +1,8 @@
-const int SER = 13;
-const int OE = 25;
-const int RCLK = 14;
-
-const int SRCLK = 27;
-const int SRCLR = 26;
+const int SER_PIN = 13;
+const int RCLK_PIN = 14;
+const int OE_PIN = 25;
+const int SRCLK_PIN = 27;
+const int SRCLR_PIN = 26;
 
 const int STEP = 33;
 
@@ -17,8 +16,8 @@ class ShiferRegister {
       pinMode(SER_PIN, OUTPUT);
       pinMode(OE_PIN, OUTPUT);
       pinMode(RCLK_PIN, OUTPUT);
-      pinMode(SRCLK, OUTPUT);
-      pinMode(SRCLR, OUTPUT);
+      pinMode(SRCLK_PIN, OUTPUT);
+      pinMode(SRCLR_PIN, OUTPUT);
     }
 
     void setPins(int *pins)
@@ -51,11 +50,11 @@ ShiferRegister reg;
 
 void setup() {
   // put your setup code here, to run once:
-  reg.SER_PIN = SER;
-  reg.OE_PIN = OE;
-  reg.SRCLK_PIN = SRCLK;
-  reg.RCLK_PIN = RCLK;
-  reg.SRCLR_PIN = SRCLR;
+  reg.SER_PIN = SER_PIN;
+  reg.OE_PIN = OE_PIN;
+  reg.SRCLK_PIN = SRCLK_PIN;
+  reg.RCLK_PIN = RCLK_PIN;
+  reg.SRCLR_PIN = SRCLR_PIN;
 
   reg.setup();
 

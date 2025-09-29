@@ -9,16 +9,15 @@ const int SRCLR = 26;
 
 const int STEP = 18;
 
-
 ShiftRegister reg(8);
 
 void setup() {
   // put your setup code here, to run once:
-  reg.SER_PIN = SER;
-  reg.OE_PIN = OE;
-  reg.SRCLK_PIN = SRCLK;
-  reg.RCLK_PIN = RCLK;
-  reg.SRCLR_PIN = SRCLR;
+  reg.SER_PIN = SER_PIN;
+  reg.OE_PIN = OE_PIN;
+  reg.SRCLK_PIN = SRCLK_PIN;
+  reg.RCLK_PIN = RCLK_PIN;
+  reg.SRCLR_PIN = SRCLR_PIN;
 
   reg.setup();
 

@@ -296,10 +296,23 @@ void setup() {
 
 	soft_serial.println("Finished Setuped");
 	// Serial.println("Finished Setuped");
+
+	set_motor_velocity(1, 0, 100);
+	set_motor_velocity(2, 0, -100);
+	set_motor_velocity(3, 0, -100);
+	set_motor_velocity(4, 0, 100);
+
+	delay(2000);
+
+	set_motor_velocity(1, 0, 0);
+	set_motor_velocity(2, 0, 0);
+	set_motor_velocity(3, 0, 0);
+	set_motor_velocity(4, 0, 0);
 }
 
 void loop()
 {
+	
 	// Serial.println("Reading");
 	cHandler.readSerial();
 }

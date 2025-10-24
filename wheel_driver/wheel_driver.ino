@@ -2,6 +2,13 @@
 #include <SoftwareSerial.h>
 #include "BTS7960.h"
 
+//read from these pins; when they are high...
+const int rpin = 9; //turn right
+const int lpin = 10; //turn left
+const int fpin = 11; //drive forward
+const int bpin = 12; //drive backwards
+const int stoppin = 13; //stop all motors
+
 const uint8_t L_PWM = 10;
 const uint8_t R_PWM = 11;
 const uint8_t L_EN = 12;
@@ -47,6 +54,42 @@ Motor motors[] = {
 
 
 CommandHandler cHandler;
+
+//motor control comands drivetrain
+void startforward(){
+	set_motor_velocity(1, 0, 100);
+	set_motor_velocity(2, 0, -100);
+	set_motor_velocity(3, 0, -100);
+	set_motor_velocity(4, 0, 100);
+}
+
+void stopmotors(){
+	set_motor_velocity(1, 0, 0);
+	set_motor_velocity(2, 0, 0);
+	set_motor_velocity(3, 0, 0);
+	set_motor_velocity(4, 0, 0);
+}
+
+void startbackward(){
+	set_motor_velocity(1, 0, -100);
+	set_motor_velocity(2, 0, 100);
+	set_motor_velocity(3, 0, 100);
+	set_motor_velocity(4, 0, -100);
+}
+
+void startright(){
+	set_motor_velocity(1, 0, 0);
+	set_motor_velocity(2, 0, -100);
+	set_motor_velocity(3, 0, -100);
+	set_motor_velocity(4, 0, 0);
+}
+
+void startleft(){
+	set_motor_velocity(1, 0, 100);
+	set_motor_velocity(2, 0, 0);
+	set_motor_velocity(3, 0, 0);
+	set_motor_velocity(4, 0, 100);
+}
 
 bool refresh_motor(int id)
 {
@@ -219,6 +262,12 @@ void set_drill_velocity(float speed)
   }
 }
 void setup() {
+	pinMode(rpin, INPUT);
+	pinMode(lpin, INPUT);
+	pinMode(fpin, INPUT);
+	pinMode(bpin, INPUT);
+	pinMode(stoppin, INPUT);
+	
 	// Serial
 	// Serial.begin(9600);
 	soft_serial.begin(9600);
@@ -296,23 +345,31 @@ void setup() {
 
 	soft_serial.println("Finished Setuped");
 	// Serial.println("Finished Setuped");
-
-	set_motor_velocity(1, 0, 100);
-	set_motor_velocity(2, 0, -100);
-	set_motor_velocity(3, 0, -100);
-	set_motor_velocity(4, 0, 100);
-
-	delay(2000);
-
-	set_motor_velocity(1, 0, 0);
-	set_motor_velocity(2, 0, 0);
-	set_motor_velocity(3, 0, 0);
-	set_motor_velocity(4, 0, 0);
 }
 
 void loop()
 {
-	
+		if (digitalRead(rpin)==HIGH)
+	{
+		startright();
+	}
+	if (digitalRead(lpin)==HIGH)
+	{
+		startleft();
+	}
+	if (digitalRead(fpin)==HIGH)
+	{
+		startforward();
+	}
+	if (digitalRead(bpin)==HIGH)
+	{
+		startbackward();
+	}
+	if (digitalRead(stoppin)==HIGH)
+	{
+		stopmotors();
+	}
+	delay(10);
 	// Serial.println("Reading");
-	cHandler.readSerial();
+	//cHandler.readSerial();
 }

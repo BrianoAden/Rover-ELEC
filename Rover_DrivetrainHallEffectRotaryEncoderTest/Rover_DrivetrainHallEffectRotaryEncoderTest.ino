@@ -26,6 +26,9 @@ void setup() {
 
   // Read the initial state of CLK
   lastStateCLK = digitalRead(CLK);
+
+  delay(100);
+  Serial.println("Bob");
 }
 
 void loop() {

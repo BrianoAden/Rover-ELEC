@@ -57,7 +57,7 @@ void loop() {
       Serial.print(" | RPM: ");
       Serial.println(RPM);
       lastPrint = millis();
-      lastCounter = counter();
+      lastCounter = counter;
     }
   }
 
@@ -65,5 +65,5 @@ void loop() {
   lastStateCLK = currentStateCLK;
 
   // Put in a slight delay to help debounce the reading
-  delaymicroseconds(1);
+  delayMicroseconds(1);
 }

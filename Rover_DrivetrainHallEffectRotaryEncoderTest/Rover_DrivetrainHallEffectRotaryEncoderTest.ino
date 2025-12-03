@@ -2,7 +2,7 @@
 #define DT 33
 #define CLK 32
 
-int clicks_per_rotation = 5000;
+float clicks_per_rotation = 5264;
 
 //for calculating RPM & only printing once every second (to keep the printing process from slowing it down):
 unsigned long lastPrint = 0;
@@ -49,7 +49,7 @@ void loop() {
     }
     if((millis() - lastPrint) > 1000){
       //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
-      RPM = 60000(counter - lastCounter)/(clicks_per_rotation*(millis() - lastPrint));
+      RPM = 60000*(counter - lastCounter)/(clicks_per_rotation*(millis() - lastPrint));
       Serial.print("Direction: ");
       Serial.print(currentDir);
       Serial.print(" | Counter: ");

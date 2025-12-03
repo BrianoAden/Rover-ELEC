@@ -47,7 +47,7 @@ void loop() {
       counter ++;
       currentDir ="CW";
     }
-    if((millis() - lastPrint) > 1000):
+    if((millis() - lastPrint) > 1000){
       //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
       RPM = 60000(counter - lastCounter)/(clicks_per_rotation*(millis() - lastPrint));
       Serial.print("Direction: ");
@@ -58,6 +58,7 @@ void loop() {
       Serial.println(RPM);
       lastPrint = millis();
       lastCounter = counter();
+    }
   }
 
   // Remember last CLK state

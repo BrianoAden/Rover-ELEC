@@ -1,6 +1,8 @@
 // Rotary Encoder Inputs
-#define DT 33
-#define CLK 32
+#include "driver/gpio.h"
+
+#define DT GPIO_NUM_33
+#define CLK GPIO_NUM_32
 
 float clicks_per_rotation = 5264;
 
@@ -25,7 +27,7 @@ void setup() {
   Serial.begin(115200);
 
   // Read the initial state of CLK
-  lastStateCLK = digitalRead(CLK);
+  lastStateCLK = gpio_get_level(CLK);
 
   delay(100);
   Serial.println("Bob");
@@ -34,7 +36,7 @@ void setup() {
 void loop() {
   
   // Read the current state of CLK
-  currentStateCLK = digitalRead(CLK);
+  currentStateCLK = gpio_get_level(CLK);
 
   // If last and current state of CLK are different, then pulse occurred
   // React to only 1 state change to avoid double count
@@ -42,7 +44,7 @@ void loop() {
 
     // If the DT state is different than the CLK state then
     // the encoder is rotating CCW so decrement
-    if (digitalRead(DT) != currentStateCLK) {
+    if (gpio_get_level(DT) != currentStateCLK) {
       counter --;
       currentDir ="CCW";
     } else {

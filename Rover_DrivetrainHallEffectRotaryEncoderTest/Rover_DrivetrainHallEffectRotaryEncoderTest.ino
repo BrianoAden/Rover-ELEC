@@ -4,8 +4,10 @@
 
 int clicks_per_rotation = 5000;
 
-float lastClick = 0;
-float currentClick = 0;
+//for calculating RPM & only printing once every second (to keep the printing process from slowing it down):
+unsigned long lastPrint = 0;
+unsigned long lastCounter = 0;
+
 float RPM = 0;
 int counter = 0;
 int currentStateCLK;
@@ -40,24 +42,27 @@ void loop() {
     if (digitalRead(DT) != currentStateCLK) {
       counter --;
       currentDir ="CCW";
-      currentClick = millis();
     } else {
       // Encoder is rotating CW so increment
       counter ++;
       currentDir ="CW";
-      currentClick = millis();
     }
-    RPM = 60000/(clicks_per_rotation*(currentClick - lastClick)); //1 click/[change in time] ms * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
-    Serial.print("Direction: ");
-    Serial.print(currentDir);
-    Serial.print(" | Counter: ");
-    Serial.println(counter);
-    lastClick = currentClick;
+    if((millis() - lastPrint) > 1000):
+      //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
+      RPM = 60000(counter - lastCounter)/(clicks_per_rotation*(millis() - lastPrint));
+      Serial.print("Direction: ");
+      Serial.print(currentDir);
+      Serial.print(" | Counter: ");
+      Serial.print(counter);
+      Serial.print(" | RPM: ");
+      Serial.println(RPM);
+      lastPrint = millis();
+      lastCounter = counter();
   }
 
   // Remember last CLK state
   lastStateCLK = currentStateCLK;
 
   // Put in a slight delay to help debounce the reading
-  delay(1);
+  delaymicroseconds(1);
 }

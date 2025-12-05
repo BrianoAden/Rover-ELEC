@@ -6743,7 +6743,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 73.152 176.53 90)
 			(effects
 				(font
@@ -6813,7 +6813,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 31.242 110.49 90)
 			(effects
 				(font
@@ -6883,7 +6883,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 35.052 176.53 90)
 			(effects
 				(font
@@ -6953,7 +6953,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 93.472 146.05 90)
 			(effects
 				(font
@@ -7023,7 +7023,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 45.212 146.05 90)
 			(effects
 				(font
@@ -7093,7 +7093,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 28.702 110.49 90)
 			(effects
 				(font
@@ -7163,7 +7163,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 111.76 0)
 			(effects
 				(font
@@ -7233,7 +7233,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 40.132 146.05 90)
 			(effects
 				(font
@@ -7303,7 +7303,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 27.432 176.53 90)
 			(effects
 				(font
@@ -7373,7 +7373,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 88.392 176.53 90)
 			(effects
 				(font
@@ -7443,7 +7443,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 84.582 110.49 90)
 			(effects
 				(font
@@ -7513,7 +7513,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 101.092 146.05 90)
 			(effects
 				(font
@@ -7583,7 +7583,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 112.522 110.49 90)
 			(effects
 				(font
@@ -7653,7 +7653,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 46.482 110.49 90)
 			(effects
 				(font
@@ -7723,7 +7723,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 118.872 146.05 90)
 			(effects
 				(font
@@ -7793,7 +7793,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical"
 			(at 190.5 132.08 0)
 			(effects
 				(font
@@ -7863,7 +7863,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 37.592 176.53 90)
 			(effects
 				(font
@@ -7933,7 +7933,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 96.012 176.53 90)
 			(effects
 				(font
@@ -8003,7 +8003,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 90.932 146.05 90)
 			(effects
 				(font
@@ -8073,7 +8073,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 103.632 176.53 90)
 			(effects
 				(font
@@ -8143,7 +8143,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 62.992 146.05 90)
 			(effects
 				(font
@@ -8213,7 +8213,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 38.862 110.49 90)
 			(effects
 				(font
@@ -8281,7 +8281,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 167.64 22.098 90)
 			(effects
 				(font
@@ -8351,7 +8351,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 98.552 146.05 90)
 			(effects
 				(font
@@ -8421,7 +8421,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 54.102 110.49 90)
 			(effects
 				(font
@@ -8491,7 +8491,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 74.422 110.49 90)
 			(effects
 				(font
@@ -8561,7 +8561,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical"
 			(at 190.5 109.22 0)
 			(effects
 				(font
@@ -8705,7 +8705,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 51.562 110.49 90)
 			(effects
 				(font
@@ -8775,7 +8775,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 116.332 176.53 90)
 			(effects
 				(font
@@ -8845,7 +8845,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 61.722 110.49 90)
 			(effects
 				(font
@@ -8915,7 +8915,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 23.622 110.49 90)
 			(effects
 				(font
@@ -8924,7 +8924,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.we-online.com/components/products/datasheet/696103201002.pdf"
 			(at 25.4 110.49 0)
 			(effects
 				(font
@@ -8985,7 +8985,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 50.292 176.53 90)
 			(effects
 				(font
@@ -9055,7 +9055,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 83.312 146.05 90)
 			(effects
 				(font
@@ -9125,7 +9125,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 88.392 146.05 90)
 			(effects
 				(font
@@ -9195,7 +9195,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 40.132 176.53 90)
 			(effects
 				(font
@@ -9265,7 +9265,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 146.05 0)
 			(effects
 				(font
@@ -9335,7 +9335,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 60.452 176.53 90)
 			(effects
 				(font
@@ -9405,7 +9405,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 92.202 110.49 90)
 			(effects
 				(font
@@ -9475,7 +9475,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 121.92 0)
 			(effects
 				(font
@@ -9545,7 +9545,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 36.322 110.49 90)
 			(effects
 				(font
@@ -9615,7 +9615,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 24.892 176.53 90)
 			(effects
 				(font
@@ -9685,7 +9685,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 121.412 176.53 90)
 			(effects
 				(font
@@ -9755,7 +9755,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 80.772 176.53 90)
 			(effects
 				(font
@@ -9823,7 +9823,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 223.52 113.538 90)
 			(effects
 				(font
@@ -9893,7 +9893,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 32.512 176.53 90)
 			(effects
 				(font
@@ -9963,7 +9963,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 35.052 146.05 90)
 			(effects
 				(font
@@ -10033,7 +10033,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 118.872 176.53 90)
 			(effects
 				(font
@@ -10101,7 +10101,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 220.98 86.868 90)
 			(effects
 				(font
@@ -10171,7 +10171,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 107.442 110.49 90)
 			(effects
 				(font
@@ -10241,7 +10241,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 79.502 110.49 90)
 			(effects
 				(font
@@ -10311,7 +10311,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 154.94 29.21 0)
 			(effects
 				(font
@@ -10381,7 +10381,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 66.802 110.49 90)
 			(effects
 				(font
@@ -10451,7 +10451,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 47.752 146.05 90)
 			(effects
 				(font
@@ -10521,7 +10521,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 90.932 176.53 90)
 			(effects
 				(font
@@ -10591,7 +10591,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 115.062 110.49 90)
 			(effects
 				(font
@@ -10660,7 +10660,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "PDB:SMD Cap"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 189.23 25.4 0)
 			(effects
 				(font
@@ -10739,7 +10739,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 69.342 110.49 90)
 			(effects
 				(font
@@ -10809,7 +10809,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 85.852 146.05 90)
 			(effects
 				(font
@@ -10879,7 +10879,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 75.692 146.05 90)
 			(effects
 				(font
@@ -10949,7 +10949,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 59.182 110.49 90)
 			(effects
 				(font
@@ -11018,7 +11018,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "PDB:TCK Choke"
+		(property "Footprint" "Library:TCK-076"
 			(at 191.77 30.48 0)
 			(effects
 				(font
@@ -11103,7 +11103,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 109.982 110.49 90)
 			(effects
 				(font
@@ -11173,7 +11173,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 99.06 0)
 			(effects
 				(font
@@ -11243,7 +11243,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.00mm:PinHeader_1x01_P1.00mm_Vertical"
 			(at 190.5 156.21 0)
 			(effects
 				(font
@@ -11313,7 +11313,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 56.642 110.49 90)
 			(effects
 				(font
@@ -11382,7 +11382,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "PDB:SMD Cap"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 219.71 25.4 0)
 			(effects
 				(font
@@ -11461,7 +11461,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 83.312 176.53 90)
 			(effects
 				(font
@@ -11531,7 +11531,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 70.612 146.05 90)
 			(effects
 				(font
@@ -11601,7 +11601,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 85.09 0)
 			(effects
 				(font
@@ -11671,7 +11671,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 75.692 176.53 90)
 			(effects
 				(font
@@ -11741,7 +11741,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 78.232 146.05 90)
 			(effects
 				(font
@@ -11811,7 +11811,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 65.532 176.53 90)
 			(effects
 				(font
@@ -11878,7 +11878,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 49.53 167.64 0)
 			(effects
 				(font
@@ -12002,7 +12002,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 45.212 176.53 90)
 			(effects
 				(font
@@ -12072,7 +12072,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 55.372 176.53 90)
 			(effects
 				(font
@@ -12142,7 +12142,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 24.892 146.05 90)
 			(effects
 				(font
@@ -12212,7 +12212,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 98.552 176.53 90)
 			(effects
 				(font
@@ -12282,7 +12282,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 87.122 110.49 90)
 			(effects
 				(font
@@ -12352,7 +12352,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 93.472 176.53 90)
 			(effects
 				(font
@@ -12420,7 +12420,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 100.33 137.16 0)
 			(effects
 				(font
@@ -12544,7 +12544,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 37.592 146.05 90)
 			(effects
 				(font
@@ -12614,7 +12614,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 85.852 176.53 90)
 			(effects
 				(font
@@ -12684,7 +12684,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 80.772 146.05 90)
 			(effects
 				(font
@@ -12752,7 +12752,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 49.53 137.16 0)
 			(effects
 				(font
@@ -12950,7 +12950,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 33.782 110.49 90)
 			(effects
 				(font
@@ -13020,7 +13020,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 42.672 176.53 90)
 			(effects
 				(font
@@ -13090,7 +13090,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 122.682 110.49 90)
 			(effects
 				(font
@@ -13160,7 +13160,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 102.362 110.49 90)
 			(effects
 				(font
@@ -13230,7 +13230,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 104.902 110.49 90)
 			(effects
 				(font
@@ -13300,7 +13300,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 113.792 176.53 90)
 			(effects
 				(font
@@ -13370,7 +13370,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 50.292 146.05 90)
 			(effects
 				(font
@@ -13440,7 +13440,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 42.672 146.05 90)
 			(effects
 				(font
@@ -13510,7 +13510,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 123.952 146.05 90)
 			(effects
 				(font
@@ -13580,7 +13580,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 26.162 110.49 90)
 			(effects
 				(font
@@ -13650,7 +13650,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 27.432 146.05 90)
 			(effects
 				(font
@@ -13719,7 +13719,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "PDB:SMD Cap"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 250.19 25.4 0)
 			(effects
 				(font
@@ -13798,7 +13798,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 29.972 176.53 90)
 			(effects
 				(font
@@ -13868,7 +13868,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 52.832 176.53 90)
 			(effects
 				(font
@@ -13938,7 +13938,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 103.632 146.05 90)
 			(effects
 				(font
@@ -14008,7 +14008,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 64.262 110.49 90)
 			(effects
 				(font
@@ -14078,7 +14078,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 97.282 110.49 90)
 			(effects
 				(font
@@ -14148,7 +14148,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 41.402 110.49 90)
 			(effects
 				(font
@@ -14218,7 +14218,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 111.252 176.53 90)
 			(effects
 				(font
@@ -14288,7 +14288,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 106.172 146.05 90)
 			(effects
 				(font
@@ -14358,7 +14358,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 47.752 176.53 90)
 			(effects
 				(font
@@ -14428,7 +14428,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 120.142 110.49 90)
 			(effects
 				(font
@@ -14498,7 +14498,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 			(at 243.84 134.62 0)
 			(effects
 				(font
@@ -14568,7 +14568,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 73.152 146.05 90)
 			(effects
 				(font
@@ -14638,7 +14638,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 123.952 176.53 90)
 			(effects
 				(font
@@ -14706,7 +14706,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 99.06 101.6 0)
 			(effects
 				(font
@@ -14830,7 +14830,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 106.172 176.53 90)
 			(effects
 				(font
@@ -14900,7 +14900,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 57.912 176.53 90)
 			(effects
 				(font
@@ -14970,7 +14970,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 57.912 146.05 90)
 			(effects
 				(font
@@ -15040,7 +15040,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 99.822 110.49 90)
 			(effects
 				(font
@@ -15110,7 +15110,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 62.992 176.53 90)
 			(effects
 				(font
@@ -15180,7 +15180,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 116.332 146.05 90)
 			(effects
 				(font
@@ -15250,7 +15250,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 68.072 146.05 90)
 			(effects
 				(font
@@ -15320,7 +15320,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 70.612 176.53 90)
 			(effects
 				(font
@@ -15390,7 +15390,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 55.372 146.05 90)
 			(effects
 				(font
@@ -15460,7 +15460,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 108.712 176.53 90)
 			(effects
 				(font
@@ -15530,7 +15530,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 117.602 110.49 90)
 			(effects
 				(font
@@ -15600,7 +15600,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 29.972 146.05 90)
 			(effects
 				(font
@@ -15670,7 +15670,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 94.742 110.49 90)
 			(effects
 				(font
@@ -15738,7 +15738,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 226.06 136.398 90)
 			(effects
 				(font
@@ -15807,7 +15807,7 @@
 				(justify left bottom)
 			)
 		)
-		(property "Footprint" "PDB:TCK Choke"
+		(property "Footprint" "Library:TCK-076"
 			(at 220.98 30.48 0)
 			(effects
 				(font
@@ -15892,7 +15892,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 68.072 176.53 90)
 			(effects
 				(font
@@ -15962,7 +15962,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 89.662 110.49 90)
 			(effects
 				(font
@@ -16032,7 +16032,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 113.792 146.05 90)
 			(effects
 				(font
@@ -16102,7 +16102,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 32.512 146.05 90)
 			(effects
 				(font
@@ -16172,7 +16172,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 82.042 110.49 90)
 			(effects
 				(font
@@ -16239,7 +16239,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 100.33 167.64 0)
 			(effects
 				(font
@@ -16363,7 +16363,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 111.252 146.05 90)
 			(effects
 				(font
@@ -16433,7 +16433,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 49.022 110.49 90)
 			(effects
 				(font
@@ -16503,7 +16503,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 108.712 146.05 90)
 			(effects
 				(font
@@ -16571,7 +16571,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x20_P2.54mm_Vertical"
 			(at 48.26 101.6 0)
 			(effects
 				(font
@@ -16695,7 +16695,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 121.412 146.05 90)
 			(effects
 				(font
@@ -16765,7 +16765,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 71.882 110.49 90)
 			(effects
 				(font
@@ -16909,7 +16909,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 52.832 146.05 90)
 			(effects
 				(font
@@ -16979,7 +16979,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 101.092 176.53 90)
 			(effects
 				(font
@@ -17049,7 +17049,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 76.962 110.49 90)
 			(effects
 				(font
@@ -17119,7 +17119,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 43.942 110.49 90)
 			(effects
 				(font
@@ -17189,7 +17189,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 65.532 146.05 90)
 			(effects
 				(font
@@ -17259,7 +17259,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 60.452 146.05 90)
 			(effects
 				(font
@@ -17329,7 +17329,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 96.012 146.05 90)
 			(effects
 				(font
@@ -17399,7 +17399,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_Power_L20.0mm_W6.4mm_P22.40mm"
 			(at 78.232 176.53 90)
 			(effects
 				(font

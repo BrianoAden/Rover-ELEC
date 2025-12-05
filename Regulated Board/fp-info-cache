@@ -1,4 +1,4 @@
-24646050588418779
+24647815493375911
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -65820,6 +65820,13 @@ Library
 0
 4
 4
+Library
+FUSE_3544-2
+
+
+0
+2
+2
 Library
 TCK-076
 

@@ -546,6 +546,210 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:Conn_01x03_Pin"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x03_Pin"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x03, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x03_Pin_1_1"
+				(rectangle
+					(start 0.8636 2.667)
+					(end 0 2.413)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 0.8636 2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Conn_01x03_Socket"
 			(pin_names
 				(offset 1.016)
@@ -3205,6 +3409,148 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Regulator_Linear:L7805"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at -3.81 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "L7805"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0.635 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(justify left)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf"
+				(at 0 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Positive 1.5A 35V Linear Regulator, Fixed Output 5V, TO-220/TO-263/TO-252"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Voltage Regulator 1.5A Positive"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "TO?252* TO?263* TO?220*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "L7805_0_1"
+				(rectangle
+					(start -5.08 1.905)
+					(end 5.08 -5.08)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "L7805_1_1"
+				(pin power_in line
+					(at -7.62 0 0)
+					(length 2.54)
+					(name "IN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 0 -7.62 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name "OUT"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Simulation_SPICE:NMOS"
 			(pin_numbers
 				(hide yes)
@@ -3839,6 +4185,18 @@
 		)
 	)
 	(rectangle
+		(start 105.41 167.64)
+		(end 154.94 195.58)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 26de170a-d8de-4c7e-9a0e-e196959fe714)
+	)
+	(rectangle
 		(start 184.15 71.12)
 		(end 212.09 93.98)
 		(stroke
@@ -4010,6 +4368,16 @@
 		)
 		(uuid "567eef89-d005-4285-b7ff-922f3e53d695")
 	)
+	(text "<< Pin allows for switching\nbetween linear regulator\n12V input) and 5V input modes"
+		(exclude_from_sim no)
+		(at 138.176 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "941719dc-16e8-4997-b84e-bbe95da217df")
+	)
 	(text "Power control switch:\nD15 LOW -> power supplied to SW chips\nD15 HIGH -> power not supplied to SW chips"
 		(exclude_from_sim no)
 		(at 180.594 149.606 0)
@@ -4030,7 +4398,7 @@
 		)
 		(uuid "c95416c5-5051-4523-90f2-ea68c715b3b2")
 	)
-	(text "Space for 5V jumper wires so that we\ncan decide power via battery vs usb later on"
+	(text "Space for 5V jumper so that we\ncan decide power via battery vs usb later on"
 		(exclude_from_sim no)
 		(at 122.682 67.31 0)
 		(effects
@@ -4039,18 +4407,6 @@
 			)
 		)
 		(uuid "feeb8b90-4305-4862-924c-55b76b4ec862")
-	)
-	(junction
-		(at 140.97 73.66)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "670cfa39-ca5e-401d-943a-637713d4f1ea")
-	)
-	(junction
-		(at 115.57 71.12)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8d81a39b-a7ec-4718-a7fd-230d7a3d6eeb")
 	)
 	(junction
 		(at 148.59 151.13)
@@ -4416,16 +4772,6 @@
 	)
 	(wire
 		(pts
-			(xy 138.43 73.66) (xy 140.97 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3852626e-6370-420c-b1e5-9163d5e798c4")
-	)
-	(wire
-		(pts
 			(xy 189.23 100.33) (xy 189.23 101.6)
 		)
 		(stroke
@@ -4473,16 +4819,6 @@
 			(type default)
 		)
 		(uuid "41041dee-5489-4fed-86ab-429c7872e7c3")
-	)
-	(wire
-		(pts
-			(xy 138.43 71.12) (xy 140.97 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "410b1e2c-eb25-4b32-af23-8f482ec4187a")
 	)
 	(wire
 		(pts
@@ -5196,6 +5532,16 @@
 	)
 	(wire
 		(pts
+			(xy 119.38 180.34) (xy 119.38 185.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b15563d2-1dec-4c09-97f8-2f8cfb680be7")
+	)
+	(wire
+		(pts
 			(xy 64.77 87.63) (xy 67.31 87.63)
 		)
 		(stroke
@@ -5276,7 +5622,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 71.12) (xy 116.84 71.12)
+			(xy 114.3 71.12) (xy 116.84 71.12)
 		)
 		(stroke
 			(width 0)
@@ -5446,16 +5792,6 @@
 	)
 	(wire
 		(pts
-			(xy 114.3 71.12) (xy 115.57 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d7c80f33-0c58-46a5-9782-12566c3078f3")
-	)
-	(wire
-		(pts
 			(xy 171.45 109.22) (xy 185.42 109.22)
 		)
 		(stroke
@@ -5483,16 +5819,6 @@
 			(type default)
 		)
 		(uuid "dc589e36-0795-4d67-8615-d443c408215a")
-	)
-	(wire
-		(pts
-			(xy 115.57 71.12) (xy 115.57 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "de39f790-ac6d-493c-9484-c933cdae3570")
 	)
 	(wire
 		(pts
@@ -5730,6 +6056,28 @@
 			)
 		)
 	)
+	(global_label "ESP32Feeder"
+		(shape input)
+		(at 115.57 73.66 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0eae7b76-473c-4d43-8bb1-c1d59ee93015")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 100.2477 73.66 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "SDA"
 		(shape input)
 		(at 270.51 43.18 0)
@@ -5765,6 +6113,50 @@
 		(uuid "1367b97c-3a88-4320-bb4f-9a31ade3948f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 162.0543 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "GND"
+		(shape input)
+		(at 127 193.04 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "145a464c-ecb4-47cf-bd1b-f15b1dc5b6d1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 120.1443 193.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "original5V"
+		(shape input)
+		(at 114.3 180.34 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "16c08e87-230e-4d3c-968e-68c73a9516ed")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 114.3 192.8803 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6172,22 +6564,22 @@
 	)
 	(global_label "ESP32Feeder"
 		(shape input)
-		(at 140.97 71.12 0)
+		(at 140.97 71.12 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "677442dc-86b7-4d86-bc41-0dfc9aec1e66")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 156.2923 71.12 0)
+			(at 125.6477 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -6236,7 +6628,7 @@
 			)
 		)
 	)
-	(global_label "original5V"
+	(global_label "Vin"
 		(shape input)
 		(at 196.85 78.74 180)
 		(fields_autoplaced yes)
@@ -6248,12 +6640,34 @@
 		)
 		(uuid "7724383b-8d72-4100-8e09-7fc12c10dc7d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 184.3097 78.74 0)
+			(at 191.0224 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "original5V"
+		(shape input)
+		(at 134.62 185.42 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7c42a54d-1f0b-4c6e-a78f-b0b37dc458c5")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 147.1603 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -6720,6 +7134,28 @@
 			)
 		)
 	)
+	(global_label "Vin"
+		(shape input)
+		(at 116.84 180.34 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "d31adba3-afac-4ffd-816c-8610b3542d60")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 116.84 186.1676 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "5V"
 		(shape input)
 		(at 40.64 27.94 0)
@@ -6896,7 +7332,7 @@
 			)
 		)
 	)
-	(global_label "original5V"
+	(global_label "Vin"
 		(shape input)
 		(at 227.33 114.3 0)
 		(fields_autoplaced yes)
@@ -6908,7 +7344,7 @@
 		)
 		(uuid "e473f2bc-fa33-4677-b7eb-04f04b5c7db0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 239.8703 114.3 0)
+			(at 233.1576 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7585,6 +8021,79 @@
 			(project "RoboticsMotorControllerPCB"
 				(path "/9bcb256b-ad9a-4f05-b6e1-ac0b66ddb998"
 					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Regulator_Linear:L7805")
+		(at 127 185.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2b268833-e35a-4a61-b817-041a594b5472")
+		(property "Reference" "U3"
+			(at 127 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "L7805"
+			(at 127 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+			(at 127.635 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+					(italic yes)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "http://www.st.com/content/ccc/resource/technical/document/datasheet/41/4f/b3/b0/12/d4/47/88/CD00000444.pdf/files/CD00000444.pdf/jcr:content/translations/en.CD00000444.pdf"
+			(at 127 186.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Positive 1.5A 35V Linear Regulator, Fixed Output 5V, TO-220/TO-263/TO-252"
+			(at 127 185.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "e735542c-6f87-49c5-bcd0-34f8f56afdc4")
+		)
+		(pin "2"
+			(uuid "58d4e2c5-a3ae-47d3-ba16-5a0814bc6550")
+		)
+		(pin "1"
+			(uuid "47b7b81b-72b2-418c-81d7-b34ef3f3bd51")
+		)
+		(instances
+			(project ""
+				(path "/9bcb256b-ad9a-4f05-b6e1-ac0b66ddb998"
+					(reference "U3")
 					(unit 1)
 				)
 			)
@@ -9108,73 +9617,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 133.35 73.66 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "96e10e0b-5eff-4d3c-83ec-16e454ae4557")
-		(property "Reference" "J7"
-			(at 135.636 77.724 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Conn_01x02_Socket"
-			(at 135.89 75.184 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 133.35 73.66 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "5bb69d58-808e-406c-a784-c8e16cd97333")
-		)
-		(pin "2"
-			(uuid "dbeea55e-68ba-4c4d-b7ce-e33d81d4efd8")
-		)
-		(instances
-			(project "DrivetrainDrillMotorControllerPCB"
-				(path "/9bcb256b-ad9a-4f05-b6e1-ac0b66ddb998"
-					(reference "J7")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Analog_ADC:MAX11617")
 		(at 168.91 40.64 0)
 		(unit 1)
@@ -9788,6 +10230,76 @@
 			(project ""
 				(path "/9bcb256b-ad9a-4f05-b6e1-ac0b66ddb998"
 					(reference "R1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x03_Pin")
+		(at 116.84 175.26 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ba94f5aa-16d4-49ea-a2d7-8348b4725b97")
+		(property "Reference" "J7"
+			(at 109.982 175.514 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x03_Pin"
+			(at 112.014 173.228 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
+			(at 116.84 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated"
+			(at 116.84 175.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "75056c33-be97-41af-b981-5f5a806890dc")
+		)
+		(pin "3"
+			(uuid "8ebf903a-a8b7-4f8f-9902-a8a03c00fc7b")
+		)
+		(pin "1"
+			(uuid "ab5fddec-373a-486b-8fb2-1dfe0e988231")
+		)
+		(instances
+			(project ""
+				(path "/9bcb256b-ad9a-4f05-b6e1-ac0b66ddb998"
+					(reference "J7")
 					(unit 1)
 				)
 			)

@@ -12409,6 +12409,7 @@
 		(property "Reference" "J5"
 			(at 0 -2.38 0)
 			(layer "F.SilkS")
+			(hide yes)
 			(uuid "ba7a38a4-d212-4cd9-8001-68abe8fb858f")
 			(effects
 				(font
@@ -15639,8 +15640,8 @@
 			(justify left bottom)
 		)
 	)
-	(gr_text "Write D15 {dblquote}HIGH{dblquote} to cut off power to SW chips,\nmotors, & REs.  Read voltage level at D23 & \nmultiply by 2 to get voltage level of battery."
-		(at 154.5 150.5 90)
+	(gr_text "Write D15 {dblquote}HIGH{dblquote} to cut off power to SW chips,\nmotors, & REs.  Read voltage level at D23 & \nmultiply by appropriate factor _____ to get voltage level of battery."
+		(at 155.5 148.5 90)
 		(layer "F.SilkS")
 		(uuid "37a4f41b-4799-4c3d-bfca-8f51d560b355")
 		(effects
@@ -16054,7 +16055,7 @@
 		)
 	)
 	(gr_text "5V"
-		(at 84 121.23 0)
+		(at 84 102.5 0)
 		(layer "F.SilkS")
 		(uuid "d8dd80e7-9bf1-40d7-ba5a-63f7189a464d")
 		(effects

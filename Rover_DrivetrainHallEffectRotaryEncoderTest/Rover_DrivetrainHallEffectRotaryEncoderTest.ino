@@ -22,6 +22,11 @@ unsigned long lastButtonPress = 0;
 
 void setup() {
 
+  pinMode(ENABLE, OUTPUT);
+
+  pinMode(PWM, OUTPUT);
+
+
   // Set encoder pins as inputs
   pinMode(CLK, INPUT);
   pinMode(DT, INPUT);
@@ -34,16 +39,24 @@ void setup() {
 
   delay(100);
   Serial.println("Bob");
+
+  //enable motor
+  digitalWrite(ENABLE, HIGH);
+
+  //turn motor on
+  analogWrite(PWM, 60);
 }
 
 void loop() {
+
 
   // Read the current state of CLK
   currentStateCLK = gpio_get_level(CLK);
 
   // If last and current state of CLK are different, then pulse occurred
   // React to only 1 state change to avoid double count
-  if (currentStateCLK != lastStateCLK && currentStateCLK == 1) {
+  if (currentStateCLK != lastStateCLK) {
+
 
     // If the DT state is different than the CLK state then
     // the encoder is rotating CCW so decrement
@@ -55,23 +68,26 @@ void loop() {
       counter++;
       currentDir = "CW";
     }
-    if ((millis() - lastPrint) > 1000) {
-      //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
-      RPM = 60000 * (counter - lastCounter) / (clicks_per_rotation * (millis() - lastPrint));
-      Serial.print("Direction: ");
-      Serial.print(currentDir);
-      Serial.print(" | Counter: ");
-      Serial.print(counter);
-      Serial.print(" | RPM: ");
-      Serial.println(RPM);
-      lastPrint = millis();
-      lastCounter = counter;
-    }
+    
   }
+  
+  if ((millis() - lastPrint) > 1000) {
+        //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
+        //currently, this is actually rotation per second
+        RPM = 1000 * (counter - lastCounter) / (clicks_per_rotation * (millis() - lastPrint));
+        Serial.print("Direction: ");
+        Serial.print(currentDir);
+        Serial.print(" | Counter: ");
+        Serial.print(counter);
+        Serial.print(" | RPS: ");
+        Serial.println(RPM);
+        lastPrint = millis();
+        lastCounter = counter;
+      }
 
   // Remember last CLK state
   lastStateCLK = currentStateCLK;
 
   // Put in a slight delay to help debounce the reading
-  delayMicroseconds(1);
+
 }

@@ -4,6 +4,9 @@
 #define DT GPIO_NUM_33
 #define CLK GPIO_NUM_32
 
+#define ENABLE GPIO_NUM_25
+#define PWM GPIO_NUM_26
+
 float clicks_per_rotation = 5264;
 
 //for calculating RPM & only printing once every second (to keep the printing process from slowing it down):
@@ -14,14 +17,14 @@ float RPM = 0;
 int counter = 0;
 int currentStateCLK;
 int lastStateCLK;
-String currentDir ="";
+String currentDir = "";
 unsigned long lastButtonPress = 0;
 
 void setup() {
-  
+
   // Set encoder pins as inputs
-  pinMode(CLK,INPUT);
-  pinMode(DT,INPUT);
+  pinMode(CLK, INPUT);
+  pinMode(DT, INPUT);
 
   // Setup Serial Monitor
   Serial.begin(115200);
@@ -34,27 +37,27 @@ void setup() {
 }
 
 void loop() {
-  
+
   // Read the current state of CLK
   currentStateCLK = gpio_get_level(CLK);
 
   // If last and current state of CLK are different, then pulse occurred
   // React to only 1 state change to avoid double count
-  if (currentStateCLK != lastStateCLK  && currentStateCLK == 1){
+  if (currentStateCLK != lastStateCLK && currentStateCLK == 1) {
 
     // If the DT state is different than the CLK state then
     // the encoder is rotating CCW so decrement
     if (gpio_get_level(DT) != currentStateCLK) {
-      counter --;
-      currentDir ="CCW";
+      counter--;
+      currentDir = "CCW";
     } else {
       // Encoder is rotating CW so increment
-      counter ++;
-      currentDir ="CW";
+      counter++;
+      currentDir = "CW";
     }
-    if((millis() - lastPrint) > 1000){
+    if ((millis() - lastPrint) > 1000) {
       //RPM = [# of clicks]/[change in time, ms] * 1 rotation/[clicks per rotation] * 1000ms/1s * 60s/1min
-      RPM = 60000*(counter - lastCounter)/(clicks_per_rotation*(millis() - lastPrint));
+      RPM = 60000 * (counter - lastCounter) / (clicks_per_rotation * (millis() - lastPrint));
       Serial.print("Direction: ");
       Serial.print(currentDir);
       Serial.print(" | Counter: ");

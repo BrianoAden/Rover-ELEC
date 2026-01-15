@@ -14,7 +14,7 @@ int PWM = 1;
 int QE1 = 2;
 int QE2 = 3;
 int enableBoth = 4;
-int checkStall = 5;
+//int checkStall = 5;
 
 void setup() {
   // put your setup code here, to run once:
@@ -34,12 +34,12 @@ void setup() {
 
   //begin(pin, starting duty cycle, inverted true/false)
   pwm.begin(PWM, 0, false);
-  qeWithPullUps.begin(QE1, QE2);  // Initialize a QE on pins 2 and 3  Change these to different pins (say 18 and 19) on the SW18AB, since 3 is SDA
+  qeWithPullUps.begin(QE1, QE2);  // Initialize a QE on pins 2 and 3
 
 
   //digital enable pins
   sw.pinMode(enableBoth, OUTPUT);
-  sw.pinMode(checkStall, INPUT);
+  //sw.pinMode(checkStall, INPUT);
 
   //enable motor
   sw.digitalWrite(enableBoth, LOW);

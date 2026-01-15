@@ -20,17 +20,22 @@ void setup() {
   // put your setup code here, to run once:
 
   Serial.begin(115200);
-    Wire.begin(21, 22); // Initialize I2C with custom pin
-    Wire.setTimeOut(5000);
+  delay(2000);
+  Serial.print("Hello");
+  Wire.begin(21, 22); // Initialize I2C with custom pin
+  Wire.setTimeOut(5000);
 	delay(500);
 	uint8_t i2cAddress = 0x60; //sw.find();
     sw.begin(Wire,i2cAddress);  //Initialize the Serial Wombat library to use the primary I2C port
-	// sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
+	sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
 
-   sw.queryVersion();
+  Serial.println("here");
+
+  sw.queryVersion();
+
   Serial.println();
   Serial.print("Version "); Serial.println((char*)sw.fwVersion);
-  Serial.println("SW18AB Found.");
+  Serial.println("SW Found.");
 
   //begin(pin, starting duty cycle, inverted true/false)
   pwm.begin(PWM, 0, false);
@@ -42,19 +47,21 @@ void setup() {
   //sw.pinMode(checkStall, INPUT);
 
   //enable motor
-  sw.digitalWrite(enableBoth, LOW);
+  sw.digitalWrite(enableBoth, HIGH);
+  Serial.print("enabled motor");
   //spin motor
   pwm.writeDutyCycle(3000);
+  Serial.print("Started motor");
 
-  analogWrite(33, 100);
+  //analogWrite(33, 100);
 }
 
 void loop() {
   //return;
-  Serial.println(qeWithPullUps.read());
+  //Serial.println(qeWithPullUps.read());
 
-  if(sw.digitalRead(checkStall) == HIGH){
-    Serial.println("Stalling");
-  }
+//  if(sw.digitalRead(checkStall) == HIGH){
+//    Serial.println("Stalling");
+ // }
   delay(50);
 }

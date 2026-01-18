@@ -1,18 +1,13 @@
-//make all of the move functions here to be called by main program
+#include <Wire.h>
 #include <SerialWombat.h>
 
-//speed of all driving motors:
-int driveSpeed = 30000;
-//speed of drill:
-int drillSpeed = 30000;
+//make all of the move functions here to be called by main program
+
 
 //-------------starting definitions:
   //for rotary encoder stall tracking:
-  int CLK0 = 0;
-  int CLK1 = 0;
-  int CLK2 = 0;
-  int CLK3 = 0;
-  int CLK4 = 0;
+  //position in this array corresponds to number of motor
+  int CLKs[] = {0, 0, 0, 0, 0};
 
   //sw pins setup:
   int RIS = 1;
@@ -50,6 +45,14 @@ int drillSpeed = 30000;
   SerialWombatPWM RPWM4(motor4);
   SerialWombatPWM LPWM4(motor4);
 
+  //create arrays of addresses for PWMs, REs, motors
+  SerialWombatPWM* RPWMs[] = { &RPWM0, &RPWM1, &RPWM2, &RPWM3, &RPWM4 };
+  SerialWombatPWM* LPWMs[] = { &LPWM0, &LPWM1, &LPWM2, &LPWM3, &LPWM4 };
+  SerialWombatQuadEnc* REs[] = { &RE0, &RE1, &RE2, &RE3, &RE4 };
+  SerialWombatChip* motors[] = { &motor0, &motor1, &motor2, &motor3, &motor4 };
+
+  //create array of i2c addresses
+  uint8_t i2cAddresses[] = {0x60, 0x61, 0x62, 0x63, 0x64};
 
 
 //-------------setup: must be called at the beginning of main program in order for the rest of the commands to work 
@@ -61,145 +64,117 @@ int drillSpeed = 30000;
     Wire.setTimeOut(5000);
     delay(500);
 
-    //set sw addresses
-    uint8_t i2cAddress0 = 0x60;
-    uint8_t i2cAddress1 = 0x61;
-    uint8_t i2cAddress2 = 0x62;
-    uint8_t i2cAddress3 = 0x63;
-    uint8_t i2cAddress4 = 0x64;
+    //initialize & set up everything for each motor
+    for(int i = 0; i<5; i++){
+      //begin SW chips & communication with them
+      motors[i]->begin(Wire, i2cAddresses[i]);
 
-    //Initialize sws on I2C
-    motor0.begin(Wire,i2cAddress0);
-    motor1.begin(Wire,i2cAddress1);
-    motor2.begin(Wire,i2cAddress2);
-    motor3.begin(Wire,i2cAddress3);
-    motor4.begin(Wire,i2cAddress4);
+      //begin PWM pins
+      RPWMs[i]->begin(RPWM, 0, false);
+      LPWMs[i]->begin(LPWM, 0, false);
 
-    //begin PWM pins
-    RPWM0.begin(RPWM, 0, false);
-    LPWM0.begin(LPWM, 0, false);
-    RPWM1.begin(RPWM, 0, false);
-    LPWM1.begin(LPWM, 0, false);
-    RPWM2.begin(RPWM, 0, false);
-    LPWM2.begin(LPWM, 0, false);
-    RPWM3.begin(RPWM, 0, false);
-    LPWM3.begin(LPWM, 0, false);
-    RPWM4.begin(RPWM, 0, false);
-    LPWM4.begin(LPWM, 0, false);
+      //set up enable pins
+      motors[i]->pinMode(LEN, OUTPUT);
+      motors[i]->pinMode(REN, OUTPUT);
+
+      //set up current alarms
+      motors[i]->pinMode(LIS, INPUT);
+      motors[i]->pinMode(RIS, INPUT);
     
-    //set up enable pins
-    motor0.pinMode(LEN, OUTPUT);
-    motor0.pinMode(REN, OUTPUT);
-    motor1.pinMode(LEN, OUTPUT);
-    motor1.pinMode(REN, OUTPUT);
-    motor2.pinMode(LEN, OUTPUT);
-    motor2.pinMode(REN, OUTPUT);
-    motor3.pinMode(LEN, OUTPUT);
-    motor3.pinMode(REN, OUTPUT);
-    motor4.pinMode(LEN, OUTPUT);
-    motor4.pinMode(REN, OUTPUT);
+      //initialize rotary encoders
+      REs[i]->begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
 
-    //set up current alarms
-    motor0.pinMode(LIS, INPUT);
-    motor0.pinMode(RIS, INPUT);
-    motor1.pinMode(LIS, INPUT);
-    motor1.pinMode(RIS, INPUT);
-    motor2.pinMode(LIS, INPUT);
-    motor2.pinMode(RIS, INPUT);
-    motor3.pinMode(LIS, INPUT);
-    motor3.pinMode(RIS, INPUT);
-    motor4.pinMode(LIS, INPUT);
-    motor4.pinMode(RIS, INPUT);
+      //set motors to not be enabled
+      motors[i]->digitalWrite(LEN, LOW);
+      motors[i]->digitalWrite(REN, LOW);
 
-    //initialize rotary encoders
-    RE0.begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-    RE1.begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-    RE2.begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-    RE3.begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-    RE4.begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-
-    //enable all motors
-    motor0.digitalWrite(LEN, HIGH);
-    motor0.digitalWrite(REN, HIGH);
-    motor1.digitalWrite(LEN, HIGH);
-    motor1.digitalWrite(REN, HIGH);
-    motor2.digitalWrite(LEN, HIGH);
-    motor2.digitalWrite(REN, HIGH);
-    motor3.digitalWrite(LEN, HIGH);
-    motor3.digitalWrite(REN, HIGH);
-    motor4.digitalWrite(LEN, HIGH);
-    motor4.digitalWrite(REN, HIGH);
+    }
   }
 
 //------------subcommands: will not be called in main program, but used to build commands
 
   //turns any motor right
-  void r(str motornum, dutyCycle){
-    s(motorname);
-    str RightPWM = "RPWM" + motornum;
-    RightPWM.writeDutyCycle(dutyCycle);
+  void r(int motornum, int dutyCycle){
+    //make sure lpwm is set to 0
+    LPWMs[motornum]->writeDutyCycle(0);
+    
+    //make sure motor is enabled
+    motors[motornum]->digitalWrite(LEN, HIGH);
+    motors[motornum]->digitalWrite(REN, HIGH);
+
+    //move motor
+    RPWMs[motornum]->writeDutyCycle(dutyCycle);
   }
 
   //turns any motor left
-  void l(str motornum, dutyCycle){
-    s(motornum);
-    str LeftPWM = "LPWM" + motornum;
-    LeftPWM.writeDutyCycle(dutyCycle);
+  void l(int motornum, int dutyCycle){
+    //make sure RPWM is set to 0
+    RPWMs[motornum]->writeDutyCycle(0);
+
+    //make sure motor is enabled
+    motors[motornum]->digitalWrite(LEN, HIGH);
+    motors[motornum]->digitalWrite(REN, HIGH);
+
+    //move motor
+    LPWMs[motornum]->writeDutyCycle(dutyCycle);
   }
 
   //stops motor
-  void s(str motornum){
-    str RightPWM = "RPWM" + motornum;
-    str LeftPWM = "LPWM" + motornum;
-    RightPWM.writeDutyCycle(0);
-    RightPWM.writeDutyCycle(0);
+  void s(int motornum){
+    //unenable motor
+    motors[motornum]->digitalWrite(LEN, LOW);
+    motors[motornum]->digitalWrite(REN, LOW);
+
+    //set pwms to 0
+    RPWMs[motornum]->writeDutyCycle(0);
+    LPWMs[motornum]->writeDutyCycle(0);
   }
 
 
 //------------commands: will be called in main program 
 
   //stops all drivetrain motors
-  void stop(){
-    s(1, driveSpeed);
-    s(2, driveSpeed);
-    s(3, driveSpeed);
-    s(4, driveSpeed);
+  void stopAll(){
+    s(1);
+    s(2);
+    s(3);
+    s(4);
   }
 
   //makes rover drive forward. Can swap "r" with "l" if rover goes wrong direction
-  void df(){
-    stop()
-    r(1, driveSpeed);
-    r(2, driveSpeed);
-    l(3, driveSpeed);
-    l(4, driveSpeed);
+  void df(int dutyCycle){
+    //stopAll()
+    r(1, dutyCycle);
+    r(2, dutyCycle);
+    l(3, dutyCycle);
+    l(4, dutyCycle);
   }
 
   //makes rover drive backward. Can swap "r" with "l" if rover goes wrong direction
-  void db(){
-    stop()
-    l(1, driveSpeed);
-    l(2, driveSpeed);
-    r(3, driveSpeed);
-    r(4, driveSpeed);
+  void db(int dutyCycle){
+    //stopAll()
+    l(1, dutyCycle);
+    l(2, dutyCycle);
+    r(3, dutyCycle);
+    r(4, dutyCycle);
   }
 
   //makes rover turn right. Can swap "r" with "l" if rover goes wrong direction
-  void tl(){
-    stop()
-    l(1, driveSpeed);
-    l(2, driveSpeed);
-    l(3, driveSpeed);
-    l(4, driveSpeed);
+  void tl(int dutyCycle){
+    //stopAll()
+    l(1, dutyCycle);
+    l(2, dutyCycle);
+    l(3, dutyCycle);
+    l(4, dutyCycle);
   }
 
   //makes rover turn left. Can swap "r" with "l" if rover goes wrong direction
-  void tr(){
-    stop()
-    r(1, driveSpeed);
-    r(2, driveSpeed);
-    r(3, driveSpeed);
-    r(4, driveSpeed);
+  void tr(int dutyCycle){
+    //stopAll()
+    r(1, dutyCycle);
+    r(2, dutyCycle);
+    r(3, dutyCycle);
+    r(4, dutyCycle);
   }
 
 
@@ -208,18 +183,19 @@ int drillSpeed = 30000;
   bool checkStall(bool newcommand, int currentcommand){
     bool stall;
     if(newcommand){
-      //NEED TO UPDATE ALL GLOBAL ENCODER VALUES
+      for(int i = 0; i<5; i++){
+        CLKs[i] = REs[i]->read();
+      }
       return false;
     }
     else if(currentcommand == 0){
         return false;
       }
-    }
     else if((currentcommand >0)&&(currentcommand<4)){
-      stall1 = getStall(1);
-      stall2 = getStall(2);
-      stall3 = getStall(3);
-      stall4 = getStall(4);
+      bool stall1 = getStall(1);
+      bool stall2 = getStall(2);
+      bool stall3 = getStall(3);
+      bool stall4 = getStall(4);
       if(((stall1 == true)||(stall2==true))||((stall3==true)||(stall4==true))){
         return true;
       }
@@ -247,35 +223,23 @@ int drillSpeed = 30000;
       stall = getStall(4);
       return stall;
     }
-  }
-
-  bool getStall(string motornum){
-    REname = "RE" + motornum;
-    int newCLK = REname.read();
-    int oldCLK = CLK(motornum);
-    if((oldCLK-newCLK != 0)){
-      return false;
-    }
     else{
       return true;
     }
   }
 
-  int CLK(string motornum){
-    if(motornum==0){
-      return CLK0;
+  bool getStall(int motornum){
+
+    int newCLK = REs[motornum]->read();
+        
+    int oldCLK = CLKs[motornum];
+
+    if((oldCLK-newCLK != 0)){
+      CLKs[motornum] = newCLK;
+      return false;
     }
-    if(motornum==1){
-      return CLK1;
-    }
-    if(motornum==2){
-      return CLK2;
-    }
-    if(motornum==3){
-      return CLK3;
-    }
-    if(motornum==4){
-      return CLK4;
+    else{
+      return true;
     }
   }
 

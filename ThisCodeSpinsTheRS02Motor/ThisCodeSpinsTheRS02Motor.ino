@@ -3,7 +3,7 @@
 #define TX_PIN GPIO_NUM_5
 #define RX_PIN GPIO_NUM_4
 
-const uint8_t MOTOR_ID = 127;
+const uint8_t MOTOR_ID = 6; //CHANGE THIS ID TO THE ID OF THE MOTOR THAT YOU'RE TRYING TO RUN
 const uint8_t MASTER_ID = 253;
 
 // Protocol Constants [cite: 92, 94]

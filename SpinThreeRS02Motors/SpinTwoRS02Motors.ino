@@ -3,11 +3,13 @@
 #define TX_PIN GPIO_NUM_5
 #define RX_PIN GPIO_NUM_4
 
-const uint8_t MOTOR_ID = 7; //CHANGE THIS ID TO THE ID OF THE MOTOR THAT YOU'RE TRYING TO RUN
+const uint8_t MOTOR_ID1 = 6; //CHANGE THIS ID TO THE ID OF THE MOTOR THAT YOU'RE TRYING TO RUN
+const uint8_t MOTOR_ID2 = 127; //CHANGE THIS ID TO THE ID OF THE MOTOR THAT YOU'RE TRYING TO RUN
+const uint8_t MOTOR_ID3 = 7; //CHANGE THIS ID TO THE ID OF THE MOTOR THAT YOU'RE TRYING TO RUN
 const uint8_t MASTER_ID = 253;
 
 // Protocol Constants [cite: 92, 94]
-#define CMD_CONTROL 0x01
+#define CMD_CONTROL  0x01
 #define CMD_FEEDBACK 0x02
 #define CMD_ENABLE   0x03
 #define CMD_STOP     0x04
@@ -21,11 +23,11 @@ void setup() {
 
   if (twai_driver_install(&g_config, &t_config, &f_config) == ESP_OK && twai_start() == ESP_OK) {
     Serial.println("System Ready. Enabling Motor...");
-    sendSimpleCommand(CMD_ENABLE); // Enable the motor 
+    sendSimpleCommand(CMD_ENABLE, MOTOR_ID1); // Enable the motor 
+    sendSimpleCommand(CMD_ENABLE, MOTOR_ID2); // Enable the motor 
+    sendSimpleCommand(CMD_ENABLE, MOTOR_ID3); // Enable the motor 
     delay(500);
   }
-
-  //clearMotorFaults(MOTOR_ID, MASTER_ID);
 }
 
 // Builds the 29-bit ID: [Type (5bit)][Host(8bit)][Target(8bit)] [cite: 88, 91]
@@ -33,30 +35,17 @@ uint32_t buildID(uint8_t type, uint8_t host, uint8_t target) {
   return ((uint32_t)type << 24) | ((uint32_t)host << 8) | (uint32_t)target;
 }
 
-
-//clears motor faults when there are any (for example, when motor locks due to undercurrent)
-void clearMotorFaults(uint8_t targetID, uint8_t masterID) {
+void sendSimpleCommand(uint8_t type, uint8_t motorid) {
   twai_message_t msg = {.extd = 1, .data_length_code = 8};
-  // Communication Type 4: Motor Stop / Clear Faults
-  msg.identifier = ((uint32_t)0x04 << 24) | ((uint32_t)masterID << 8) | targetID;
-  
-  msg.data[0] = 1; // This specific byte clears the fault status
-  for(int i=1; i<8; i++) msg.data[i] = 0;
-
-  twai_transmit(&msg, pdMS_TO_TICKS(100));
-}
-
-void sendSimpleCommand(uint8_t type) {
-  twai_message_t msg = {.extd = 1, .data_length_code = 8};
-  msg.identifier = buildID(type, MASTER_ID, MOTOR_ID);
+  msg.identifier = buildID(type, MASTER_ID, motorid);
   for(int i=0; i<8; i++) msg.data[i] = 0;
   twai_transmit(&msg, pdMS_TO_TICKS(10));
 }
 
 // Sends a Motion Control Command (Type 1) [cite: 91, 92]
-void sendMotionCommand(float target_vel) {
+void sendMotionCommand(float target_vel, uint8_t motorid) {
   twai_message_t msg = {.extd = 1, .data_length_code = 8};
-  msg.identifier = buildID(CMD_CONTROL, MASTER_ID, MOTOR_ID);
+  msg.identifier = buildID(CMD_CONTROL, MASTER_ID, motorid);
 
   // We want to spin at constant velocity, so we set:
   // Kp = 0, Target Angle = 0, Kd = 0.5 (damping), Target Vel = target_vel
@@ -74,11 +63,12 @@ void sendMotionCommand(float target_vel) {
 }
 
 void loop() {
-
   // Every 100ms, send a motion command to keep the motor spinning
   static uint32_t lastCmd = 0;
   if (millis() - lastCmd > 100) {
-    sendMotionCommand(2.0); // Spin at 2 rad/s
+    sendMotionCommand(2.0, MOTOR_ID1); // Spin at 2 rad/s
+    sendMotionCommand(2.0, MOTOR_ID2); // Spin at 2 rad/s
+    sendMotionCommand(2.0, MOTOR_ID3); // Spin at 2 rad/s
     lastCmd = millis();
   }
 

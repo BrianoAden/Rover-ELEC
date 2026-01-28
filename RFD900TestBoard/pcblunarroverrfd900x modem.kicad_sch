@@ -2591,7 +2591,7 @@
 	)
 	(text "GNSS Module\n"
 		(exclude_from_sim no)
-		(at 29.21 75.946 0)
+		(at 29.21 74.422 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -2621,13 +2621,33 @@
 	)
 	(text "Power"
 		(exclude_from_sim no)
-		(at 161.544 22.098 0)
+		(at 161.544 20.32 0)
 		(effects
 			(font
 				(size 2.54 2.54)
 			)
 		)
 		(uuid "f621ba27-df8d-42bf-8be8-a5b45c869b4c")
+	)
+	(text_box "NMEA data will be fed to the ESP32 over I2C. Configuration commands will come over UART. 5V external power will be provided and stepped down by the on-board regulator. 3.3V supply requires less than 50mV ripple voltage, which we can't guarantee off of the ESP32. If desired, we can build low and high frequency filters to minimize noise on this power supply, though it would possibly be a waste of resources, and time. For I2C operation, be sure the DSEL jumper is open. Use the SparkFun u-blox GNSS Arduino library to communicate over I2C."
+		(exclude_from_sim no)
+		(at 16.51 77.47 0)
+		(size 120.65 17.78)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "cfe83450-f660-45ad-b7f1-156cd85d4877")
 	)
 	(wire
 		(pts
@@ -2641,7 +2661,7 @@
 	)
 	(wire
 		(pts
-			(xy 209.55 86.36) (xy 209.55 92.71)
+			(xy 193.04 86.36) (xy 193.04 92.71)
 		)
 		(stroke
 			(width 0)
@@ -2671,7 +2691,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 140.97) (xy 77.47 140.97)
+			(xy 73.66 156.21) (xy 77.47 156.21)
 		)
 		(stroke
 			(width 0)
@@ -2691,7 +2711,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 138.43) (xy 179.07 138.43)
+			(xy 158.75 138.43) (xy 162.56 138.43)
 		)
 		(stroke
 			(width 0)
@@ -2711,7 +2731,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 116.84) (xy 77.47 116.84)
+			(xy 74.93 132.08) (xy 77.47 132.08)
 		)
 		(stroke
 			(width 0)
@@ -2721,7 +2741,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 100.33) (xy 209.55 100.33)
+			(xy 196.85 100.33) (xy 193.04 100.33)
 		)
 		(stroke
 			(width 0)
@@ -2741,7 +2761,17 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 128.27) (xy 125.73 124.46)
+			(xy 59.69 153.67) (xy 58.42 153.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2fe7672e-d47f-42cc-bcae-81169ca21902")
+	)
+	(wire
+		(pts
+			(xy 125.73 143.51) (xy 125.73 139.7)
 		)
 		(stroke
 			(width 0)
@@ -2761,7 +2791,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 138.43) (xy 77.47 138.43)
+			(xy 73.66 153.67) (xy 77.47 153.67)
 		)
 		(stroke
 			(width 0)
@@ -2771,7 +2801,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 100.33) (xy 125.73 104.14)
+			(xy 125.73 115.57) (xy 125.73 119.38)
 		)
 		(stroke
 			(width 0)
@@ -2781,7 +2811,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 110.49) (xy 209.55 110.49)
+			(xy 196.85 110.49) (xy 193.04 110.49)
 		)
 		(stroke
 			(width 0)
@@ -2801,7 +2831,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 104.14) (xy 118.11 104.14)
+			(xy 125.73 119.38) (xy 118.11 119.38)
 		)
 		(stroke
 			(width 0)
@@ -2821,6 +2851,16 @@
 	)
 	(wire
 		(pts
+			(xy 59.69 151.13) (xy 58.42 151.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bd456a2-6f5a-4237-a7f9-738255a28291")
+	)
+	(wire
+		(pts
 			(xy 60.96 52.07) (xy 63.5 52.07)
 		)
 		(stroke
@@ -2831,7 +2871,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 124.46) (xy 118.11 124.46)
+			(xy 125.73 139.7) (xy 118.11 139.7)
 		)
 		(stroke
 			(width 0)
@@ -2851,7 +2891,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 115.57) (xy 179.07 115.57)
+			(xy 158.75 115.57) (xy 162.56 115.57)
 		)
 		(stroke
 			(width 0)
@@ -2871,7 +2911,7 @@
 	)
 	(wire
 		(pts
-			(xy 179.07 86.36) (xy 179.07 92.71)
+			(xy 162.56 86.36) (xy 162.56 92.71)
 		)
 		(stroke
 			(width 0)
@@ -2881,7 +2921,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 124.46) (xy 60.96 130.81)
+			(xy 60.96 139.7) (xy 60.96 146.05)
 		)
 		(stroke
 			(width 0)
@@ -2891,7 +2931,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 102.87) (xy 209.55 102.87)
+			(xy 196.85 102.87) (xy 193.04 102.87)
 		)
 		(stroke
 			(width 0)
@@ -2901,7 +2941,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 143.51) (xy 77.47 143.51)
+			(xy 73.66 158.75) (xy 77.47 158.75)
 		)
 		(stroke
 			(width 0)
@@ -2911,7 +2951,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 143.51) (xy 58.42 143.51)
+			(xy 60.96 158.75) (xy 58.42 158.75)
 		)
 		(stroke
 			(width 0)
@@ -2931,7 +2971,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 120.65) (xy 179.07 120.65)
+			(xy 158.75 120.65) (xy 162.56 120.65)
 		)
 		(stroke
 			(width 0)
@@ -2941,7 +2981,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 118.11) (xy 209.55 118.11)
+			(xy 196.85 118.11) (xy 193.04 118.11)
 		)
 		(stroke
 			(width 0)
@@ -2951,7 +2991,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 115.57) (xy 209.55 115.57)
+			(xy 196.85 115.57) (xy 193.04 115.57)
 		)
 		(stroke
 			(width 0)
@@ -2971,7 +3011,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 119.38) (xy 77.47 119.38)
+			(xy 74.93 134.62) (xy 77.47 134.62)
 		)
 		(stroke
 			(width 0)
@@ -2981,7 +3021,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 151.13) (xy 60.96 143.51)
+			(xy 60.96 166.37) (xy 60.96 158.75)
 		)
 		(stroke
 			(width 0)
@@ -2991,7 +3031,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 123.19) (xy 179.07 123.19)
+			(xy 158.75 123.19) (xy 162.56 123.19)
 		)
 		(stroke
 			(width 0)
@@ -3001,7 +3041,7 @@
 	)
 	(wire
 		(pts
-			(xy 175.26 118.11) (xy 179.07 118.11)
+			(xy 158.75 118.11) (xy 162.56 118.11)
 		)
 		(stroke
 			(width 0)
@@ -3041,7 +3081,7 @@
 	)
 	(wire
 		(pts
-			(xy 213.36 107.95) (xy 209.55 107.95)
+			(xy 196.85 107.95) (xy 193.04 107.95)
 		)
 		(stroke
 			(width 0)
@@ -3061,7 +3101,7 @@
 	)
 	(wire
 		(pts
-			(xy 60.96 130.81) (xy 58.42 130.81)
+			(xy 60.96 146.05) (xy 58.42 146.05)
 		)
 		(stroke
 			(width 0)
@@ -3079,15 +3119,15 @@
 		)
 		(uuid "f5cb7f8a-70db-4bdc-b7bf-468e38a1bbc5")
 	)
-	(label "TX2"
-		(at 213.36 107.95 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
+	(bus
+		(pts
+			(xy 215.9 68.58) (xy 215.9 161.29)
 		)
-		(uuid "042b68e5-b1b0-4b96-9d9f-060b441dcb3c")
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5ee9fd7-d9fe-4f4d-993f-07eb4dd75b01")
 	)
 	(label "TX"
 		(at 43.18 49.53 0)
@@ -3109,16 +3149,6 @@
 		)
 		(uuid "29989f2d-e2b7-40d3-abcd-b095cd3f6ef2")
 	)
-	(label "RX2"
-		(at 213.36 110.49 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "37cbf502-f665-4704-8e78-2dedda64ba5c")
-	)
 	(label "RTS"
 		(at 43.18 52.07 0)
 		(effects
@@ -3139,28 +3169,8 @@
 		)
 		(uuid "55e1b451-18ea-45d5-a6ad-d81c696947d3")
 	)
-	(label "RX2"
-		(at 58.42 138.43 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ba737bcb-876c-4a09-9279-cf9576c093ba")
-	)
-	(label "TX2"
-		(at 58.42 135.89 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "c4a70cee-b999-4a7f-987e-49e0b9d935d5")
-	)
 	(label ""
-		(at 76.2 115.57 0)
+		(at 76.2 130.81 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3171,7 +3181,7 @@
 	)
 	(global_label "SAFE"
 		(shape input)
-		(at 175.26 118.11 180)
+		(at 158.75 118.11 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3181,7 +3191,7 @@
 		)
 		(uuid "0d81b367-7347-4187-b465-05d2b88d33d3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 167.7391 118.11 0)
+			(at 151.2291 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3191,9 +3201,53 @@
 			)
 		)
 	)
+	(global_label "RX2"
+		(shape input)
+		(at 196.85 110.49 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "13900538-2a65-4ec2-9c12-3a21f0db7d51")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 203.5242 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "TX2"
+		(shape input)
+		(at 196.85 107.95 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "40da3844-b05c-45ab-897d-0e864edeae59")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 203.2218 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "RST"
 		(shape input)
-		(at 175.26 115.57 180)
+		(at 158.75 115.57 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3203,7 +3257,7 @@
 		)
 		(uuid "5c0fceaf-af02-4cf2-b089-b365b817f993")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 168.8277 115.57 0)
+			(at 152.3177 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3215,7 +3269,7 @@
 	)
 	(global_label "SCL"
 		(shape input)
-		(at 213.36 115.57 0)
+		(at 196.85 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3225,7 +3279,7 @@
 		)
 		(uuid "5ef41858-d48a-44a9-9ad1-075c03b603d6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 219.8528 115.57 0)
+			(at 203.3428 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3237,7 +3291,7 @@
 	)
 	(global_label "INT"
 		(shape input)
-		(at 175.26 120.65 180)
+		(at 158.75 120.65 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3247,7 +3301,7 @@
 		)
 		(uuid "616169c0-f8c0-4b7d-aad8-21ba1b2e99f2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 169.3719 120.65 0)
+			(at 152.8619 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3259,7 +3313,7 @@
 	)
 	(global_label "RX"
 		(shape input)
-		(at 213.36 102.87 0)
+		(at 196.85 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3269,7 +3323,7 @@
 		)
 		(uuid "6ebafca7-ff55-403f-9d79-c714247ce4ad")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 218.8247 102.87 0)
+			(at 202.3147 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3281,7 +3335,7 @@
 	)
 	(global_label "RTS"
 		(shape input)
-		(at 213.36 118.11 0)
+		(at 196.85 118.11 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3291,7 +3345,7 @@
 		)
 		(uuid "6faaa418-c05c-44e2-89c4-4f49c1974a44")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 219.7923 118.11 0)
+			(at 203.2823 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3303,7 +3357,7 @@
 	)
 	(global_label "SAFE"
 		(shape input)
-		(at 72.39 140.97 180)
+		(at 73.66 156.21 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3313,7 +3367,7 @@
 		)
 		(uuid "8b835064-584f-41ca-ac23-ada6a5ef7314")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 64.8691 140.97 0)
+			(at 66.1391 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3325,7 +3379,7 @@
 	)
 	(global_label "RST"
 		(shape input)
-		(at 72.39 138.43 180)
+		(at 73.66 153.67 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3335,7 +3389,7 @@
 		)
 		(uuid "9fff011d-e394-433d-8287-f9fe994b513a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 65.9577 138.43 0)
+			(at 67.2277 153.67 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3347,7 +3401,7 @@
 	)
 	(global_label "SDA"
 		(shape input)
-		(at 175.26 138.43 180)
+		(at 158.75 138.43 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3357,7 +3411,7 @@
 		)
 		(uuid "a106ba9c-489b-4bb3-8495-b98d843c763b")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 168.7067 138.43 0)
+			(at 152.1967 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3369,7 +3423,7 @@
 	)
 	(global_label "TX"
 		(shape input)
-		(at 213.36 100.33 0)
+		(at 196.85 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3379,7 +3433,7 @@
 		)
 		(uuid "b77d36e7-5d4d-46eb-9d62-0680b455cafa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 218.5223 100.33 0)
+			(at 202.0123 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3391,7 +3445,7 @@
 	)
 	(global_label "CTS"
 		(shape input)
-		(at 175.26 123.19 180)
+		(at 158.75 123.19 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3401,7 +3455,7 @@
 		)
 		(uuid "ba00ccff-b86d-41b6-97dc-f98fd4d4cef5")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 168.8277 123.19 0)
+			(at 152.3177 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3411,9 +3465,53 @@
 			)
 		)
 	)
+	(global_label "TX2"
+		(shape input)
+		(at 59.69 151.13 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bbb27043-a785-4fe7-89d5-3b8d5183234e")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 66.0618 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "RX2"
+		(shape input)
+		(at 59.69 153.67 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e1f85c89-1815-4a2b-98da-14ae4a621efb")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 66.3642 153.67 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "SDA"
 		(shape input)
-		(at 74.93 119.38 180)
+		(at 74.93 134.62 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3423,7 +3521,7 @@
 		)
 		(uuid "e2685124-86bf-47e5-b58b-3176fb5df8e8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.3767 119.38 0)
+			(at 68.3767 134.62 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3435,7 +3533,7 @@
 	)
 	(global_label "SCL"
 		(shape input)
-		(at 74.93 116.84 180)
+		(at 74.93 132.08 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3445,7 +3543,7 @@
 		)
 		(uuid "f1c32e28-7a5a-47b3-846f-80ab2fa61ba0")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 68.4372 116.84 0)
+			(at 68.4372 132.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3457,7 +3555,7 @@
 	)
 	(global_label "INT"
 		(shape input)
-		(at 72.39 143.51 180)
+		(at 73.66 158.75 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3467,7 +3565,7 @@
 		)
 		(uuid "fea0fb96-85b7-4eba-b8f0-9e506ae3318d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 66.5019 143.51 0)
+			(at 67.7719 158.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3613,7 +3711,7 @@
 	)
 	(symbol
 		(lib_id "GPS-15136:GPS-15136")
-		(at 46.99 106.68 0)
+		(at 46.99 121.92 0)
 		(unit 2)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3622,7 +3720,7 @@
 		(fields_autoplaced yes)
 		(uuid "1c5211da-4ff0-4c40-aafd-323cc2632b03")
 		(property "Reference" "U2"
-			(at 46.99 93.98 0)
+			(at 46.99 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3630,7 +3728,7 @@
 			)
 		)
 		(property "Value" "GPS-15136"
-			(at 46.99 96.52 0)
+			(at 46.99 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3638,7 +3736,7 @@
 			)
 		)
 		(property "Footprint" "hi:MODULE_GPS-15136"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3648,7 +3746,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3657,7 +3755,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3666,7 +3764,7 @@
 			)
 		)
 		(property "MF" "SparkFun Electronics"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3676,7 +3774,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "N/A"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3686,7 +3784,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3696,7 +3794,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3706,7 +3804,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=eda"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3716,7 +3814,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3726,7 +3824,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3736,7 +3834,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=snap"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3746,7 +3844,7 @@
 			)
 		)
 		(property "MP" "GPS-15136"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3756,7 +3854,7 @@
 			)
 		)
 		(property "Description_1" "ZED-F9P GPS RF Qwiic Platform Evaluation Expansion Board"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3766,7 +3864,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3776,7 +3874,7 @@
 			)
 		)
 		(property "MANUFACTURER" "SparkFun"
-			(at 46.99 106.68 0)
+			(at 46.99 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3865,7 +3963,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 209.55 143.51 90)
+		(at 193.04 143.51 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3874,7 +3972,7 @@
 		(fields_autoplaced yes)
 		(uuid "1d15ccfb-9129-4d7f-ac44-f90db5a7ed01")
 		(property "Reference" "#PWR04"
-			(at 215.9 143.51 0)
+			(at 199.39 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3883,7 +3981,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 213.36 143.5099 90)
+			(at 196.85 143.5099 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3892,7 +3990,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 209.55 143.51 0)
+			(at 193.04 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3901,7 +3999,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 209.55 143.51 0)
+			(at 193.04 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3910,7 +4008,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 209.55 143.51 0)
+			(at 193.04 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4001,7 +4099,7 @@
 	)
 	(symbol
 		(lib_id "GPS-15136:GPS-15136")
-		(at 45.72 135.89 0)
+		(at 45.72 151.13 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4010,7 +4108,7 @@
 		(fields_autoplaced yes)
 		(uuid "4f3eec6b-1303-4160-9857-a15714c15a11")
 		(property "Reference" "U2"
-			(at 45.72 123.19 0)
+			(at 45.72 138.43 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4018,7 +4116,7 @@
 			)
 		)
 		(property "Value" "GPS-15136"
-			(at 45.72 125.73 0)
+			(at 45.72 140.97 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4026,7 +4124,7 @@
 			)
 		)
 		(property "Footprint" "hi:MODULE_GPS-15136"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4036,7 +4134,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4045,7 +4143,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4054,7 +4152,7 @@
 			)
 		)
 		(property "MF" "SparkFun Electronics"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4064,7 +4162,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "N/A"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4074,7 +4172,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4084,7 +4182,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4094,7 +4192,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=eda"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4104,7 +4202,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4114,7 +4212,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4124,7 +4222,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=snap"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4134,7 +4232,7 @@
 			)
 		)
 		(property "MP" "GPS-15136"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4144,7 +4242,7 @@
 			)
 		)
 		(property "Description_1" "ZED-F9P GPS RF Qwiic Platform Evaluation Expansion Board"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4154,7 +4252,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4164,7 +4262,7 @@
 			)
 		)
 		(property "MANUFACTURER" "SparkFun"
-			(at 45.72 135.89 0)
+			(at 45.72 151.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4253,7 +4351,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 125.73 100.33 0)
+		(at 125.73 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4261,7 +4359,7 @@
 		(dnp no)
 		(uuid "5a6c7367-9ea0-470e-9acc-eba3841b575a")
 		(property "Reference" "#PWR010"
-			(at 125.73 104.14 0)
+			(at 125.73 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4270,7 +4368,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 125.7299 96.52 90)
+			(at 125.7299 111.76 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4279,7 +4377,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 125.73 100.33 0)
+			(at 125.73 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4288,7 +4386,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 125.73 100.33 0)
+			(at 125.73 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4297,7 +4395,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 125.73 100.33 0)
+			(at 125.73 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4385,7 +4483,7 @@
 	)
 	(symbol
 		(lib_id "GPS-15136:GPS-15136")
-		(at 97.79 111.76 0)
+		(at 97.79 127 0)
 		(unit 4)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4394,7 +4492,7 @@
 		(fields_autoplaced yes)
 		(uuid "700da70a-dc37-45c1-8657-463747ed25fb")
 		(property "Reference" "U2"
-			(at 97.79 93.98 0)
+			(at 97.79 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4402,7 +4500,7 @@
 			)
 		)
 		(property "Value" "GPS-15136"
-			(at 97.79 96.52 0)
+			(at 97.79 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4410,7 +4508,7 @@
 			)
 		)
 		(property "Footprint" "hi:MODULE_GPS-15136"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4420,7 +4518,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4429,7 +4527,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4438,7 +4536,7 @@
 			)
 		)
 		(property "MF" "SparkFun Electronics"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4448,7 +4546,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "N/A"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4458,7 +4556,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4468,7 +4566,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4478,7 +4576,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=eda"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4488,7 +4586,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4498,7 +4596,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4508,7 +4606,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=snap"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4518,7 +4616,7 @@
 			)
 		)
 		(property "MP" "GPS-15136"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4528,7 +4626,7 @@
 			)
 		)
 		(property "Description_1" "ZED-F9P GPS RF Qwiic Platform Evaluation Expansion Board"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4538,7 +4636,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4548,7 +4646,7 @@
 			)
 		)
 		(property "MANUFACTURER" "SparkFun"
-			(at 97.79 111.76 0)
+			(at 97.79 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4704,7 +4802,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 209.55 86.36 0)
+		(at 193.04 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4712,7 +4810,7 @@
 		(dnp no)
 		(uuid "7d2ad793-8b6f-4c95-8955-4d71b892b717")
 		(property "Reference" "#PWR08"
-			(at 209.55 90.17 0)
+			(at 193.04 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4721,7 +4819,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 206.248 82.804 0)
+			(at 189.738 82.804 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4730,7 +4828,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 209.55 86.36 0)
+			(at 193.04 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4739,7 +4837,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 209.55 86.36 0)
+			(at 193.04 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4748,7 +4846,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 209.55 86.36 0)
+			(at 193.04 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4770,7 +4868,7 @@
 	)
 	(symbol
 		(lib_id "ESP32-DEVKIT-V1:ESP32-DEVKIT-V1")
-		(at 194.31 118.11 0)
+		(at 177.8 118.11 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4779,7 +4877,7 @@
 		(fields_autoplaced yes)
 		(uuid "7df816c7-50c5-4107-aab0-f863f24b69b6")
 		(property "Reference" "U1"
-			(at 194.31 85.09 0)
+			(at 177.8 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4787,7 +4885,7 @@
 			)
 		)
 		(property "Value" "ESP32-DEVKIT-V1"
-			(at 194.31 87.63 0)
+			(at 177.8 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4795,7 +4893,7 @@
 			)
 		)
 		(property "Footprint" "hi:MODULE_ESP32_DEVKIT_V1"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4805,7 +4903,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4814,7 +4912,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4823,7 +4921,7 @@
 			)
 		)
 		(property "MF" "Do it"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4833,7 +4931,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "6.8 mm"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4843,7 +4941,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4853,7 +4951,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4863,7 +4961,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/ESP32-DEVKIT-V1/Do+it/view-part/?ref=eda"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4873,7 +4971,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4883,7 +4981,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4893,7 +4991,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/ESP32-DEVKIT-V1/Do+it/view-part/?ref=snap"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4903,7 +5001,7 @@
 			)
 		)
 		(property "MP" "ESP32-DEVKIT-V1"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4913,7 +5011,7 @@
 			)
 		)
 		(property "Description_1" "Dual core, Wi-Fi: 2.4 GHz up to 150 Mbits/s,BLE (Bluetooth Low Energy) and legacy Bluetooth, 32 bits, Up to 240 MHz"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4923,7 +5021,7 @@
 			)
 		)
 		(property "Availability" "Not in stock"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4933,7 +5031,7 @@
 			)
 		)
 		(property "MANUFACTURER" "DOIT"
-			(at 194.31 118.11 0)
+			(at 177.8 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5043,7 +5141,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 125.73 128.27 0)
+		(at 125.73 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5052,7 +5150,7 @@
 		(fields_autoplaced yes)
 		(uuid "7f54c9f8-32f6-48bb-911a-fa5604a011d7")
 		(property "Reference" "#PWR011"
-			(at 125.73 134.62 0)
+			(at 125.73 149.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5061,7 +5159,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 128.27 129.5399 0)
+			(at 128.27 144.7799 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5070,7 +5168,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 125.73 128.27 0)
+			(at 125.73 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5079,7 +5177,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 125.73 128.27 0)
+			(at 125.73 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5088,7 +5186,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 125.73 128.27 0)
+			(at 125.73 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5220,7 +5318,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 60.96 151.13 0)
+		(at 60.96 166.37 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5228,7 +5326,7 @@
 		(dnp no)
 		(uuid "a4b904fa-001c-48ac-b836-71a39fc89d1a")
 		(property "Reference" "#PWR09"
-			(at 60.96 157.48 0)
+			(at 60.96 172.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5237,7 +5335,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 58.928 154.686 0)
+			(at 58.928 169.926 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5246,7 +5344,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 60.96 151.13 0)
+			(at 60.96 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5255,7 +5353,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 60.96 151.13 0)
+			(at 60.96 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5264,7 +5362,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 60.96 151.13 0)
+			(at 60.96 166.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5418,7 +5516,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 179.07 86.36 0)
+		(at 162.56 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5426,7 +5524,7 @@
 		(dnp no)
 		(uuid "c4a3766a-0f3c-40cd-961b-e5b11672c5cb")
 		(property "Reference" "#PWR02"
-			(at 179.07 90.17 0)
+			(at 162.56 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5435,7 +5533,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 177.038 82.804 0)
+			(at 160.528 82.804 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5444,7 +5542,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 179.07 86.36 0)
+			(at 162.56 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5453,7 +5551,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 179.07 86.36 0)
+			(at 162.56 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5462,7 +5560,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 179.07 86.36 0)
+			(at 162.56 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5616,7 +5714,7 @@
 	)
 	(symbol
 		(lib_id "GPS-15136:GPS-15136")
-		(at 97.79 140.97 0)
+		(at 97.79 156.21 0)
 		(unit 3)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5625,7 +5723,7 @@
 		(fields_autoplaced yes)
 		(uuid "e91ffc65-1f96-4fdd-aca0-b403c7be2104")
 		(property "Reference" "U2"
-			(at 97.79 130.81 0)
+			(at 97.79 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5633,7 +5731,7 @@
 			)
 		)
 		(property "Value" "GPS-15136"
-			(at 97.79 133.35 0)
+			(at 97.79 148.59 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5641,7 +5739,7 @@
 			)
 		)
 		(property "Footprint" "hi:MODULE_GPS-15136"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5651,7 +5749,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5660,7 +5758,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5669,7 +5767,7 @@
 			)
 		)
 		(property "MF" "SparkFun Electronics"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5679,7 +5777,7 @@
 			)
 		)
 		(property "MAXIMUM_PACKAGE_HEIGHT" "N/A"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5689,7 +5787,7 @@
 			)
 		)
 		(property "Package" "None"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5699,7 +5797,7 @@
 			)
 		)
 		(property "Price" "None"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5709,7 +5807,7 @@
 			)
 		)
 		(property "Check_prices" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=eda"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5719,7 +5817,7 @@
 			)
 		)
 		(property "STANDARD" "Manufacturer Recommendations"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5729,7 +5827,7 @@
 			)
 		)
 		(property "PARTREV" "N/A"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5739,7 +5837,7 @@
 			)
 		)
 		(property "SnapEDA_Link" "https://www.snapeda.com/parts/GPS-15136/SparkFun/view-part/?ref=snap"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5749,7 +5847,7 @@
 			)
 		)
 		(property "MP" "GPS-15136"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5759,7 +5857,7 @@
 			)
 		)
 		(property "Description_1" "ZED-F9P GPS RF Qwiic Platform Evaluation Expansion Board"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5769,7 +5867,7 @@
 			)
 		)
 		(property "Availability" "In Stock"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5779,7 +5877,7 @@
 			)
 		)
 		(property "MANUFACTURER" "SparkFun"
-			(at 97.79 140.97 0)
+			(at 97.79 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5868,7 +5966,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 60.96 124.46 0)
+		(at 60.96 139.7 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5876,7 +5974,7 @@
 		(dnp no)
 		(uuid "fdad32f3-e547-407e-97cb-3dce61879fd2")
 		(property "Reference" "#PWR07"
-			(at 60.96 128.27 0)
+			(at 60.96 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5885,7 +5983,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 57.912 120.904 0)
+			(at 57.912 136.144 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5894,7 +5992,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 60.96 124.46 0)
+			(at 60.96 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5903,7 +6001,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 60.96 124.46 0)
+			(at 60.96 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5912,7 +6010,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3.3V\""
-			(at 60.96 124.46 0)
+			(at 60.96 139.7 0)
 			(effects
 				(font
 					(size 1.27 1.27)

@@ -9,6 +9,8 @@
 	(paper "A4")
 	(layers
 		(0 "F.Cu" signal)
+		(4 "In1.Cu" signal)
+		(6 "In2.Cu" signal)
 		(2 "B.Cu" signal)
 		(9 "F.Adhes" user "F.Adhesive")
 		(11 "B.Adhes" user "B.Adhesive")
@@ -34,6 +36,67 @@
 		(45 "User.4" user)
 	)
 	(setup
+		(stackup
+			(layer "F.SilkS"
+				(type "Top Silk Screen")
+			)
+			(layer "F.Paste"
+				(type "Top Solder Paste")
+			)
+			(layer "F.Mask"
+				(type "Top Solder Mask")
+				(thickness 0.01)
+			)
+			(layer "F.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 1"
+				(type "prepreg")
+				(thickness 0.1)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "In1.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 2"
+				(type "core")
+				(thickness 1.24)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "In2.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "dielectric 3"
+				(type "prepreg")
+				(thickness 0.1)
+				(material "FR4")
+				(epsilon_r 4.5)
+				(loss_tangent 0.02)
+			)
+			(layer "B.Cu"
+				(type "copper")
+				(thickness 0.035)
+			)
+			(layer "B.Mask"
+				(type "Bottom Solder Mask")
+				(thickness 0.01)
+			)
+			(layer "B.Paste"
+				(type "Bottom Solder Paste")
+			)
+			(layer "B.SilkS"
+				(type "Bottom Silk Screen")
+			)
+			(copper_finish "None")
+			(dielectric_constraints no)
+		)
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting front back)
@@ -15225,14 +15288,6 @@
 		(uuid "54dd1311-b60d-4bef-a63e-f466be5a89a8")
 	)
 	(segment
-		(start 171.674888 96.475112)
-		(end 171.674888 106.730224)
-		(width 0.7)
-		(layer "F.Cu")
-		(net 1)
-		(uuid "552e5fda-32b2-4eb8-ab5c-0e620781b4bc")
-	)
-	(segment
 		(start 137.46 69.34)
 		(end 137.8 69)
 		(width 0.2)
@@ -15305,14 +15360,6 @@
 		(uuid "f2da33a0-2208-481e-b4e4-1e42aa833514")
 	)
 	(segment
-		(start 171.32 90.72)
-		(end 171.32 96.120224)
-		(width 0.7)
-		(layer "F.Cu")
-		(net 1)
-		(uuid "ff2a2321-ccd2-4f2b-ad93-35afa16f1238")
-	)
-	(segment
 		(start 165.410058 39.95)
 		(end 175.011058 49.551)
 		(width 0.2)
@@ -15351,14 +15398,6 @@
 		(layer "F.Cu")
 		(net 2)
 		(uuid "07179a4c-abf2-4628-886d-1a5118d1e651")
-	)
-	(segment
-		(start 169.674888 96.475112)
-		(end 169.674888 91.614888)
-		(width 0.7)
-		(layer "F.Cu")
-		(net 2)
-		(uuid "0eb7ad51-fa71-4327-862f-1747986f20c1")
 	)
 	(segment
 		(start 123.69 33.44)
@@ -15463,14 +15502,6 @@
 		(layer "F.Cu")
 		(net 2)
 		(uuid "802ef6b5-8a20-4b0c-b88d-cc7767598a68")
-	)
-	(segment
-		(start 169.919776 106.975112)
-		(end 169.919776 96.72)
-		(width 0.7)
-		(layer "F.Cu")
-		(net 2)
-		(uuid "83811204-4ee2-469f-bcfd-279d32d6bc7a")
 	)
 	(segment
 		(start 143.95 38.25)
@@ -16753,14 +16784,6 @@
 		(uuid "0169e6f5-4351-4ab2-b129-0021f5a247fa")
 	)
 	(via
-		(at 121.25 68.25)
-		(size 0.6)
-		(drill 0.3)
-		(layers "F.Cu" "B.Cu")
-		(net 48)
-		(uuid "0f1d2413-37b2-4aab-b793-0c8fb41b9daf")
-	)
-	(via
 		(at 123.5 71.45)
 		(size 0.6)
 		(drill 0.3)
@@ -16809,28 +16832,12 @@
 		(uuid "24411009-3564-4ed0-bbb9-5c4c6525755f")
 	)
 	(segment
-		(start 121.3 68.25)
-		(end 121.25 68.25)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 48)
-		(uuid "27c10783-817c-4165-9333-72c589c066cb")
-	)
-	(segment
 		(start 151.85 54.35)
 		(end 151.85 64.2)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 48)
 		(uuid "473183cf-d25f-4887-b970-1c82c50a5779")
-	)
-	(segment
-		(start 103.67 87.12)
-		(end 121.3 69.49)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 48)
-		(uuid "477841db-3b0a-44bf-aa1f-9335076453ee")
 	)
 	(segment
 		(start 140.95 57.15)
@@ -16849,20 +16856,28 @@
 		(uuid "59078a66-3d3d-448b-93d6-275bc1deef29")
 	)
 	(segment
+		(start 109.1 85.85)
+		(end 104.94 85.85)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 48)
+		(uuid "6d2b3a52-ac70-466e-bace-14c9ff912eee")
+	)
+	(segment
+		(start 123.5 71.45)
+		(end 109.1 85.85)
+		(width 0.2)
+		(layer "B.Cu")
+		(net 48)
+		(uuid "80c7e5b5-9215-4927-844c-dc18088ef6c3")
+	)
+	(segment
 		(start 141.1 57)
 		(end 140.95 57.15)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 48)
 		(uuid "874599b1-dfae-446d-8265-bcbac9cda0a9")
-	)
-	(segment
-		(start 123.5 71.45)
-		(end 121.25 69.2)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 48)
-		(uuid "92a46694-e4a0-4fe7-b25f-5d70b2e207c2")
 	)
 	(segment
 		(start 129.55 62.4)
@@ -16913,14 +16928,6 @@
 		(uuid "b67d9a19-0d9e-4def-915c-8f0ae13d27eb")
 	)
 	(segment
-		(start 121.25 68.25)
-		(end 121.2 68.25)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 48)
-		(uuid "d0882db9-0961-4e60-a11e-f70c18250493")
-	)
-	(segment
 		(start 135.2 57.15)
 		(end 135.2 59.3)
 		(width 0.2)
@@ -16937,20 +16944,12 @@
 		(uuid "ddbb765e-7441-4150-a498-6246876232e6")
 	)
 	(segment
-		(start 121.3 69.49)
-		(end 121.3 68.25)
+		(start 104.94 85.85)
+		(end 103.67 87.12)
 		(width 0.2)
 		(layer "B.Cu")
 		(net 48)
-		(uuid "f83a3ab2-26fe-41c4-99fe-200c16b2ca43")
-	)
-	(segment
-		(start 121.25 69.2)
-		(end 121.25 68.25)
-		(width 0.2)
-		(layer "B.Cu")
-		(net 48)
-		(uuid "fa4ad8f8-5b00-4da9-a023-6d421bf27d9d")
+		(uuid "f3d2248d-2341-4cf4-bf96-fd1c0adfb273")
 	)
 	(segment
 		(start 133.896374 54.553626)
@@ -17179,7 +17178,7 @@
 		)
 		(min_thickness 0.25)
 		(filled_areas_thickness no)
-		(fill
+		(fill yes
 			(thermal_gap 0.5)
 			(thermal_bridge_width 0.5)
 		)

@@ -1,22 +1,11 @@
-/*NEED to add serial communication with jetson:
-
-1) initialize serial in setup(); ~line 75
-2) update message and speed (both integers) from Jetson messages; ~line 85
-3) broadcast "stalled" back to Jetson if stalled; ~line 165
-4) provide doccumentation about how to format messages from the Jetson to work with
-this program; ~line 15
-*/
-
-
 //use this sketch to run main communication with arduino and call appropriate move functions
 
 
   /*Instructions that can be sent by Jetson:
-    format: NEED instruction format that allows both speed and message to be sent and extracted
+    format: movementcommand,speed (two integers separated by a comma with no space)
 
     speed = any integer between 0 and 65536.  Higher number = higher speed.
     Note: 30000 is a reasonable speed to start testing.
-
     message = one of the following integers with the desired corresponding message:
       0 = stop rover
       1 = rover go forward
@@ -44,7 +33,7 @@ this program; ~line 15
   */
 
 //variable definitions
- bool newcommand = false;
+bool newcommand = false;
 bool stalled = false;
 int currentcommand = 10;
 int message = 10;
@@ -77,13 +66,14 @@ while (!Serial) { delay(10); }
 
 
 //NEED to set up serial communication between ESP32 and Jetson
-
+Serial.println("stuck");
 }
 bool readJetsonCommand(int &msgOut, int &speedOut) {
 static String line = "";
 
 while (Serial.available()) {
   char c = (char)Serial.read();
+  
 
   if (c == '\n') {
     line.trim(); // removes \r and whitespace

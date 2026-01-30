@@ -26,10 +26,11 @@ SerialWombatPWM pwm(sw);
 
 
 
-int PWM = 1;
+int PWM = 3;
 int QE1 = 7;
-int QE2 = 6;
-int enableBoth = 4;
+int QE2 = 8;
+int REN = 2;
+int LEN = 5;
 //int checkStall = 5;
 
 void setup() {
@@ -43,7 +44,7 @@ void setup() {
 	delay(500);
 	uint8_t i2cAddress = 0x60; //sw.find();
     sw.begin(Wire,i2cAddress);  //Initialize the Serial Wombat library to use the primary I2C port
-	sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
+	//sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
 
   Serial.println("here");
 
@@ -59,11 +60,13 @@ void setup() {
 
 
   //digital enable pins
-  sw.pinMode(enableBoth, OUTPUT);
+  sw.pinMode(REN, OUTPUT);
+  sw.pinMode(LEN, OUTPUT);
   //sw.pinMode(checkStall, INPUT);
 
   //enable motor
-  sw.digitalWrite(enableBoth, HIGH);
+  sw.digitalWrite(REN, HIGH);
+  sw.digitalWrite(LEN, HIGH);
   Serial.print("enabled motor");
   //spin motor
   pwm.writeDutyCycle(30000);

@@ -15875,6 +15875,18 @@
 			(justify left bottom mirror)
 		)
 	)
+	(gr_text "Aden Briano\nLord Aayan Ilyas the 2nd"
+		(at 102.7 38.2 0)
+		(layer "B.SilkS")
+		(uuid "dc1b7130-1924-470c-b2fd-c164cd47484f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "RX2"
 		(at 72.8 64.7 90)
 		(layer "B.SilkS")

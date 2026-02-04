@@ -26,11 +26,11 @@ SerialWombatPWM pwm(sw);
 
 
 
-int PWM = 3;
-int QE1 = 7;
-int QE2 = 8;
-int REN = 2;
-int LEN = 5;
+int PWM = 2;
+int QE1 = 6;
+int QE2 = 7;
+int REN = 1;
+int LEN = 4;
 //int checkStall = 5;
 
 void setup() {
@@ -69,7 +69,7 @@ void setup() {
   sw.digitalWrite(LEN, HIGH);
   Serial.print("enabled motor");
   //spin motor
-  pwm.writeDutyCycle(30000);
+  pwm.writeDutyCycle(60000);
   Serial.print("Started motor");
 
   //for using esp32:

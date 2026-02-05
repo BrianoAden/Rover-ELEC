@@ -3,9 +3,9 @@
     "GenerationSoftware": {
       "Vendor": "KiCad",
       "Application": "Pcbnew",
-      "Version": "9.0.6"
+      "Version": "9.0.3"
     },
-    "CreationDate": "2026-02-04T00:25:10-06:00"
+    "CreationDate": "2026-02-04T18:41:09-06:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
@@ -14,8 +14,8 @@
       "Revision": "rev?"
     },
     "Size": {
-      "X": 135.0666,
-      "Y": 89.45
+      "X": 238.0164,
+      "Y": 100.1003
     },
     "LayerNumber": 4,
     "BoardThickness": 1.6,
@@ -27,13 +27,16 @@
       "PadToPad": 0.2,
       "PadToTrack": 0.2,
       "TrackToTrack": 0.2,
-      "MinLineWidth": 0.2
+      "MinLineWidth": 0.2,
+      "TrackToRegion": 0.5,
+      "RegionToRegion": 0.5
     },
     {
       "Layers": "Inner",
       "PadToPad": 0.2,
       "PadToTrack": 0.2,
       "TrackToTrack": 0.2,
+      "MinLineWidth": 2.0,
       "TrackToRegion": 0.5,
       "RegionToRegion": 0.5
     }
@@ -46,12 +49,12 @@
     },
     {
       "Path": "pcblunarroverrfd900x modem-GND.gbr",
-      "FileFunction": "Copper,L2,Inr",
+      "FileFunction": "Copper,L5,Inr",
       "FilePolarity": "Positive"
     },
     {
-      "Path": "pcblunarroverrfd900x modem-PWR.gbr",
-      "FileFunction": "Copper,L3,Inr",
+      "Path": "pcblunarroverrfd900x modem-5V.gbr",
+      "FileFunction": "Copper,L7,Inr",
       "FilePolarity": "Positive"
     },
     {
@@ -93,6 +96,16 @@
       "Path": "pcblunarroverrfd900x modem-Edge_Cuts.gbr",
       "FileFunction": "Profile",
       "FilePolarity": "Positive"
+    },
+    {
+      "Path": "pcblunarroverrfd900x modem-F_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Top",
+      "FilePolarity": "Positive"
+    },
+    {
+      "Path": "pcblunarroverrfd900x modem-B_Fab.gbr",
+      "FileFunction": "AssemblyDrawing,Bot",
+      "FilePolarity": "Positive"
     }
   ],
   "MaterialStackup": [
@@ -130,20 +143,20 @@
       "Type": "Dielectric",
       "Thickness": 1.24,
       "Material": "FR4",
-      "Name": "GND/PWR",
-      "Notes": "Type: dielectric layer 2 (from GND to PWR)"
+      "Name": "GND/5V",
+      "Notes": "Type: dielectric layer 2 (from GND to 5V)"
     },
     {
       "Type": "Copper",
       "Thickness": 0.035,
-      "Name": "PWR"
+      "Name": "5V"
     },
     {
       "Type": "Dielectric",
       "Thickness": 0.1,
       "Material": "FR4",
-      "Name": "PWR/B.Cu",
-      "Notes": "Type: dielectric layer 3 (from PWR to B.Cu)"
+      "Name": "5V/B.Cu",
+      "Notes": "Type: dielectric layer 3 (from 5V to B.Cu)"
     },
     {
       "Type": "Copper",

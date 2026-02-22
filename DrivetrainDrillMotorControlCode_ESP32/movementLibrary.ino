@@ -10,14 +10,14 @@
   int CLKs[] = {0, 0, 0, 0, 0};
 
   //sw pins setup:
-  int RIS = 1;
-  int REN = 2;
-  int RPWM = 3;
-  int LPWM = 4;
-  int LEN = 5;
-  int LIS = 6;
-  int CHA = 7;
-  int CHB = 8;
+  int RIS = 0;
+  int REN = 1;
+  int RPWM = 2;
+  int LPWM = 3;
+  int LEN = 4;
+  int LIS = 5;
+  int CHA = 6;
+  int CHB = 7;
 
   //initialize sw chips
   SerialWombatChip motor0;
@@ -56,40 +56,69 @@
 
 
 //-------------setup: must be called at the beginning of main program in order for the rest of the commands to work 
+  // void initializeSW(){
+  //   //initialize sw chip and pins for each motor (motor numbers printed on PCB)
+
+  //   //start i2C
+  //   Wire.begin(21, 22); // Initialize I2C with custom pin
+  //   Wire.setTimeOut(5000);
+  //   delay(500);
+
+  //   //initialize & set up everything for each motor
+  //   for(int i = 0; i<5; i++){
+  //     //begin SW chips & communication with them
+  //     motors[i]->begin(Wire, i2cAddresses[i]);
+
+  //     //begin PWM pins
+  //     RPWMs[i]->begin(RPWM, 0, false);
+  //     LPWMs[i]->begin(LPWM, 0, false);
+
+  //     //set up enable pins
+  //     motors[i]->pinMode(LEN, OUTPUT);
+  //     motors[i]->pinMode(REN, OUTPUT);
+
+  //     //set up current alarms
+  //     motors[i]->pinMode(LIS, INPUT);
+  //     motors[i]->pinMode(RIS, INPUT);
+    
+  //     //initialize rotary encoders
+  //     REs[i]->begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
+
+  //     //set motors to not be enabled
+  //     motors[i]->digitalWrite(LEN, LOW);
+  //     motors[i]->digitalWrite(REN, LOW);
+
+  //   }
+  // }
+
   void initializeSW(){
-    //initialize sw chip and pins for each motor (motor numbers printed on PCB)
+  Wire.begin(21, 22);
+  Wire.setTimeOut(1000); // Lower timeout so one ghost doesn't hang the boot for 5 seconds
+  delay(500);
 
-    //start i2C
-    Wire.begin(21, 22); // Initialize I2C with custom pin
-    Wire.setTimeOut(5000);
-    delay(500);
+  for(int i = 0; i < 5; i++){
+    Serial.print("Initializing Motor "); Serial.print(i);
+    Serial.print(" at 0x"); Serial.println(i2cAddresses[i], HEX);
 
-    //initialize & set up everything for each motor
-    for(int i = 0; i<5; i++){
-      //begin SW chips & communication with them
-      motors[i]->begin(Wire, i2cAddresses[i]);
-
-      //begin PWM pins
+    // Try to start the chip. If it returns false, skip it.
+    if (motors[i]->begin(Wire, i2cAddresses[i])) {
+      
+      // Successfully found chip, now configure pins
       RPWMs[i]->begin(RPWM, 0, false);
       LPWMs[i]->begin(LPWM, 0, false);
-
-      //set up enable pins
       motors[i]->pinMode(LEN, OUTPUT);
       motors[i]->pinMode(REN, OUTPUT);
-
-      //set up current alarms
-      motors[i]->pinMode(LIS, INPUT);
-      motors[i]->pinMode(RIS, INPUT);
-    
-      //initialize rotary encoders
-      REs[i]->begin(CHA, CHB, 0.01, true, QE_ONHIGH_INT);
-
-      //set motors to not be enabled
+      
+      // Set to safe state
       motors[i]->digitalWrite(LEN, LOW);
       motors[i]->digitalWrite(REN, LOW);
-
+      
+      Serial.println(" -> Success");
+    } else {
+      Serial.println(" -> FAILED (Ghost or Disconnected)");
     }
   }
+}
 
 //------------subcommands: will not be called in main program, but used to build commands
 
@@ -180,68 +209,68 @@
 
 
 //------------checkStall and subcommands: a class all of its own 
-  bool checkStall(bool newcommand, int currentcommand){
-    bool stall;
-    if(newcommand){
-      for(int i = 0; i<5; i++){
-        CLKs[i] = REs[i]->read();
-      }
-      return false;
-    }
-    else if(currentcommand == 0){
-        return false;
-      }
-    else if((currentcommand >0)&&(currentcommand<4)){
-      bool stall1 = getStall(1);
-      bool stall2 = getStall(2);
-      bool stall3 = getStall(3);
-      bool stall4 = getStall(4);
-      if(((stall1 == true)||(stall2==true))||((stall3==true)||(stall4==true))){
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    else if((currentcommand >3)&&(currentcommand<8)){
-      stall = getStall(0);
-      return stall;
-    }
-    else if((currentcommand >7)&&(currentcommand<11)){
-      stall = getStall(1);
-      return stall;
-    }
-    else if((currentcommand >10)&&(currentcommand<14)){
-      stall = getStall(2);
-      return stall;
-    }
-    else if((currentcommand >13)&&(currentcommand<17)){
-      stall = getStall(3);
-      return stall;
-    }
-    else if((currentcommand >16)&&(currentcommand<20)){
-      stall = getStall(4);
-      return stall;
-    }
-    else{
-      return true;
-    }
-  }
+  // bool checkStall(bool newcommand, int currentcommand){
+  //   bool stall;
+  //   if(newcommand){
+  //     for(int i = 0; i<5; i++){
+  //       CLKs[i] = REs[i]->read();
+  //     }
+  //     return false;
+  //   }
+  //   else if(currentcommand == 0){
+  //       return false;
+  //     }
+  //   else if((currentcommand >0)&&(currentcommand<4)){
+  //     bool stall1 = getStall(1);
+  //     bool stall2 = getStall(2);
+  //     bool stall3 = getStall(3);
+  //     bool stall4 = getStall(4);
+  //     if(((stall1 == true)||(stall2==true))||((stall3==true)||(stall4==true))){
+  //       return true;
+  //     }
+  //     else{
+  //       return false;
+  //     }
+  //   }
+  //   else if((currentcommand >3)&&(currentcommand<8)){
+  //     stall = getStall(0);
+  //     return stall;
+  //   }
+  //   else if((currentcommand >7)&&(currentcommand<11)){
+  //     stall = getStall(1);
+  //     return stall;
+  //   }
+  //   else if((currentcommand >10)&&(currentcommand<14)){
+  //     stall = getStall(2);
+  //     return stall;
+  //   }
+  //   else if((currentcommand >13)&&(currentcommand<17)){
+  //     stall = getStall(3);
+  //     return stall;
+  //   }
+  //   else if((currentcommand >16)&&(currentcommand<20)){
+  //     stall = getStall(4);
+  //     return stall;
+  //   }
+  //   else{
+  //     return true;
+  //   }
+  // }
 
-  bool getStall(int motornum){
+  // bool getStall(int motornum){
 
-    int newCLK = REs[motornum]->read();
+  //   int newCLK = REs[motornum]->read();
         
-    int oldCLK = CLKs[motornum];
+  //   int oldCLK = CLKs[motornum];
 
-    if((oldCLK-newCLK != 0)){
-      CLKs[motornum] = newCLK;
-      return false;
-    }
-    else{
-      return true;
-    }
-  }
+  //   if((oldCLK-newCLK != 0)){
+  //     CLKs[motornum] = newCLK;
+  //     return false;
+  //   }
+  //   else{
+  //     return true;
+  //   }
+  //}
 
 
 

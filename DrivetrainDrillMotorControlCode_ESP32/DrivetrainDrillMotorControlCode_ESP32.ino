@@ -35,8 +35,8 @@
 //variable definitions
 bool newcommand = false;
 bool stalled = false;
-int currentcommand = 10;
-int message = 10;
+int currentcommand = -1;
+int message = -1;
 int speed = 0;
 static const uint32_t BAUD = 115200; //Baud rate for serial
 
@@ -53,20 +53,20 @@ void db(int speed);
 void tl(int speed);
 void tr(int speed);
 
-bool checkStall(bool newcommand, int currentcommand);
-bool getStall(int motornum);
+// bool checkStall(bool newcommand, int currentcommand);
+// bool getStall(int motornum);
 
 void setup() {
 // put your setup code here, to run once:
 
 //initialize sw chips (from movement library)
-initializeSW();
 Serial.begin(BAUD);
+initializeSW();
 while (!Serial) { delay(10); }
 
 
 //NEED to set up serial communication between ESP32 and Jetson
-Serial.println("stuck");
+Serial.println("ESP32 READY");
 }
 bool readJetsonCommand(int &msgOut, int &speedOut) {
 static String line = "";
@@ -110,93 +110,60 @@ int newMsg, newSpeed;
 if (readJetsonCommand(newMsg, newSpeed)) {
   message = newMsg;
   speed = newSpeed;
+
+  Serial.print("ACK:"); // Use a short prefix for the Jetson to parse easily
+  Serial.print(message);
+  Serial.print(",");
+  Serial.println(speed);
 }
 
-if(message != currentcommand){
+if(message != -1 && message != currentcommand){
   currentcommand = message;
   newcommand = true;
-  stalled = false; 
+  //stalled = false; 
 }
 
 //stalled cannot be set to true if newcommand is true
 //if newcommand is true, stalled just updates RE status
-stalled = checkStall(newcommand, currentcommand);
+//stalled = checkStall(newcommand, currentcommand);
 
 if(newcommand){
   newcommand = false;
-  //do correct motor thing using command
-    if(currentcommand==0){
-      stopAll();
-    }
-    if(currentcommand==1){
-      df(speed);
-    }
-    if(currentcommand==2){
-      db(speed);
-    }
-    if(currentcommand==3){
-      tr(speed);
-    }
-    if(currentcommand==4){
-      tl(speed);
-    }
-    if(currentcommand==5){
-      r(0, speed);
-    }
-    if(currentcommand==6){
-      l(0, speed);
-    }
-    if(currentcommand==7){
-      s(0);
-    }
-    if(currentcommand==8){
-      r(1, speed);
-    }
-    if(currentcommand==9){
-      l(1, speed);
-    }
-    if(currentcommand==10){
-      s(1);
-    }
-    if(currentcommand==11){
-      r(2, speed);
-    }
-    if(currentcommand==12){
-      l(2, speed);
-    }
-    if(currentcommand==13){
-      s(2);
-    }
-          if(currentcommand==14){
-      r(3, speed);
-    }
-    if(currentcommand==15){
-      l(3, speed);
-    }
-    if(currentcommand==16){
-      s(3);
-    }
-          if(currentcommand==17){
-      r(4, speed);
-    }
-    if(currentcommand==18){
-      l(4, speed);
-    }
-    if(currentcommand==19){
-      s(4);
+  switch (currentcommand) {
+      case 0:  stopAll();    break;
+      case 1:  df(speed);     break;
+      case 2:  db(speed);     break;
+      case 3:  tr(speed);     break;
+      case 4:  tl(speed);     break;
+      case 5:  r(0, speed);  break;
+      case 6:  l(0, speed);  break;
+      case 7:  s(0);         break;
+      case 8:  r(1, speed);  break;
+      case 9:  l(1, speed);  break;
+      case 10: s(1);         break;
+      case 11: r(2, speed);  break;
+      case 12: l(2, speed);  break;
+      case 13: s(2);         break;
+      case 14: r(3, speed);  break;
+      case 15: l(3, speed);  break;
+      case 16: s(3);         break;
+      case 17: r(4, speed);  break;
+      case 18: l(4, speed);  break;
+      case 19: s(4);         break;
+      default: stopAll();    break; // Safety fallback
     }
 
   
   }
   
-static bool stallReported = false;
+// static bool stallReported = false;
 
-if (stalled && !stallReported) {
-  Serial.print("STALLED,");
-  Serial.print(currentcommand);
-  Serial.print("\n");
-  stallReported = true;
-}
-if (!stalled) stallReported = false;
+// if (stalled && !stallReported) {
+//   Serial.print("STALLED,");
+//   Serial.print(currentcommand);
+//   Serial.print("\n");
+//   stallReported = true;
+// }
+// if (!stalled) stallReported = false;
 
 }

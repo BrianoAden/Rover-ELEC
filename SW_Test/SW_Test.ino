@@ -35,18 +35,19 @@ void setup() {
   //begin(pin, starting duty cycle, inverted true/false)
   pwm.begin(PWM, 0, false);
   qeWithPullUps.begin(QE1, QE2);  // Initialize a QE on pins 2 and 3  Change these to different pins (say 18 and 19) on the SW18AB, since 3 is SDA
-
+  
 
   //digital enable pins
   sw.pinMode(enableBoth, OUTPUT);
   sw.pinMode(checkStall, INPUT);
 
   //enable motor
-  sw.digitalWrite(enableBoth, LOW);
+  sw.digitalWrite(enableBoth, HIGH);
   //spin motor
-  pwm.writeDutyCycle(3000);
+  pwm.writeDutyCycle(65535);
 
-  analogWrite(33, 100);
+  delay(100);
+  Serial.println("Startup");
 }
 
 void loop() {

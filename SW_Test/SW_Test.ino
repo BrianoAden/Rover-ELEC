@@ -1,61 +1,70 @@
 #include <SerialWombat.h>
 
-SerialWombatChip sw;    //Declare a Serial Wombat chip
+// --- IMPORTANT DEFINITIONS ---
+int SPEED = 30000;
+int PWM_PIN = 2;
+int QE1_PIN = 6; 
+int QE2_PIN = 7;
+int REN_PIN = 1;
+int LEN_PIN = 4;
 
-//we're using a quadrature encoder with built-in pullup resistors
-SerialWombatQuadEnc qeWithPullUps(sw);
+// --- SERIAL WOMBAT CHIP OBJECTS ---
+SerialWombatChip sw61;
+SerialWombatChip sw62;
+SerialWombatChip sw63;
+SerialWombatChip sw64;
 
-//PWM at frequency of 31250 Hz.  Can change this probably if needed but we haven't figured out how yet
-SerialWombatPWM pwm(sw);
+// Attach PWM and QE specifically to whichever you want sw__
+SerialWombatPWM pwm(sw64); 
+SerialWombatQuadEnc qeWithPullUps(sw64);
 
-
-
-int PWM = 1;
-int QE1 = 2;
-int QE2 = 3;
-int enableBoth = 4;
-int checkStall = 5;
+// ESP32 Encoder variables
+#define DT GPIO_NUM_33
+#define CLK GPIO_NUM_32
+int lastStateCLK;
+int oldval = 0;
 
 void setup() {
-  // put your setup code here, to run once:
-
   Serial.begin(115200);
-    Wire.begin(21, 22); // Initialize I2C with custom pin
-    Wire.setTimeOut(5000);
-	delay(500);
-	uint8_t i2cAddress = 0x60; //sw.find();
-    sw.begin(Wire,i2cAddress);  //Initialize the Serial Wombat library to use the primary I2C port
-	// sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
+  delay(2000);
+  Serial.println("Initializing I2C Bus...");
 
-   sw.queryVersion();
-  Serial.println();
-  Serial.print("Version "); Serial.println((char*)sw.fwVersion);
-  Serial.println("SW18AB Found.");
+  Wire.begin(21, 22); 
+  Wire.setTimeOut(5000);
+  delay(500);
+
+  // --- INITIALIZE ALL CHIPS ---
+  // We call begin on all of them so they are recognized on the bus
+  if(sw61.begin(Wire, 0x61)) Serial.println("SW 0x61 Found");
+  if(sw62.begin(Wire, 0x62)) Serial.println("SW 0x62 Found");
+  if(sw63.begin(Wire, 0x63)) Serial.println("SW 0x63 Found");
+  if(sw64.begin(Wire, 0x64)) Serial.println("SW 0x64 Found - ACTIVE");
 
   //begin(pin, starting duty cycle, inverted true/false)
   pwm.begin(PWM, 0, false);
   qeWithPullUps.begin(QE1, QE2);  // Initialize a QE on pins 2 and 3  Change these to different pins (say 18 and 19) on the SW18AB, since 3 is SDA
-  
+
 
   //digital enable pins
   sw.pinMode(enableBoth, OUTPUT);
   sw.pinMode(checkStall, INPUT);
 
   //enable motor
-  sw.digitalWrite(enableBoth, HIGH);
+  sw.digitalWrite(enableBoth, LOW);
   //spin motor
-  pwm.writeDutyCycle(65535);
+  pwm.writeDutyCycle(3000);
 
-  delay(100);
-  Serial.println("Startup");
+  analogWrite(33, 100);
 }
 
 void loop() {
-  //return;
-  Serial.println(qeWithPullUps.read());
-
-  if(sw.digitalRead(checkStall) == HIGH){
-    Serial.println("Stalling");
+  // Only reads encoder from sw62
+  int newval = qeWithPullUps.read();
+  if(newval != oldval){
+    Serial.print("Encoder 0x63: ");
+    Serial.println(newval);
+    oldval = newval;
   }
+
   delay(50);
 }

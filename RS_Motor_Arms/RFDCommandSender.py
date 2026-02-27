@@ -101,6 +101,89 @@
 #     ser.close()
 
 
+# import serial
+# import time
+# import sys
+# import struct
+# from pynput import keyboard
+
+# # --- CONFIGURATION ---
+# RADIO_PORT = '/dev/tty.usbserial-B004A1RV' 
+# BAUD = 57600
+# HEADER = bytes([0xAA, 0x55])
+# active_keys = {'w': False, 's': False, 'a': False, 'd': False, 'q': False, 'e': False}
+# ROVER_ID = 255 
+# MOTOR_04_ID = 7    # A/D Keys
+# MOTOR_02_ID = 127
+# targets = {MOTOR_04_ID: 0.0, MOTOR_02_ID: 0.0}
+
+
+# # --- MODES ---
+# MODE_ARM = 0
+# MODE_ROVER = 1
+# current_control_mode = MODE_ARM
+
+# try:
+#     ser = serial.Serial(RADIO_PORT, BAUD, timeout=0.1)
+#     print(f"✅ Radio Link Active on {RADIO_PORT}")
+# except Exception as e:
+#     print(f"❌ Radio Error: {e}"); sys.exit(1)
+
+# def send_radio_frame(mode_byte, motor_id, data_bytes):
+#     """Encapsulates data into the radio protocol"""
+#     # Pad data to 8 bytes to maintain fixed frame length for the radio
+#     data_bytes = data_bytes.ljust(8, b'\x00')
+#     frame = HEADER + bytes([mode_byte, motor_id]) + data_bytes[:8]
+#     chk = mode_byte ^ motor_id
+#     for b in data_bytes[:8]: chk ^= b
+#     ser.write(frame + bytes([chk]))
+
+# def on_press(key):
+#     global current_control_mode
+#     try:
+#         if key.char == 'm':
+#             current_control_mode = MODE_ROVER if current_control_mode == MODE_ARM else MODE_ARM
+#             mode_name = "ROVER (Terminal Pass-through)" if current_control_mode == MODE_ROVER else "ARM (Joints)"
+#             print(f"\n🔄 Mode: {mode_name}")
+#     except: pass
+
+# listener = keyboard.Listener(on_press=on_press)
+# listener.start()
+
+# print("--- CONTROLLER ACTIVE ---")
+# print("[M] Toggle Mode | [X] Exit")
+
+# try:
+#     while True:
+#         if current_control_mode == MODE_ROVER:
+#             # Direct terminal input passed to Radio
+#             cmd = input("ROVER CMD (e.g. 1,30000): ")
+#             if cmd:
+#                 # Mode 0x05 signals this is a string command for the Jetson's USB0
+#                 send_radio_frame(0x05, ROVER_ID, cmd.encode())
+#                 print(f"📡 Sent to Radio: {cmd}")
+#         else:
+#             if active_keys['w']: targets[MOTOR_02_ID] += 0.12
+#             if active_keys['s']: targets[MOTOR_02_ID] -= 0.12
+#             if active_keys['a']: targets[MOTOR_04_ID] -= 0.12
+#             if active_keys['d']: targets[MOTOR_04_ID] += 0.12
+                
+#             for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+#                 targets[m_id] = max(-12.5, min(12.5, targets[m_id]))
+#                 p_int = int((targets[m_id] + 12.5) * 65535 / 25.0)
+#                 can_data = struct.pack('>HHHH', p_int, 0, int(25.0 * 131), int(2.2 * 13107))
+#                 send_radio_frame(0x01, m_id, can_data)
+                
+#             status = f"ARM -> 04: {targets[7]:.2f} | 02: {targets[127]:.2f}"
+
+#         sys.stdout.write(f"\r{status}      ")
+#         sys.stdout.flush()
+#     time.sleep(0.1)
+
+# except KeyboardInterrupt: pass
+# finally: ser.close()
+
+
 import serial
 import time
 import sys
@@ -111,70 +194,109 @@ from pynput import keyboard
 RADIO_PORT = '/dev/tty.usbserial-B004A1RV' 
 BAUD = 57600
 HEADER = bytes([0xAA, 0x55])
-active_keys = {'w': False, 's': False, 'a': False, 'd': False}
+
+# Motor IDs
+MOTOR_04_ID = 7    # A/D Keys
+MOTOR_02_ID = 127  # W/S Keys
 ROVER_ID = 255 
 
-# --- MODES ---
-MODE_ARM = 0
-MODE_ROVER = 1
-current_control_mode = MODE_ARM
+# MIT Mode Constants (From Manual)
+P_MIN, P_MAX = -12.5, 12.5
+V_MIN, V_MAX = -45.0, 45.0
+KP_MIN, KP_MAX = 0.0, 500.0
+KD_MIN, KD_MAX = 0.0, 5.0
+
+# Movement Tuning
+MOVE_INCREMENT = 0.15
+KP_VAL = 30.0   # Adjust for stiffness
+KD_VAL = 1.5    # Adjust for damping
+
+# --- STATE ---
+current_control_mode = 0  # 0: ARM, 1: ROVER
+targets = {MOTOR_04_ID: 0.0, MOTOR_02_ID: 0.0}
+active_keys = {'w': False, 's': False, 'a': False, 'd': False}
+is_enabled = False
 
 try:
     ser = serial.Serial(RADIO_PORT, BAUD, timeout=0.1)
-    print(f"✅ Radio Link Active on {RADIO_PORT}")
+    print(f"✅ Radio Link Active")
 except Exception as e:
     print(f"❌ Radio Error: {e}"); sys.exit(1)
 
+# --- PACKING UTILS ---
+def float_to_uint(x, x_min, x_max, bits):
+    span = x_max - x_min
+    offset = x_min
+    return int((x - offset) * ((1 << bits) - 1) / span)
+
 def send_radio_frame(mode_byte, motor_id, data_bytes):
-    """Encapsulates data into the radio protocol"""
-    # Pad data to 8 bytes to maintain fixed frame length for the radio
-    data_bytes = data_bytes.ljust(8, b'\x00')
-    frame = HEADER + bytes([mode_byte, motor_id]) + data_bytes[:8]
+    """Jetson-ready frame: [AA 55] [Mode] [ID] [Data x8] [CHK]"""
+    data_bytes = data_bytes.ljust(8, b'\x00')[:8]
+    frame_head = HEADER + bytes([mode_byte, motor_id]) + data_bytes
     chk = mode_byte ^ motor_id
-    for b in data_bytes[:8]: chk ^= b
-    ser.write(frame + bytes([chk]))
+    for b in data_bytes: chk ^= b
+    ser.write(frame_head + bytes([chk]))
 
 def on_press(key):
-    global current_control_mode
+    global current_control_mode, is_enabled
     try:
-        if key.char == 'm':
-            current_control_mode = MODE_ROVER if current_control_mode == MODE_ARM else MODE_ARM
-            mode_name = "ROVER (Terminal Pass-through)" if current_control_mode == MODE_ROVER else "ARM (Joints)"
-            print(f"\n🔄 Mode: {mode_name}")
+        k = key.char
+        if k == 'm':
+            current_control_mode = 1 - current_control_mode
+            print(f"\n🔄 Mode: {'ROVER' if current_control_mode == 1 else 'ARM'}")
+        
+        elif k == 'e' and current_control_mode == 0:
+            print("\n[!] Sending Enable Sequence (Type 3)...")
+            for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+                # Data [1, 0...0] = Enable Motor Mode
+                send_radio_frame(0x03, m_id, bytes([1] + [0]*7))
+                time.sleep(0.05)
+            is_enabled = True
+            print("✅ Motors Online")
+
+        if k in active_keys: active_keys[k] = True
     except: pass
 
-listener = keyboard.Listener(on_press=on_press)
+def on_release(key):
+    try:
+        if key.char in active_keys: active_keys[key.char] = False
+        if key.char == 'x': return False
+    except: pass
+
+listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 listener.start()
 
-print("--- CONTROLLER ACTIVE ---")
-print("[M] Toggle Mode | [X] Exit")
+print("--- ARM/ROVER CONTROLLER ---")
+print("[M] Toggle Mode | [E] Enable | [X] Exit")
 
 try:
-    while True:
-        if current_control_mode == MODE_ROVER:
-            # Direct terminal input passed to Radio
-            cmd = input("ROVER CMD (e.g. 1,30000): ")
-            if cmd:
-                # Mode 0x05 signals this is a string command for the Jetson's USB0
-                send_radio_frame(0x05, ROVER_ID, cmd.encode())
-                print(f"📡 Sent to Radio: {cmd}")
-        #else:
-            # if active_keys['w']: targets[MOTOR_02_ID] += 0.12
-            # if active_keys['s']: targets[MOTOR_02_ID] -= 0.12
-            # if active_keys['a']: targets[MOTOR_04_ID] -= 0.12
-            # if active_keys['d']: targets[MOTOR_04_ID] += 0.12
-                
-            # for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
-            #     targets[m_id] = max(-12.5, min(12.5, targets[m_id]))
-            #     p_int = int((targets[m_id] + 12.5) * 65535 / 25.0)
-            #     can_data = struct.pack('>HHHH', p_int, 0, int(25.0 * 131), int(2.2 * 13107))
-            #     send_radio_frame(0x01, m_id, can_data)
-                
-            # status = f"ARM -> 04: {targets[7]:.2f} | 02: {targets[127]:.2f}"
+    while listener.running:
+        if current_control_mode == 0: # ARM MODE
+            if is_enabled:
+                if active_keys['w']: targets[MOTOR_02_ID] += MOVE_INCREMENT
+                if active_keys['s']: targets[MOTOR_02_ID] -= MOVE_INCREMENT
+                if active_keys['a']: targets[MOTOR_04_ID] -= MOVE_INCREMENT
+                if active_keys['d']: targets[MOTOR_04_ID] += MOVE_INCREMENT
 
-        # sys.stdout.write(f"\r{status}      ")
-        # sys.stdout.flush()
-    #time.sleep(0.1)
+                for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+                    targets[m_id] = max(P_MIN, min(P_MAX, targets[m_id]))
+                    
+                    # Pack MIT Mode Data (Type 1)
+                    # Structure: Pos(16b), Vel(16b), KP(16b), KD(16b)
+                    p = float_to_uint(targets[m_id], P_MIN, P_MAX, 16)
+                    v = float_to_uint(0, V_MIN, V_MAX, 16) # Target 0 velocity
+                    kp = float_to_uint(KP_VAL, KP_MIN, KP_MAX, 16)
+                    kd = float_to_uint(KD_VAL, KD_MIN, KD_MAX, 16)
+                    
+                    can_data = struct.pack('>HHHH', p, v, kp, kd)
+                    send_radio_frame(0x01, m_id, can_data)
+
+                sys.stdout.write(f"\rTargets -> 04: {targets[7]:.2f} | 02: {targets[127]:.2f}  ")
+                sys.stdout.flush()
+            time.sleep(0.02)
+        else: # ROVER MODE
+            cmd = input("\rROVER CMD: ")
+            if cmd: send_radio_frame(0x05, ROVER_ID, cmd.encode())
 
 except KeyboardInterrupt: pass
 finally: ser.close()

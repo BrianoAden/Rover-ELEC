@@ -108,9 +108,10 @@ import struct
 from pynput import keyboard
 
 # --- CONFIGURATION ---
-RADIO_PORT = '/dev/ttyUSB0' 
+RADIO_PORT = '/dev/tty.usbserial-B004A1RV' 
 BAUD = 57600
 HEADER = bytes([0xAA, 0x55])
+active_keys = {'w': False, 's': False, 'a': False, 'd': False}
 ROVER_ID = 255 
 
 # --- MODES ---
@@ -157,23 +158,23 @@ try:
                 # Mode 0x05 signals this is a string command for the Jetson's USB0
                 send_radio_frame(0x05, ROVER_ID, cmd.encode())
                 print(f"📡 Sent to Radio: {cmd}")
-        else:
-            if active_keys['w']: targets[MOTOR_02_ID] += 0.12
-            if active_keys['s']: targets[MOTOR_02_ID] -= 0.12
-            if active_keys['a']: targets[MOTOR_04_ID] -= 0.12
-            if active_keys['d']: targets[MOTOR_04_ID] += 0.12
+        #else:
+            # if active_keys['w']: targets[MOTOR_02_ID] += 0.12
+            # if active_keys['s']: targets[MOTOR_02_ID] -= 0.12
+            # if active_keys['a']: targets[MOTOR_04_ID] -= 0.12
+            # if active_keys['d']: targets[MOTOR_04_ID] += 0.12
                 
-            for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
-                targets[m_id] = max(-12.5, min(12.5, targets[m_id]))
-                p_int = int((targets[m_id] + 12.5) * 65535 / 25.0)
-                can_data = struct.pack('>HHHH', p_int, 0, int(25.0 * 131), int(2.2 * 13107))
-                send_radio_frame(0x01, m_id, can_data)
+            # for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+            #     targets[m_id] = max(-12.5, min(12.5, targets[m_id]))
+            #     p_int = int((targets[m_id] + 12.5) * 65535 / 25.0)
+            #     can_data = struct.pack('>HHHH', p_int, 0, int(25.0 * 131), int(2.2 * 13107))
+            #     send_radio_frame(0x01, m_id, can_data)
                 
-            status = f"ARM -> 04: {targets[7]:.2f} | 02: {targets[127]:.2f}"
+            # status = f"ARM -> 04: {targets[7]:.2f} | 02: {targets[127]:.2f}"
 
-        sys.stdout.write(f"\r{status}      ")
-        sys.stdout.flush()
-    time.sleep(0.1)
+        # sys.stdout.write(f"\r{status}      ")
+        # sys.stdout.flush()
+    #time.sleep(0.1)
 
 except KeyboardInterrupt: pass
 finally: ser.close()

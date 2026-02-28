@@ -199,6 +199,7 @@ HEADER = bytes([0xAA, 0x55])
 MOTOR_04_ID = 7    # A/D Keys
 MOTOR_02_ID = 127  # W/S Keys
 ROVER_ID = 255 
+STEPPER_ID = 0x01 # Arbitrary ID for stepper commands
 
 # MIT Mode Constants (From Manual)
 P_MIN, P_MAX = -12.5, 12.5
@@ -211,10 +212,17 @@ MOVE_INCREMENT = 0.15
 KP_VAL = 30.0   # Adjust for stiffness
 KD_VAL = 1.5    # Adjust for damping
 
+# Stepper Tuning
+STEPPER_SPEED = 500 # Steps per second (or delay value if ESP32 handles timing)
+STEP_INCREMENT = 1 # Steps to send per key press
+
+stepper_running = False
+current_stepper_dir = 'CW'
+
 # --- STATE ---
 current_control_mode = 0  # 0: ARM, 1: ROVER
 targets = {MOTOR_04_ID: 0.0, MOTOR_02_ID: 0.0}
-active_keys = {'w': False, 's': False, 'a': False, 'd': False}
+active_keys = {'w': False, 's': False, 'a': False, 'd': False, 'c': False, 'v': False, 'z': False}
 is_enabled = False
 
 try:
@@ -237,22 +245,39 @@ def send_radio_frame(mode_byte, motor_id, data_bytes):
     for b in data_bytes: chk ^= b
     ser.write(frame_head + bytes([chk]))
 
+def send_stepper_command(direction, steps):
+    """
+    Constructs and sends a single stepper frame.
+    """
+    dir_byte = 1 if direction == 'CW' else 0
+    data = struct.pack('>BHHxxx', dir_byte, steps, STEPPER_SPEED)
+    send_radio_frame(0x06, STEPPER_ID, data)
+
 def on_press(key):
-    global current_control_mode, is_enabled
+    global current_control_mode, is_enabled, stepper_running, current_stepper_dir
     try:
         k = key.char
         if k == 'm':
             current_control_mode = 1 - current_control_mode
             print(f"\n🔄 Mode: {'ROVER' if current_control_mode == 1 else 'ARM'}")
-        
-        elif k == 'e' and current_control_mode == 0:
-            print("\n[!] Sending Enable Sequence (Type 3)...")
-            for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
-                # Data [1, 0...0] = Enable Motor Mode
-                send_radio_frame(0x03, m_id, bytes([1] + [0]*7))
-                time.sleep(0.05)
-            is_enabled = True
-            print("✅ Motors Online")
+        if current_control_mode == 0:
+            if k == 'e':
+                print("\n[!] Sending Enable Sequence (Type 3)...")
+                for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+                    # Data [1, 0...0] = Enable Motor Mode
+                    send_radio_frame(0x03, m_id, bytes([1] + [0]*7))
+                    time.sleep(0.05)
+                print("✅ Motors Online")
+                is_enabled = True
+            elif k == 'c':
+                current_stepper_dir = 'CCW'
+                stepper_running = True
+            elif k == 'v':
+                current_stepper_dir = 'CW'
+                stepper_running = True
+            elif k == 'z':
+                stepper_running = False
+                print("\n🛑 Stepper Stopped")
 
         if k in active_keys: active_keys[k] = True
     except: pass
@@ -267,12 +292,16 @@ listener = keyboard.Listener(on_press=on_press, on_release=on_release)
 listener.start()
 
 print("--- ARM/ROVER CONTROLLER ---")
-print("[M] Toggle Mode | [E] Enable | [X] Exit")
+print("[M] Toggle Mode | [E] Enable | [C/V] Stepper | [X] Exit, [Z] Stop Stepper")
 
 try:
     while listener.running:
         if current_control_mode == 0: # ARM MODE
+            if stepper_running:
+                # We send small bursts of steps continuously while the state is active
+                send_stepper_command(current_stepper_dir, 25)
             if is_enabled:
+                # --- Servo Control (WASD) ---
                 if active_keys['w']: targets[MOTOR_02_ID] += MOVE_INCREMENT
                 if active_keys['s']: targets[MOTOR_02_ID] -= MOVE_INCREMENT
                 if active_keys['a']: targets[MOTOR_04_ID] -= MOVE_INCREMENT
@@ -281,10 +310,8 @@ try:
                 for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
                     targets[m_id] = max(P_MIN, min(P_MAX, targets[m_id]))
                     
-                    # Pack MIT Mode Data (Type 1)
-                    # Structure: Pos(16b), Vel(16b), KP(16b), KD(16b)
                     p = float_to_uint(targets[m_id], P_MIN, P_MAX, 16)
-                    v = float_to_uint(0, V_MIN, V_MAX, 16) # Target 0 velocity
+                    v = float_to_uint(0, V_MIN, V_MAX, 16)
                     kp = float_to_uint(KP_VAL, KP_MIN, KP_MAX, 16)
                     kd = float_to_uint(KD_VAL, KD_MIN, KD_MAX, 16)
                     

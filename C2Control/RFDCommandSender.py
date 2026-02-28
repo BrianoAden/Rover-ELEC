@@ -285,20 +285,21 @@ def on_press(key):
         # 2. Handle Special Keys (Arrows for Servos)
         elif current_control_mode == 0:
             # Mode 0x07 = Servo Control, ID = Motor ID for the servo
-            SERVO_ID = 10 
+            SERVO1_ID = 10 
+            SERVO2_ID = 11
                 
             if key == keyboard.Key.up:
                 print("⬆️ Servo Up")
-                send_radio_frame(0x07, SERVO_ID, bytes([180] + [0]*7)) 
+                send_radio_frame(0x07, SERVO1_ID, struct.pack('>bxxxxxxx', 5)) 
             elif key == keyboard.Key.down:
                 print("⬇️ Servo Down")
-                send_radio_frame(0x07, SERVO_ID, bytes([0] + [0]*7))
+                send_radio_frame(0x07, SERVO1_ID, struct.pack('>bxxxxxxx', -5))
             elif key == keyboard.Key.left:
                 print("⬅️ Servo Left")
-                send_radio_frame(0x07, SERVO_ID, bytes([90] + [0]*7)) # Center/Left Position
+                send_radio_frame(0x07, SERVO2_ID, struct.pack('>bxxxxxxx', 5))
             elif key == keyboard.Key.right:
                 print("➡️ Servo Right")
-                send_radio_frame(0x07, SERVO_ID, bytes([135] + [0]*7)) # Right Position
+                send_radio_frame(0x07, SERVO2_ID, struct.pack('>bxxxxxxx', -5))
     except: pass
 
 def on_release(key):

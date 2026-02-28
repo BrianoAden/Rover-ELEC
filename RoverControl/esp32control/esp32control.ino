@@ -83,14 +83,24 @@ void loop() {
 }
 
 void handleServoCommand(uint8_t motor_id, uint8_t* data) {
-  // data[0] contains the angle (0-180)
-  uint8_t angle = data[0];
-  Serial.printf("Servo %d -> Angle: %d\n", motor_id, angle);
+  // data[0] contains the signed adjustment (e.g., +5 or -5)
+  // We need to cast it to int8_t to handle negative numbers
+  int8_t adjustment = (int8_t)data[0]; 
+  
+  Serial.printf("Servo %d -> Adjust: %d\n", motor_id, adjustment);
 
-  if (motor_id == 10) { // Assuming servo1 is ID 10
-    servo1.write(angle);
-  } else if (motor_id == 11) { // Assuming servo2 is ID 11
-    servo2.write(angle);
+  if (motor_id == 10) { // Assuming servo1
+    pos1 += adjustment;
+    // Constrain to physical limits of the servo (0-180)
+    pos1 = constrain(pos1, 0, 180);
+    servo1.write(pos1);
+    Serial.printf("New Pos1: %d\n", pos1);
+  } 
+  else if (motor_id == 11) { // Assuming servo2
+    pos2 += adjustment;
+    pos2 = constrain(pos2, 0, 180);
+    servo2.write(pos2);
+    Serial.printf("New Pos2: %d\n", pos2);
   }
 }
 

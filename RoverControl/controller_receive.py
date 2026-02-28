@@ -132,6 +132,8 @@
 #     start_bridge()
 
 
+from statistics import mode
+
 import serial
 import time
 import can
@@ -146,6 +148,7 @@ ESP_PORT = '/dev/ttyUSB0'
 MASTER_ID = 0xFD     
 
 STEPPER_CMD_MODE = 0x06 # Mode to identify stepper commands
+SERVO_CONTROL_MODE = 0x07 # Servo Control Mode
 
 BAUD_RADIO = 57600
 BAUD_ROVER = 115200
@@ -201,12 +204,13 @@ def start_bridge():
                         # else:
                             # Construct 29-bit CAN ID per manual: 
                             # (Mode << 24) | (HostID << 8) | (MotorID)
-                            if mode == STEPPER_CMD_MODE:
+                            if mode == STEPPER_CMD_MODE or mode == SERVO_CONTROL_MODE:
                                 # Forward the raw frame to ESP32
                                 full_frame = HEADER + packet_body
                                 ser_esp.write(full_frame)
-                                #print(f"⚙️ Stepper Cmd Forwarded to ESP32: Mode={mode}, ID={motor_id}")
-                                print(f"⚙️ Stepper Cmd Forwarded to ESP32: {full_frame.hex()}")
+                                
+                                type_str = "Stepper" if mode == STEPPER_CMD_MODE else "Servo"
+                                print(f"⚙️ {type_str} Cmd Forwarded: {full_frame.hex()}")
                             else:
                                 can_id = (mode << 24) | (MASTER_ID << 8) | motor_id
                                 

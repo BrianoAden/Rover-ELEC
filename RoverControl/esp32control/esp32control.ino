@@ -1,23 +1,50 @@
 #include <Arduino.h>
+#include <ESP32Servo.h>
+
+Servo servo1;
+Servo servo2;
 
 #define STEPPER_ID 0x01
 #define STEPPER_CMD_MODE 0x06
+#define SERVO_CMD_MODE 0x07 // Define the new Servo Mode
 
 // Pins for DRV8825
 const int DIR_PIN = 19;
 const int STEP_PIN = 18;
 const int STEP_DELAY_US = 500; 
 
+// Pins for Servos
+const int servo1Pin = 12;
+const int servo2Pin = 14;
+
+// Initial Positions
+int pos1 = 90;
+int pos2 = 90;
+
 void decodeAndMove(uint8_t* data);
+void handleServoCommand(uint8_t motor_id, uint8_t* data);
 
 void setup() {
-  // Over USB, we use the standard Serial port
-  Serial.begin(115200);                
+  Serial.begin(115200);     
+
+  // Allocate timers for PWM
+  ESP32PWM::allocateTimer(0);
+  ESP32PWM::allocateTimer(1);  
+
+  // Setup Servos
+  servo1.setPeriodHertz(50);
+  servo1.attach(servo1Pin, 500, 2400); 
+  servo2.setPeriodHertz(50);
+  servo2.attach(servo2Pin, 500, 2400);
+
+  // Set initial positions
+  servo1.write(pos1);
+  servo2.write(pos2);         
   
   pinMode(DIR_PIN, OUTPUT);
   pinMode(STEP_PIN, OUTPUT);
 
-  Serial.println("ESP32 USB Stepper Receiver Ready");
+  Serial.println("ESP32 USB Receiver Ready");
 }
 
 void loop() {
@@ -43,13 +70,27 @@ void loop() {
       for (int i = 0; i < 8; i++) calculated_chk ^= data[i];
 
       if (calculated_chk == received_chk) {
-        if (motor_id == STEPPER_ID && mode == STEPPER_CMD_MODE) {
-          // Debug print (will show up in your Serial Monitor)
-          Serial.println("\n>>> Stepper Frame Received!");
+        // --- ROUTING LOGIC ---
+        if (mode == STEPPER_CMD_MODE) {
           decodeAndMove(data);
+        }
+        else if (mode == SERVO_CMD_MODE) {
+          handleServoCommand(motor_id, data);
         }
       }
     }
+  }
+}
+
+void handleServoCommand(uint8_t motor_id, uint8_t* data) {
+  // data[0] contains the angle (0-180)
+  uint8_t angle = data[0];
+  Serial.printf("Servo %d -> Angle: %d\n", motor_id, angle);
+
+  if (motor_id == 10) { // Assuming servo1 is ID 10
+    servo1.write(angle);
+  } else if (motor_id == 11) { // Assuming servo2 is ID 11
+    servo2.write(angle);
   }
 }
 

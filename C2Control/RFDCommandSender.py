@@ -256,30 +256,49 @@ def send_stepper_command(direction, steps):
 def on_press(key):
     global current_control_mode, is_enabled, stepper_running, current_stepper_dir
     try:
-        k = key.char
-        if k == 'm':
-            current_control_mode = 1 - current_control_mode
-            print(f"\n🔄 Mode: {'ROVER' if current_control_mode == 1 else 'ARM'}")
-        if current_control_mode == 0:
-            if k == 'e':
-                print("\n[!] Sending Enable Sequence (Type 3)...")
-                for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
-                    # Data [1, 0...0] = Enable Motor Mode
-                    send_radio_frame(0x03, m_id, bytes([1] + [0]*7))
-                    time.sleep(0.05)
-                print("✅ Motors Online")
-                is_enabled = True
-            elif k == 'c':
-                current_stepper_dir = 'CCW'
-                stepper_running = True
-            elif k == 'v':
-                current_stepper_dir = 'CW'
-                stepper_running = True
-            elif k == 'z':
-                stepper_running = False
-                print("\n🛑 Stepper Stopped")
+        if hasattr(key, 'char') and key.char is not None:
+                k = key.char
+                if k == 'm':
+                    current_control_mode = 1 - current_control_mode
+                    print(f"\n🔄 Mode: {'ROVER' if current_control_mode == 1 else 'ARM'}")
+                
+                if current_control_mode == 0:
+                    if k == 'e':
+                        print("\n[!] Sending Enable Sequence...")
+                        for m_id in [MOTOR_04_ID, MOTOR_02_ID]:
+                            send_radio_frame(0x03, m_id, bytes([1] + [0]*7))
+                            time.sleep(0.05)
+                        print("✅ Motors Online")
+                        is_enabled = True
+                    elif k == 'c':
+                        current_stepper_dir = 'CCW'
+                        stepper_running = True
+                    elif k == 'v':
+                        current_stepper_dir = 'CW'
+                        stepper_running = True
+                    elif k == 'z':
+                        stepper_running = False
+                        print("\n🛑 Stepper Stopped")
+                
+                if k in active_keys: active_keys[k] = True
 
-        if k in active_keys: active_keys[k] = True
+        # 2. Handle Special Keys (Arrows for Servos)
+        elif current_control_mode == 0:
+            # Mode 0x07 = Servo Control, ID = Motor ID for the servo
+            SERVO_ID = 10 
+                
+            if key == keyboard.Key.up:
+                print("⬆️ Servo Up")
+                send_radio_frame(0x07, SERVO_ID, bytes([180] + [0]*7)) 
+            elif key == keyboard.Key.down:
+                print("⬇️ Servo Down")
+                send_radio_frame(0x07, SERVO_ID, bytes([0] + [0]*7))
+            elif key == keyboard.Key.left:
+                print("⬅️ Servo Left")
+                send_radio_frame(0x07, SERVO_ID, bytes([90] + [0]*7)) # Center/Left Position
+            elif key == keyboard.Key.right:
+                print("➡️ Servo Right")
+                send_radio_frame(0x07, SERVO_ID, bytes([135] + [0]*7)) # Right Position
     except: pass
 
 def on_release(key):
@@ -293,6 +312,7 @@ listener.start()
 
 print("--- ARM/ROVER CONTROLLER ---")
 print("[M] Toggle Mode | [E] Enable | [C/V] Stepper | [X] Exit, [Z] Stop Stepper")
+print("Arrow Keys: Move End Effector (ARM Mode)")
 
 try:
     while listener.running:
@@ -327,3 +347,5 @@ try:
 
 except KeyboardInterrupt: pass
 finally: ser.close()
+
+    

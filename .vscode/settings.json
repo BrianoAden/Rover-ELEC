@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "velocity_mode": "cpp"
-    }
+    },
+    "ROS2.distro": "noetic"
 }

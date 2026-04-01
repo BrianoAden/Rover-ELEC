@@ -42,7 +42,7 @@ void setup() {
   Wire.begin(21, 22); // Initialize I2C with custom pin
   Wire.setTimeOut(5000);
 	delay(500);
-	uint8_t i2cAddress = 0x60; //sw.find();
+	uint8_t i2cAddress = 0x62; //sw.find();
     sw.begin(Wire,i2cAddress);  //Initialize the Serial Wombat library to use the primary I2C port
 	//sw.registerErrorHandler(SerialWombatSerialErrorHandlerBrief); //Register an error handler that will print communication errors to Serial
 

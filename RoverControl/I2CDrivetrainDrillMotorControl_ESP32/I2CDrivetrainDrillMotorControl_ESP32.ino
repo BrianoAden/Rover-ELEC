@@ -98,7 +98,7 @@ void requestEvent() {
   response += ",";
   response += speed;
 
-  Wire.write(response.c_str());
+  Wire.write((const uint8_t*)response.c_str(), response.length());
 }
 
 // ==========================================
@@ -159,3 +159,4 @@ void loop() {
       default: stopAll();    break;
     }
   }
+}
